@@ -1,28 +1,34 @@
 import { PureComponent } from 'react'
 import type { ChangeEvent, SyntheticEvent } from 'react'
 
+import type { Card as CardType } from '@/api/api'
+
 import { getQueryImages } from '@/api/api'
-import { Card } from '@/components/card-list/card'
+import { CardList } from '@/components/card-list/CardList'
+import { Header } from '@/components/header/Header'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { Spinner } from '@/components/ui/spinner'
 
 type State = {
   loading: boolean
   query: string
   error: string
-  res: {
-    title: string
-    img: string
-  }
+  res: CardType[]
+  throwError: boolean
 }
+
+const STORAGE = 'wingedquery' as const
 
 export class App extends PureComponent<unknown, State> {
   state: State = {
     loading: false,
     error: '',
-    query: '',
-    res: { title: '', img: '' },
+    query: localStorage.getItem(STORAGE) ?? '',
+    res: [],
+    throwError: false,
   }
+
+  componentDidMount() { this.getImages(null) }
 
   onChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -30,16 +36,21 @@ export class App extends PureComponent<unknown, State> {
     })
   }
 
-  getImages = async (e: SyntheticEvent) => {
-    e.preventDefault()
+  getImages = async (e: SyntheticEvent | null) => {
+    if (e !== null) {
+      e.preventDefault()
+
+      if (localStorage.getItem(STORAGE) === this.state.query) {
+        return
+      }
+    }
 
     try {
+      localStorage.setItem(STORAGE, this.state.query)
       this.setState({ loading: true })
       const r = await getQueryImages(this.state.query.trim())
-      console.log(r)
-      this.setState({
-        res: { title: r.records[0]._primaryTitle, img: r.records[0]._images._iiif_image_base_url },
-      })
+
+      this.setState({ res: r })
       this.setState({ error: '' })
     }
     catch (e) {
@@ -51,25 +62,31 @@ export class App extends PureComponent<unknown, State> {
       console.warn(e)
     }
     finally {
-      this.setState({ loading: false })
+      setTimeout(() => this.setState({ loading: false }), 500)
     }
   }
 
+  simulateError = () => { this.setState({ throwError: true }) }
+
   render() {
-    // fix: decomposition to use header(widget?), card-list
+    if (this.state.throwError) {
+      throw new Error('ErrorBoundary')
+    }
+
     return (
-      <div id="center">
-        <form onSubmit={this.getImages}>
-          <Input type="text" className="text-2xl max-w-100" value={this.state.query} onChange={this.onChange} />
-          <Button type="submit" disabled={this.state.loading}>Submit</Button>
-        </form>
-        {this.state.res.title && <Card title={this.state.res.title} img={`${this.state.res.img}full/!600,600/0/default.jpg`} />}
+      <div id="center" className="p-20">
+
+        <Header getImages={this.getImages} onChange={this.onChange} query={this.state.query} loading={this.state.loading} />
+        <Button onClick={this.simulateError}>Simulate Error</Button>
+        <CardList data={this.state.res} loading={this.state.loading} />
+        {this.state.loading && <Spinner> Loading... </Spinner>}
         {this.state.error && (
           <p>
             Issue:
             {this.state.error}
           </p>
         )}
+
       </div>
     )
   }
