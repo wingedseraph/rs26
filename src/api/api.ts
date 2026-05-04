@@ -32,28 +32,13 @@ function isValidResponse(data: unknown): data is ValidResponse {
   )
 }
 
-export async function getImages() {
-  const res = await fetch(BASE)
-
-  if (!res.ok) {
-    throw new Error('Issue with API')
-  }
-
-  const data = await res.json()
-
-  if (!isValidResponse(data)) {
-    throw new Error('Issue with API Response')
-  }
-  const filteredData = data.records.filter(e => e._images !== null)
-  return filteredData
-}
 export async function getQueryImages(query: string) {
   const res = await fetch(`${BASE}/search?q=${query}`)
 
   if (!res.ok) {
     throw new Error('Issue with API')
   }
-  const data = await res.json()
+  const data: unknown = await res.json()
 
   if (!isValidResponse(data)) {
     throw new Error('Issue with API Response')
