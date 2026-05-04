@@ -3,7 +3,9 @@ const BASE = 'https://api.vam.ac.uk/v2/objects' as const
 type ValidResponse = {
   records: Card[]
 }
-type Card = {
+export type Card = {
+  systemNumber: number
+  objectType: string
   _primaryTitle: string
   _images: {
     _iiif_image_base_url: string
@@ -20,7 +22,7 @@ function isArray<T>(
 };
 function isValidCard(card: unknown): card is Card {
   return (
-    isObject(card) && '_primaryTitle' in card && '_images' in card
+    isObject(card) && 'systemNumber' in card && '_primaryTitle' in card && '_images' in card && 'objectType' in card
   )
 }
 function isValidResponse(data: unknown): data is ValidResponse {
@@ -34,31 +36,28 @@ export async function getImages() {
   const res = await fetch(BASE)
 
   if (!res.ok) {
-    // todo, use variable instead of plain string?
     throw new Error('Issue with API')
   }
 
   const data = await res.json()
 
   if (!isValidResponse(data)) {
-    // todo, use variable instead of plain string?
     throw new Error('Issue with API Response')
   }
-  return data
+  const filteredData = data.records.filter(e => e._images !== null)
+  return filteredData
 }
 export async function getQueryImages(query: string) {
-  // fix dont like that body of request so similar, probably we need to combine it
   const res = await fetch(`${BASE}/search?q=${query}`)
 
   if (!res.ok) {
-    // todo, use variable instead of plain string?
     throw new Error('Issue with API')
   }
   const data = await res.json()
 
   if (!isValidResponse(data)) {
-    // todo, use variable instead of plain string?
     throw new Error('Issue with API Response')
   }
-  return data
+  const filteredData = data.records.filter(e => '_iiif_image_base_url' in e._images)
+  return filteredData
 }
