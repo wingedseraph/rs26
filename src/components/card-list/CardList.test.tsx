@@ -19,7 +19,7 @@ const SECONDARY_TITLE_MOCK = PRIMARY_SECONDARY_TITLE_MOCK.map(e => ({
   _primaryTitle: '',
 }))
 
-describe('render cards', () => {
+describe('render cards empty data', () => {
   it('should render cardlist empty data if no data provided', () => {
     render(<CardList data={[]} loading={false} />)
 
@@ -31,20 +31,22 @@ describe('render cards', () => {
 
     expect(screen.queryByText('Oh No Data')).toBeNull()
   })
+})
 
-  it('should render cardlist when valid data provided with primary and secondary title', () => {
+describe('render cards with data', () => {
+  it('displays primary title when available', () => {
     render(<CardList data={PRIMARY_SECONDARY_TITLE_MOCK} loading={false} />)
 
     expect(screen.queryByText('Oh No Data')).toBeNull()
     expect(screen.queryByText('Primary Title')).toBeTruthy()
-    expect(screen.queryByText('Secondary Title')).toBeFalsy()
+    expect(screen.queryByText('Secondary Title')).toBeNull()
   })
 
-  it('should render cardlist when valid data provided with only secondary title', () => {
+  it('displays secondary title when primary doesnt available', () => {
     render(<CardList data={SECONDARY_TITLE_MOCK} loading={false} />)
 
     expect(screen.queryByText('Oh No Data')).toBeNull()
-    expect(screen.queryByText('Primary Title')).toBeFalsy()
+    expect(screen.queryByText('Primary Title')).toBeNull()
     expect(screen.queryByText('Secondary Title')).toBeTruthy()
   })
 })
