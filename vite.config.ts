@@ -13,7 +13,7 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     coverage: {
-      reporter: ['text'],
+      reporter: ['text', 'html'],
       thresholds: {
         global: {
           statements: 80,
@@ -29,6 +29,7 @@ export default defineConfig({
         'src/index.{js,jsx,ts,tsx}',
         'src/setupTests.{js,ts}',
         'src/**/*.d.ts',
+        'src/main.tsx',
       ],
     },
   },
