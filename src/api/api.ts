@@ -1,4 +1,4 @@
-const BASE = 'https://api.vam.ac.uk/v2/objects' as const
+export const BASE = 'https://api.vam.ac.uk/v2/objects' as const
 
 type ValidResponse = {
   records: Card[]

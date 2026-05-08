@@ -8,7 +8,8 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   test: {
-    // setupFiles: ['src/__tests__/setup.jsdom.ts'],
+    root: __dirname,
+    setupFiles: ['./vitest.setup.ts'],
     globals: true,
     environment: 'jsdom',
     coverage: {
