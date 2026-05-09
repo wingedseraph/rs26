@@ -17,8 +17,8 @@ describe('header props', () => {
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
     expect(input).toBeTruthy()
-    expect(input.value).toBe('Paris')
-    expect(input.disabled).toBeFalsy()
+    expect(input).toHaveValue('Paris')
+    expect(input).not.toBeDisabled()
   })
 
   it('should render disabled input with provided loading props', () => {
@@ -26,7 +26,7 @@ describe('header props', () => {
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
-    expect(input.disabled).toBeTruthy()
+    expect(input).toBeDisabled()
   })
 })
 

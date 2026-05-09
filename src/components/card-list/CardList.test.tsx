@@ -38,7 +38,7 @@ describe('render cards with data', () => {
     render(<CardList data={PRIMARY_SECONDARY_TITLE_MOCK} loading={false} />)
 
     expect(screen.queryByText('Oh No Data')).toBeNull()
-    expect(screen.queryByText('Primary Title')).toBeTruthy()
+    expect(screen.getByText('Primary Title')).toBeTruthy()
     expect(screen.queryByText('Secondary Title')).toBeNull()
   })
 
@@ -47,6 +47,6 @@ describe('render cards with data', () => {
 
     expect(screen.queryByText('Oh No Data')).toBeNull()
     expect(screen.queryByText('Primary Title')).toBeNull()
-    expect(screen.queryByText('Secondary Title')).toBeTruthy()
+    expect(screen.getByText('Secondary Title')).toBeTruthy()
   })
 })

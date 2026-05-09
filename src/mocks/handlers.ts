@@ -15,7 +15,8 @@ export const handlers = [
           _images: {
             _iiif_image_base_url: 'https://framemark.vam.ac.uk/collections/2007BP1066/',
           },
-        }]
+        },
+      ],
     } satisfies ValidResponse)
   }),
 ]

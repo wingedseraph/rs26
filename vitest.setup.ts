@@ -1,7 +1,7 @@
-import { beforeAll, afterEach, afterAll } from "vitest";
+import '@testing-library/jest-dom/vitest'
+import { afterAll, afterEach, beforeAll } from 'vitest'
 
 import { server } from './src/mocks/node'
-
 
 beforeAll(() => {
   server.listen()
