@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 
 import { CardList } from './CardList'
 
-const PRIMARY_SECONDARY_TITLE_MOCK = [
+export const PRIMARY_SECONDARY_TITLE_MOCK = [
   {
     systemNumber: 1,
     objectType: 'Secondary Title',
