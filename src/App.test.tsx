@@ -33,7 +33,7 @@ describe('app', () => {
       expect(loadingText).toBeTruthy()
     })
 
-    it('should render error on catch api invalid request', async () => {
+    it('should render error on catch api 404 request', async () => {
       const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { })
       server.use(
         http.get(`${BASE}/*`, () => {
@@ -44,7 +44,22 @@ describe('app', () => {
       render(<App />)
 
       expect(await screen.findByText('Oh No Data'))
-      expect(await screen.findByText(/Issue/i))
+      expect(await screen.findByText(/API/i))
+      expect(consoleWarn).toHaveBeenCalledTimes(1)
+    })
+
+    it('should render error on catch api invalid response data(typeguard)', async () => {
+      const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { })
+      server.use(
+        http.get(`${BASE}/*`, () => {
+          return HttpResponse.json({}, { status: 200 })
+        }),
+      )
+
+      render(<App />)
+
+      expect(await screen.findByText('Oh No Data'))
+      expect(await screen.findByText(/Response/i))
       expect(consoleWarn).toHaveBeenCalledTimes(1)
     })
 
