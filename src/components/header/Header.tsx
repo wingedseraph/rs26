@@ -21,7 +21,6 @@ function Header({ getImages, onChange, query, loading }: Props) {
     </form>
 
   )
-
 }
 
 export { Header }
