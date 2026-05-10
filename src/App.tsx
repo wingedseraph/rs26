@@ -1,93 +1,71 @@
-import { PureComponent } from 'react'
 import type { ChangeEvent, SyntheticEvent } from 'react'
+import { useEffect, useState } from 'react'
 
-import type { Card as CardType } from '@/api/api'
+import type { Card } from '@/api/api'
 
 import { getQueryImages } from '@/api/api'
 import { CardList } from '@/components/card-list/CardList'
 import { Header } from '@/components/header/Header'
-import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
-
-type State = {
-  loading: boolean
-  query: string
-  error: string
-  res: CardType[]
-  throwError: boolean
-}
 
 export const STORAGE = 'wingedquery' as const
 
-export class App extends PureComponent<unknown, State> {
-  state: State = {
-    loading: false,
-    error: '',
-    query: localStorage.getItem(STORAGE) ?? '',
-    res: [],
-    throwError: false,
+export function App() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  // will remove when setup react-router
+  //  eslint-disable-next-line react/purity
+  const [query, setQuery] = useState(localStorage.getItem(STORAGE) ?? '')
+  const [data, setData] = useState<Card[]>([])
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
   }
 
-  componentDidMount() { this.getImages(null) }
-
-  onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      query: e.target.value,
-    })
-  }
-
-  getImages = async (e: SyntheticEvent | null) => {
+  const getImages = async (e: SyntheticEvent | null) => {
     if (e !== null) {
       e.preventDefault()
 
-      if (localStorage.getItem(STORAGE) === this.state.query) {
+      if (localStorage.getItem(STORAGE) === query) {
         return
       }
     }
 
     try {
-      localStorage.setItem(STORAGE, this.state.query)
-      this.setState({ loading: true })
-      const r = await getQueryImages(this.state.query.trim())
+      localStorage.setItem(STORAGE, query)
+      setLoading(true)
+      const response = await getQueryImages(query.trim())
 
-      this.setState({ res: r })
-      this.setState({ error: '' })
+      setData(response)
+      setError('')
     }
     catch (e) {
       if (e instanceof Error) {
-        this.setState({
-          error: e.message,
-        })
+        setError(e.message)
       }
       console.warn(e)
     }
     finally {
-      setTimeout(() => this.setState({ loading: false }), 500)
+      setLoading(false)
     }
   }
+  useEffect(() => {
+    getImages(null)
+  })
 
-  simulateError = () => { this.setState({ throwError: true }) }
+  return (
+    <div id="center" className="p-20">
 
-  render() {
-    if (this.state.throwError) {
-      throw new Error('ErrorBoundary')
-    }
+      <Header getImages={getImages} onChange={onChange} query={query} loading={loading} />
+      <CardList data={data} loading={loading} />
+      {loading && <Spinner> Loading... </Spinner>}
+      {error && (
+        <p>
+          Issue:
+          {error}
+        </p>
+      )}
 
-    return (
-      <div id="center" className="p-20">
-
-        <Header getImages={this.getImages} onChange={this.onChange} query={this.state.query} loading={this.state.loading} />
-        <Button onClick={this.simulateError}>Simulate Error</Button>
-        <CardList data={this.state.res} loading={this.state.loading} />
-        {this.state.loading && <Spinner> Loading... </Spinner>}
-        {this.state.error && (
-          <p>
-            Issue:
-            {this.state.error}
-          </p>
-        )}
-
-      </div>
-    )
-  }
+    </div>
+  )
 }
