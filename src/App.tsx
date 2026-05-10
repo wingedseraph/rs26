@@ -11,8 +11,8 @@ import { Spinner } from '@/components/ui/spinner'
 export const STORAGE = 'wingedquery' as const
 
 export function App() {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   // will remove when setup react-router
   //  eslint-disable-next-line react/purity
   const [query, setQuery] = useState(localStorage.getItem(STORAGE) ?? '')
@@ -33,36 +33,38 @@ export function App() {
 
     try {
       localStorage.setItem(STORAGE, query)
-      setLoading(true)
+      setIsLoading(true)
       const response = await getQueryImages(query.trim())
 
       setData(response)
-      setError('')
+      setErrorMessage('')
     }
     catch (e) {
       if (e instanceof Error) {
-        setError(e.message)
+        setErrorMessage(e.message)
       }
       console.warn(e)
     }
     finally {
-      setLoading(false)
+      setIsLoading(false)
     }
   }
+
   useEffect(() => {
     getImages(null)
-  })
+    // will remove when setup react-router
+    // eslint-disable-next-line react/exhaustive-deps
+  }, [])
 
   return (
     <div id="center" className="p-20">
-
-      <Header getImages={getImages} onChange={onChange} query={query} loading={loading} />
-      <CardList data={data} loading={loading} />
-      {loading && <Spinner> Loading... </Spinner>}
-      {error && (
+      <Header getImages={getImages} onChange={onChange} query={query} loading={isLoading} />
+      <CardList data={data} loading={isLoading} />
+      {isLoading && <Spinner> Loading... </Spinner>}
+      {errorMessage && (
         <p>
           Issue:
-          {error}
+          {errorMessage}
         </p>
       )}
 
