@@ -5,6 +5,9 @@ import testingLibrary from 'eslint-plugin-testing-library'
 export default antfu({
   markdown: false,
   react: true,
+  stylistic: {
+    quotes: 'single',
+  },
 
   typescript: {
     overrides: {
@@ -12,6 +15,7 @@ export default antfu({
     },
   },
   rules: {
+    'style/jsx-quotes': ['error', 'prefer-single'],
     'no-warning-comments': [
       'warn',
       { terms: ['todo', 'fix', 'refactor'], location: 'start' },

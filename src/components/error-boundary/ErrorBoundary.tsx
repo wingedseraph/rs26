@@ -29,7 +29,7 @@ export class ErrorBoundary extends PureComponent<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="p-4 flex items-center justify-center min-h-screen ">
+        <div className='p-4 flex items-center justify-center min-h-screen '>
           <h1>Something went wrong</h1>
         </div>
       )

@@ -12,7 +12,7 @@ describe('header props', () => {
     vi.clearAllMocks()
   })
   it('should render input with provided query props', () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query="Paris" />)
+    render(<Header loading={false} getImages={getImages} onChange={onChange} query='Paris' />)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
@@ -22,7 +22,7 @@ describe('header props', () => {
   })
 
   it('should render disabled input with provided loading props', () => {
-    render(<Header loading={true} getImages={getImages} onChange={onChange} query="" />)
+    render(<Header loading={true} getImages={getImages} onChange={onChange} query='' />)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
@@ -35,7 +35,7 @@ describe('header user interactions', () => {
     vi.clearAllMocks()
   })
   it('should call onChange when input value is changed', async () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query="" />)
+    render(<Header loading={false} getImages={getImages} onChange={onChange} query='' />)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
     await userEvent.type(input, 'Paris')
@@ -44,7 +44,7 @@ describe('header user interactions', () => {
   })
 
   it('should call getImages when form is submitted', async () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query="" />)
+    render(<Header loading={false} getImages={getImages} onChange={onChange} query='' />)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
     await userEvent.type(input, '{Enter}')

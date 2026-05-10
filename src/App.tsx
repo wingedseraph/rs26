@@ -57,7 +57,7 @@ export function App() {
   }, [])
 
   return (
-    <div id="center" className="p-20">
+    <div id='center' className='p-20'>
       <Header getImages={getImages} onChange={onChange} query={query} loading={isLoading} />
       <CardList data={data} loading={isLoading} />
       {isLoading && <Spinner> Loading... </Spinner>}

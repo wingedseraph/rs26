@@ -11,12 +11,12 @@ type Props = {
 
 function Header({ getImages, onChange, query, loading }: Props) {
   return (
-    <form onSubmit={getImages} className="flex items-center flex-row justify-between w-full gap-10">
+    <form onSubmit={getImages} className='flex items-center flex-row justify-between w-full gap-10'>
       <h1>
         Hello!
       </h1>
-      <div className="flex flex-row justify-between items-center w-full">
-        <Input type="text" value={query} placeholder="Search..." onChange={onChange} disabled={loading} />
+      <div className='flex flex-row justify-between items-center w-full'>
+        <Input type='text' value={query} placeholder='Find' onChange={onChange} disabled={loading} />
       </div>
     </form>
 
