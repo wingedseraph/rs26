@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utils'
 
-function Input({ type, className, ...props }: ComponentProps<'input'>) {
+function Input({ type, className, ...properties }: ComponentProps<'input'>) {
   return (
     <input
       type={type}
@@ -14,7 +14,7 @@ function Input({ type, className, ...props }: ComponentProps<'input'>) {
           className,
         )
       }
-      {...props}
+      {...properties}
     />
   )
 }

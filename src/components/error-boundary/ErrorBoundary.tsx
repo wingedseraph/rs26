@@ -1,7 +1,7 @@
 import { PureComponent } from 'react'
 import type { ReactNode } from 'react'
 
-type Props = {
+type Properties = {
   children: ReactNode
 }
 
@@ -10,11 +10,11 @@ type State = {
 }
 
 export class ErrorBoundary extends PureComponent<
-  Props,
+  Properties,
   State
 > {
-  constructor(props: Props) {
-    super(props)
+  constructor(properties: Properties) {
+    super(properties)
     this.state = { hasError: false }
   }
 
