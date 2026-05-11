@@ -4,8 +4,8 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { BASE } from '@/api/api'
+import { server } from '@/api/mocks/node'
 import { App, STORAGE } from '@/App'
-import { server } from '@/mocks/node'
 
 import { ErrorBoundary } from './components/error-boundary/ErrorBoundary'
 
