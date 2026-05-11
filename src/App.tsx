@@ -17,7 +17,7 @@ type State = {
   throwError: boolean
 }
 
-const STORAGE = 'wingedquery' as const
+export const STORAGE = 'wingedquery' as const
 
 export class App extends PureComponent<unknown, State> {
   state: State = {

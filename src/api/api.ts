@@ -1,6 +1,6 @@
-const BASE = 'https://api.vam.ac.uk/v2/objects' as const
+export const BASE = 'https://api.vam.ac.uk/v2/objects' as const
 
-type ValidResponse = {
+export type ValidResponse = {
   records: Card[]
 }
 export type Card = {
@@ -14,13 +14,13 @@ export type Card = {
 function isObject(arg: unknown): arg is object {
   return (arg !== null && typeof arg === 'object')
 }
-function isArray<T>(
+export function isArray<T>(
   data: unknown,
   itemGuard?: (item: unknown) => item is T,
 ): data is T[] {
   return Array.isArray(data) && (itemGuard ? data.every(itemGuard) : true)
 };
-function isValidCard(card: unknown): card is Card {
+export function isValidCard(card: unknown): card is Card {
   return (
     isObject(card) && 'systemNumber' in card && '_primaryTitle' in card && '_images' in card && 'objectType' in card
   )

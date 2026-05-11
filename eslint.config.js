@@ -1,4 +1,6 @@
+// @ts-check
 import antfu from '@antfu/eslint-config'
+import testingLibrary from 'eslint-plugin-testing-library'
 
 export default antfu({
   markdown: false,
@@ -33,5 +35,14 @@ export default antfu({
         },
       ],
     }],
+  },
+
+}, {
+  files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  plugins: {
+    'testing-library': testingLibrary,
+  },
+  rules: {
+    ...testingLibrary.configs['flat/react'].rules,
   },
 })

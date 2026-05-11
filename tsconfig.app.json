@@ -14,7 +14,7 @@
         "./src/*"
       ]
     },
-    "types": ["vite/client"],
+    "types": ["vite/client", "@testing-library/jest-dom"],
     "allowImportingTsExtensions": true,
 
     "strict": true,
@@ -27,5 +27,5 @@
     "erasableSyntaxOnly": true,
     "skipLibCheck": true
   },
-  "include": ["src"]
+  "include": ["src", "./vitest.setup.ts"]
 }
