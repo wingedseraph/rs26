@@ -13,18 +13,18 @@ export const STORAGE = 'wingedquery' as const
 export function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  // will remove when setup react-router
+  // will remove when setup react-router, may be enough to use customHook for it
   //  eslint-disable-next-line react/purity
   const [query, setQuery] = useState(localStorage.getItem(STORAGE) ?? '')
   const [data, setData] = useState<Card[]>([])
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
+  const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event_.target.value)
   }
 
-  const getImages = async (e: SyntheticEvent | null) => {
-    if (e !== null) {
-      e.preventDefault()
+  const getImages = async (event_: SyntheticEvent | null) => {
+    if (event_ !== null) {
+      event_.preventDefault()
 
       if (localStorage.getItem(STORAGE) === query) {
         return
@@ -39,17 +39,18 @@ export function App() {
       setData(response)
       setErrorMessage('')
     }
-    catch (e) {
-      if (e instanceof Error) {
-        setErrorMessage(e.message)
+    catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message)
       }
-      console.warn(e)
+      console.warn(error)
     }
     finally {
       setIsLoading(false)
     }
   }
 
+  const clearQuery = () => setQuery('')
   useEffect(() => {
     getImages(null)
     // will remove when setup react-router
@@ -57,8 +58,8 @@ export function App() {
   }, [])
 
   return (
-    <div id='center' className='p-20'>
-      <Header getImages={getImages} onChange={onChange} query={query} loading={isLoading} />
+    <div id='center'>
+      <Header getImages={getImages} onChange={onChange} clearQuery={clearQuery} query={query} loading={isLoading} />
       <CardList data={data} loading={isLoading} />
       {isLoading && <Spinner> Loading... </Spinner>}
       {errorMessage && (
@@ -67,7 +68,6 @@ export function App() {
           {errorMessage}
         </p>
       )}
-
     </div>
   )
 }
