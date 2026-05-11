@@ -14,8 +14,8 @@ export const PRIMARY_SECONDARY_TITLE_MOCK = [
   },
 ]
 
-const SECONDARY_TITLE_MOCK = PRIMARY_SECONDARY_TITLE_MOCK.map(e => ({
-  ...e,
+const SECONDARY_TITLE_MOCK = PRIMARY_SECONDARY_TITLE_MOCK.map(element => ({
+  ...element,
   _primaryTitle: '',
 }))
 

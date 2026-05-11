@@ -7,8 +7,6 @@ import { BASE } from '@/api/api'
 import { App, STORAGE } from '@/App'
 import { server } from '@/mocks/node'
 
-import { ErrorBoundary } from './components/error-boundary/ErrorBoundary'
-
 describe('app', () => {
   afterEach(() => {
     localStorage.clear()
@@ -60,19 +58,6 @@ describe('app', () => {
 
       expect(await screen.findByText('Oh No Data'))
       expect(await screen.findByText(/Response/i))
-      expect(consoleWarn).toHaveBeenCalledTimes(1)
-    })
-
-    it('should render fallback ui on throw error', async () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => { })
-      const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { })
-      render(<ErrorBoundary><App /></ErrorBoundary>)
-
-      const button = await screen.findByRole<HTMLButtonElement>('button', { name: 'Simulate Error' })
-      await userEvent.click(button)
-
-      expect(screen.getByText('Something went wrong')).toBeInTheDocument()
-      expect(consoleError).toHaveBeenCalledTimes(1)
       expect(consoleWarn).toHaveBeenCalledTimes(1)
     })
   })

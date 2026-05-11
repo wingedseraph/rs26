@@ -1,11 +1,12 @@
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 
 import type { ValidResponse } from '@/api/api'
 
 import { BASE } from '@/api/api'
 
 export const handlers = [
-  http.get(`${BASE}/*`, () => {
+  http.get(`${BASE}/*`, async () => {
+    await delay(100)
     return HttpResponse.json({
       records: [
         {
