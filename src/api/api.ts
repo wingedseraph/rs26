@@ -11,8 +11,8 @@ export type Card = {
     _iiif_image_base_url: string
   }
 }
-function isObject(arg: unknown): arg is object {
-  return (arg !== null && typeof arg === 'object')
+function isObject(argument: unknown): argument is object {
+  return (argument !== null && typeof argument === 'object')
 }
 export function isArray<T>(
   data: unknown,
@@ -33,16 +33,16 @@ function isValidResponse(data: unknown): data is ValidResponse {
 }
 
 export async function getQueryImages(query: string) {
-  const res = await fetch(`${BASE}/search?q=${query}`)
+  const response = await fetch(`${BASE}/search?q=${query}`)
 
-  if (!res.ok) {
+  if (!response.ok) {
     throw new Error('Issue with API')
   }
-  const data: unknown = await res.json()
+  const data: unknown = await response.json()
 
   if (!isValidResponse(data)) {
     throw new Error('Issue with API Response')
   }
-  const filteredData = data.records.filter(e => '_iiif_image_base_url' in e._images)
+  const filteredData = data.records.filter(element => '_iiif_image_base_url' in element._images)
   return filteredData
 }
