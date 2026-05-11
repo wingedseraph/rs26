@@ -15,6 +15,9 @@ export default antfu({
     },
   },
   rules: {
+    'unicorn/prevent-abbreviations': [
+      'error',
+    ],
     'style/jsx-quotes': ['error', 'prefer-single'],
     'no-warning-comments': [
       'warn',
