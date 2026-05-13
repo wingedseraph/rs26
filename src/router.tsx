@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router'
 import { getQueryImages } from '@/api/api'
 import { App, STORAGE } from '@/App'
 
-const PATH = {
+export const PATH = {
   index: '/',
   about: 'about',
   error: '*',
