@@ -112,11 +112,11 @@
 * {
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: #888 #f1f1f1;
+  scrollbar-color: #888 #fafbfc;
 }
 
 #root {
-  width: 1126px;
+  width: 768px;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
