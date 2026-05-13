@@ -8,8 +8,11 @@ export default antfu({
   stylistic: {
     quotes: 'single',
   },
-
   typescript: {
+    erasableOnly: true,
+    tsconfigPath: './tsconfig.json',
+    filesTypeAware: ['**/*.ts', '**/*.tsx'],
+    overridesTypeAware: { 'ts/no-unsafe-assignment': 'error', 'ts/no-unsafe-argument': 'error', 'ts/no-unsafe-call': 'error', 'ts/no-unsafe-member-access': 'error', 'ts/no-unsafe-return': 'error' },
     overrides: {
       'ts/consistent-type-definitions': ['error', 'type'],
     },
@@ -19,6 +22,9 @@ export default antfu({
       'error',
     ],
     'style/jsx-quotes': ['error', 'prefer-single'],
+    'style/no-trailing-spaces': 'error',
+    'style/jsx-newline': ['error', { prevent: true, allowMultilines: true }],
+    'style/padded-blocks': ['error', 'never'],
     'no-warning-comments': [
       'warn',
       { terms: ['todo', 'fix', 'refactor'], location: 'start' },
@@ -43,7 +49,6 @@ export default antfu({
       ],
     }],
   },
-
 }, {
   files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
   plugins: {
