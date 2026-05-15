@@ -1,12 +1,14 @@
 import type { ComponentProps } from 'react'
 
+import { cn } from '@/lib/utils'
+
 export function IconClear({ className, width, height, fill, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
       width={30}
       height={30}
-      className='text-silver-icon h-6 w-6'
+      className={cn('text-silver-icon h-6 w-6', className)}
       aria-hidden={true}
       viewBox='0 0 30 30'
       {...properties}
