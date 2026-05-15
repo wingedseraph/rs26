@@ -15,6 +15,45 @@ export default antfu({
     overridesTypeAware: { 'ts/no-unsafe-assignment': 'error', 'ts/no-unsafe-argument': 'error', 'ts/no-unsafe-call': 'error', 'ts/no-unsafe-member-access': 'error', 'ts/no-unsafe-return': 'error' },
     overrides: {
       'ts/consistent-type-definitions': ['error', 'type'],
+      'no-restricted-syntax': ['error', {
+        selector: 'TSEnumDeclaration',
+        message: 'Use "as const" object instead of enum',
+      }],
+      'max-lines-per-function': ['warn', { max: 200, skipBlankLines: true, skipComments: true }],
+      'complexity': ['warn', 13],
+      'ts/naming-convention': ['error', {
+        selector: 'variable',
+        types: ['boolean'],
+        format: ['PascalCase'],
+        prefix: ['is', 'has', 'should', 'can', 'did', 'will'],
+      }, {
+        selector: 'variable',
+        modifiers: ['destructured'],
+        format: null,
+      }, {
+        selector: 'typeLike',
+        format: ['PascalCase'],
+      }],
+      'ts/strict-boolean-expressions': ['error', {
+        allowString: false,
+        allowNumber: false,
+        allowNullableObject: false,
+      }],
+      'ts/switch-exhaustiveness-check': 'error',
+      'ts/no-unsafe-type-assertion': 'error',
+      'ts/prefer-nullish-coalescing': ['error', {
+        ignoreTernaryTests: false,
+        ignoreConditionalTests: false,
+      }],
+      'ts/no-misused-promises': ['error', {
+        checksVoidReturn: { attributes: false },
+      }],
+      'ts/return-await': ['error', 'in-try-catch'],
+      'ts/no-shadow': ['error', {
+        hoist: 'all',
+        allow: ['resolve', 'reject', 'done', 'next', 'err', 'error'],
+        ignoreTypeValueShadow: true,
+      }],
     },
   },
   rules: {
@@ -56,5 +95,7 @@ export default antfu({
   },
   rules: {
     ...testingLibrary.configs['flat/react'].rules,
+    'ts/no-explicit-any': 'off',
+    'max-lines-per-function': 'off',
   },
 })
