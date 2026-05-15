@@ -1,7 +1,8 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { Outlet, useLoaderData } from 'react-router'
 
-import type { Card } from '@/api/api'
+import type { Card, ValidResponse } from '@/api/api'
 
 import { getQueryImages } from '@/api/api'
 import { CardList } from '@/components/card-list/CardList'
@@ -18,15 +19,18 @@ export function App() {
   const [query, setQuery] = useState(localStorage.getItem(STORAGE) ?? '')
   const [data, setData] = useState<Card[]>([])
 
+  const { records: loaderData }: ValidResponse = useLoaderData()
+
   const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
     setQuery(event_.target.value)
   }
 
+  // todo: rewrite as custom hook
   const getImages = async (event_: SyntheticEvent | null) => {
     if (event_ !== null) {
       event_.preventDefault()
 
-      if (localStorage.getItem(STORAGE) === query) {
+      if (localStorage.getItem(STORAGE) === query.trim()) {
         return
       }
     }
@@ -50,24 +54,25 @@ export function App() {
     }
   }
 
-  const clearQuery = () => setQuery('')
-  useEffect(() => {
-    getImages(null)
-    // will remove when setup react-router
-    // eslint-disable-next-line react/exhaustive-deps
-  }, [])
-
   return (
-    <div id='center'>
-      <Header getImages={getImages} onChange={onChange} clearQuery={clearQuery} query={query} loading={isLoading} />
-      <CardList data={data} loading={isLoading} />
-      {isLoading && <Spinner> Loading... </Spinner>}
-      {errorMessage && (
-        <p>
-          Issue:
-          {errorMessage}
-        </p>
-      )}
+    <div className='flex justify-center gap-20 flex-1'>
+      <div>
+        <Header getImages={getImages} onChange={onChange} clearQuery={() => setQuery('')} query={query} loading={isLoading} />
+        <CardList data={data.length > 0 ? data : loaderData} loading={isLoading} />
+        {isLoading && <Spinner> Loading... </Spinner>}
+
+        {errorMessage && (
+          <p>
+            Issue:
+            {errorMessage}
+          </p>
+        )}
+
+      </div>
+
+      <div className='flex-1 flex items-center justify-center'>
+        <Outlet />
+      </div>
     </div>
   )
 }
