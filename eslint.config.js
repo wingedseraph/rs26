@@ -1,5 +1,6 @@
 // @ts-check
 import antfu from '@antfu/eslint-config'
+import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
 import testingLibrary from 'eslint-plugin-testing-library'
 
 export default antfu({
@@ -97,5 +98,27 @@ export default antfu({
     ...testingLibrary.configs['flat/react'].rules,
     'ts/no-explicit-any': 'off',
     'max-lines-per-function': 'off',
+  },
+}, {
+  plugins: {
+    'better-tailwindcss': eslintPluginBetterTailwindcss,
+  },
+  rules: {
+    ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
+    ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
+    'better-tailwindcss/no-unknown-classes': [
+      'error',
+      {
+        ignore: [
+          'appear',
+          'text-cta-about',
+        ],
+      },
+    ],
+  },
+  settings: {
+    'better-tailwindcss': {
+      entryPoint: './src/index.css',
+    },
   },
 })

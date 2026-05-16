@@ -37,6 +37,7 @@
     "@vitest/coverage-v8": "4.1.5",
     "@vitest/ui": "4.1.5",
     "eslint": "^10.2.0",
+    "eslint-plugin-better-tailwindcss": "^4.5.0",
     "eslint-plugin-react-refresh": "^0.5.2",
     "eslint-plugin-testing-library": "^7.16.2",
     "husky": "^9.1.7",
