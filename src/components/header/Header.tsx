@@ -1,10 +1,12 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
+import { Link } from 'react-router'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
 import { IconSearch } from '@/components/ui/icon-search'
 import { IconSubmit } from '@/components/ui/icon-submit'
 import { Input } from '@/components/ui/input'
+import { PATH } from '@/router'
 
 type HeaderProperties = {
   getImages: (event_: SyntheticEvent | null) => void
@@ -18,9 +20,11 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
   return (
     <form
       onSubmit={getImages}
-      className='font-sans flex items-center flex-col justify-between w-full pt-4 pb-2'
+      className='
+        flex w-full flex-col items-center justify-between pt-4 pb-2 font-sans
+      '
     >
-      <h1 className='leading-10'>
+      <h1>
         An
         {' '}
         <span className='bg-sublime-green-2'>inspiration</span>
@@ -28,8 +32,34 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
         engine for ideas
       </h1>
 
+      <Link
+        viewTransition
+        to={PATH.about}
+        className='
+          text-header-about absolute top-0 right-0 rounded-xl p-1 text-stone-5
+          outline-hidden transition-colors
+          hover:bg-stone-custom-6
+          focus-visible:ring-1 focus-visible:ring-black
+        '
+      >
+        about
+      </Link>
+
+      <Link
+        viewTransition
+        to={PATH.error}
+        className='
+          text-header-about absolute top-8 right-0 rounded-xl p-1 text-stone-5
+          outline-hidden transition-colors
+          hover:bg-stone-custom-6
+          focus-visible:ring-1 focus-visible:ring-black
+        '
+      >
+        error
+      </Link>
+
       <div className='relative w-full grow'>
-        <div className='bg-silver-field flex items-center rounded-full px-1'>
+        <div className='flex items-center rounded-full bg-silver-field px-1'>
           {/* fix make it as assembled component with button, icons together */}
           <IconSearch />
 
@@ -46,7 +76,9 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
               <Button
                 title='Submit search'
                 type='submit'
-                className='shrink-0 pr-0.5 border-none bg-transparent cursor-pointer'
+                className='
+                  shrink-0 cursor-pointer border-none bg-transparent pr-0.5
+                '
               >
                 <IconSubmit />
               </Button>
@@ -55,7 +87,9 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
                 title='Clear search'
                 type='button'
                 onClick={clearQuery}
-                className='shrink-0 pr-0.5 border-none bg-transparent cursor-pointer'
+                className='
+                  shrink-0 cursor-pointer border-none bg-transparent pr-0.5
+                '
               >
                 <IconClear />
               </Button>

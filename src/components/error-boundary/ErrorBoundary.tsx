@@ -26,10 +26,10 @@ export class ErrorBoundary extends PureComponent<
     console.warn(error)
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className='p-4 flex items-center justify-center min-h-screen '>
+        <div className='flex min-h-screen items-center justify-center p-4'>
           <h1>Something went wrong</h1>
         </div>
       )

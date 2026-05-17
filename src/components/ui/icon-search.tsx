@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utilities'
 
 export function IconSearch({ className, width, height, fill, ...properties }: ComponentProps<'svg'>) {
   return (
@@ -8,7 +8,7 @@ export function IconSearch({ className, width, height, fill, ...properties }: Co
       fill='currentColor'
       width={30}
       height={30}
-      className={cn('text-silver-icon ml-0.5 h-6 w-6 shrink-0', className)}
+      className={cn('ml-0.5 size-6 shrink-0 text-silver-icon', className)}
       aria-hidden={true}
       viewBox='0 0 30 30'
       {...properties}

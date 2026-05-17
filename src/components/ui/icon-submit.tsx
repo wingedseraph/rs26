@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utilities'
 
 export function IconSubmit({ className, width, height, fill, ...properties }: ComponentProps<'svg'>) {
   return (
@@ -8,7 +8,7 @@ export function IconSubmit({ className, width, height, fill, ...properties }: Co
       fill='currentColor'
       width={30}
       height={30}
-      className={cn('text-silver-icon h-6 w-6', className)}
+      className={cn('size-6 text-silver-icon', className)}
       role='img'
       aria-label='Submit search'
       viewBox='0 0 30 30'

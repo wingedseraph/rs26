@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utilities'
 
 function Input({ type, className, ...properties }: ComponentProps<'input'>) {
   return (
@@ -10,7 +10,12 @@ function Input({ type, className, ...properties }: ComponentProps<'input'>) {
       slot='input'
       className={
         cn(
-          'bg-silver-field placeholder:text-silver-font min-w-0 flex-1 rounded-full border-none py-3 pr-7 pl-0.5 text-base font-semibold focus:outline-none focus:ring-0',
+          `
+            min-w-0 flex-1 rounded-full border-none bg-silver-field py-3 pr-7
+            pl-0.5 text-base font-semibold
+            placeholder:text-silver-font
+            focus:ring-0 focus:outline-none
+          `,
           className,
         )
       }

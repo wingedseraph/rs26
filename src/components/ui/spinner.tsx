@@ -1,6 +1,6 @@
 import type { ComponentProps, CSSProperties, ElementType, ReactNode } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utilities'
 
 type Properties = Omit<ComponentProps<'span'>, 'children'> & {
   children: ReactNode
@@ -29,7 +29,7 @@ function Spinner({ children, as: Component = 'p', className, minOpacity = 0.45, 
       </style>
 
       <Component
-        className={cn('inline-block font-medium appear', className)}
+        className={cn('appear inline-block font-medium', className)}
         style={
           {
             ...style,
