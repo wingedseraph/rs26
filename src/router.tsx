@@ -1,10 +1,11 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 
 import { getQueryImages } from '@/api/api'
-import { App, STORAGE } from '@/App'
-import { About } from '@/components/about/About'
-
-import { CardDetailed } from './components/card-detailed/CardDetailed'
+import { STORAGE } from '@/api/localStorage'
+import { App } from '@/App'
+import { AboutPage } from '@/components/about-page/AboutPage'
+import { CardDetailed } from '@/components/card-detailed/CardDetailed'
 
 export const PATH = {
   index: '/',
@@ -17,7 +18,9 @@ export const router = createBrowserRouter([
   {
     path: PATH.index,
     loader: async () => {
-      // todo rewrite to useLocalStorage
+      // todo: useSearchParams: /?q="Paris"
+      // localStorage.get
+      // ""
       return { records: await getQueryImages(localStorage.getItem(STORAGE) ?? '') }
     },
     element: <App />,
@@ -27,10 +30,10 @@ export const router = createBrowserRouter([
   },
   {
     path: PATH.about,
-    element: <About />,
+    element: <AboutPage />,
   },
   {
     path: PATH.error,
-    element: <h1 id='center'> error </h1>,
+    Component: lazy(async () => import('@/components/error-page/ErrorPage')),
   },
 ])
