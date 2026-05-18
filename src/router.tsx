@@ -1,7 +1,7 @@
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
 
-import { getQueryImages } from '@/api/api'
+import { getByIdArtwork, getByQueryArtwork } from '@/api/api'
 import { STORAGE } from '@/api/localStorage'
 import { App } from '@/App'
 import { AboutPage } from '@/components/about-page/AboutPage'
@@ -17,15 +17,26 @@ export const PATH = {
 export const router = createBrowserRouter([
   {
     path: PATH.index,
-    loader: async () => {
-      // todo: useSearchParams: /?q="Paris"
-      // localStorage.get
-      // ""
-      return { records: await getQueryImages(localStorage.getItem(STORAGE) ?? '') }
+    loader: async ({ request }) => {
+      const query = localStorage.getItem(STORAGE) ?? ''
+      const parameters = new URL(request.url.toString()).searchParams
+      const page = Number(parameters.get('page')) || 1
+      const nonNegativePage = page > 0 ? page : 1
+
+      return { records: await getByQueryArtwork(query, nonNegativePage) }
     },
     element: <App />,
     children: [
-      { path: PATH.cardDetailed, element: <CardDetailed /> },
+      {
+        path: PATH.cardDetailed,
+        loader: async ({ params }) => {
+          if (params.id != null) {
+            const result = await getByIdArtwork(params.id)
+            return result
+          }
+        },
+        element: <CardDetailed />,
+      },
     ],
   },
   {
