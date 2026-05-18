@@ -1,5 +1,5 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { Link, useOutlet } from 'react-router'
+import { Link, useNavigate, useOutlet } from 'react-router'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
@@ -9,18 +9,22 @@ import { Input } from '@/components/ui/input'
 import { PATH } from '@/router'
 
 type HeaderProperties = {
-  getImages: (event_: SyntheticEvent | null) => void
   onChange: (event_: ChangeEvent<HTMLInputElement>) => void
   clearQuery: () => void
   query: string
-  loading: boolean
 }
 
-function Header({ getImages, onChange, clearQuery, query, loading }: HeaderProperties) {
+function Header({ onChange, clearQuery, query }: HeaderProperties) {
   const outlet = useOutlet()
+  const navigate = useNavigate()
+  const onSubmit = (event_: SyntheticEvent) => {
+    event_.preventDefault()
+    void navigate('?page=1')
+  }
+
   return (
     <form
-      onSubmit={getImages}
+      onSubmit={onSubmit}
       className='
         flex w-full flex-col items-center justify-between pt-4 pb-2 font-sans
       '
@@ -85,7 +89,6 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
             value={query}
             placeholder='Find'
             onChange={onChange}
-            disabled={loading}
           />
 
           {query && (
