@@ -4,7 +4,8 @@ import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { BASE } from '@/api/api'
-import { App, STORAGE } from '@/App'
+import { STORAGE } from '@/api/localStorage'
+import { App } from '@/App'
 import { server } from '@/mocks/node'
 
 describe('app', () => {
