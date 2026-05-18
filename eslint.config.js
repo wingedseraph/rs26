@@ -106,12 +106,14 @@ export default antfu({
   rules: {
     ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
     ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
+    'better-tailwindcss/enforce-canonical-classes': 'off',
     'better-tailwindcss/no-unknown-classes': [
       'error',
       {
         ignore: [
           'appear',
           'text-cta-about',
+          'text-header-about',
         ],
       },
     ],
