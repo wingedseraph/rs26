@@ -122,13 +122,10 @@
   }
 
   #root {
-    width: 768px;
     max-width: 100%;
-    margin: 0 auto;
     text-align: center;
     min-height: 100svh;
     display: flex;
-    flex-direction: column;
     box-sizing: border-box;
   }
 
@@ -187,8 +184,9 @@
     font-feature-settings: 'ss09' 1;
   }
   .text-header-about {
-      letter-spacing: 0;
-      font-variation-settings: "CONT" 50, "OPEN" 50, "TRAK" -10, "wght" 400;
+    z-index: 99;
+    letter-spacing: 0;
+    font-variation-settings: "CONT" 50, "OPEN" 50, "TRAK" -10, "wght" 400;
       font-size: 1.125rem;
       line-height: 1.11;
   }
@@ -205,3 +203,4 @@
     --tw-shadow-colored: 0px 1px 5px 0px var(--tw-shadow-color);
   }
 }
+

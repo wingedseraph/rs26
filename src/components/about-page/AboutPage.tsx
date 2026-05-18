@@ -6,7 +6,8 @@ function AboutPage() {
   return (
     <>
       <div className='
-        sticky top-0 z-10 flex items-center justify-between gap-x-2 bg-light p-2
+        absolute top-0 z-10 flex items-center justify-between gap-x-2 bg-light
+        p-2
         md:px-8 md:pt-6
       '
       >

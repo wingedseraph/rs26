@@ -1,5 +1,5 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { Link } from 'react-router'
+import { Link, useOutlet } from 'react-router'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
@@ -17,6 +17,7 @@ type HeaderProperties = {
 }
 
 function Header({ getImages, onChange, clearQuery, query, loading }: HeaderProperties) {
+  const outlet = useOutlet()
   return (
     <form
       onSubmit={getImages}
@@ -57,6 +58,22 @@ function Header({ getImages, onChange, clearQuery, query, loading }: HeaderPrope
       >
         error
       </Link>
+
+      {outlet
+        && (
+          <Link
+            viewTransition
+            to={PATH.index}
+            className='
+              text-header-about absolute top-16 right-0 rounded-xl p-1
+              text-stone-5 outline-hidden transition-colors
+              hover:bg-stone-custom-6
+              focus-visible:ring-1 focus-visible:ring-black
+            '
+          >
+            close outlet
+          </Link>
+        )}
 
       <div className='relative w-full grow'>
         <div className='flex items-center rounded-full bg-silver-field px-1'>
