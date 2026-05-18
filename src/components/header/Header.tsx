@@ -1,11 +1,7 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
 import { Link, useNavigate, useOutlet } from 'react-router'
 
-import { Button } from '@/components/ui/button'
-import { IconClear } from '@/components/ui/icon-clear'
-import { IconSearch } from '@/components/ui/icon-search'
-import { IconSubmit } from '@/components/ui/icon-submit'
-import { Input } from '@/components/ui/input'
+import { CombinedInput } from '@/components/combined-input/CombinedInput'
 import { PATH } from '@/router'
 
 type HeaderProperties = {
@@ -79,44 +75,7 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
           </Link>
         )}
 
-      <div className='relative w-full grow'>
-        <div className='flex items-center rounded-full bg-silver-field px-1'>
-          {/* fix make it as assembled component with button, icons together */}
-          <IconSearch />
-
-          <Input
-            type='text'
-            value={query}
-            placeholder='Find'
-            onChange={onChange}
-          />
-
-          {query && (
-            <>
-              <Button
-                title='Submit search'
-                type='submit'
-                className='
-                  shrink-0 cursor-pointer border-none bg-transparent pr-0.5
-                '
-              >
-                <IconSubmit />
-              </Button>
-
-              <Button
-                title='Clear search'
-                type='button'
-                onClick={clearQuery}
-                className='
-                  shrink-0 cursor-pointer border-none bg-transparent pr-0.5
-                '
-              >
-                <IconClear />
-              </Button>
-            </>
-          )}
-        </div>
-      </div>
+      <CombinedInput onChange={onChange} clearQuery={clearQuery} query={query} />
     </form>
   )
 }
