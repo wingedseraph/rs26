@@ -1,6 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 
-import type { ValidResponse } from '@/api/api'
+import type { ValidResponse } from '@/api/typeguard'
 
 import { BASE } from '@/api/api'
 
