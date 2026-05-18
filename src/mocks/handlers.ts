@@ -8,6 +8,7 @@ export const handlers = [
   http.get(`${BASE}/*`, async () => {
     await delay(100)
     return HttpResponse.json({
+      info: { record_count: 100 },
       records: [
         {
           systemNumber: 124343,

@@ -30,6 +30,7 @@ function Spinner({ children, as: Component = 'p', className, minOpacity = 0.45, 
 
       <Component
         className={cn('appear inline-block font-medium', className)}
+        role='loading'
         style={
           {
             ...style,
