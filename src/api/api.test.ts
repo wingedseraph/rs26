@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { isArray, isValidCard } from '@/api/api'
+import { isArray, isValidCard } from '@/api/typeguard'
 import { PRIMARY_SECONDARY_TITLE_MOCK } from '@/components/card-list/CardList.test'
 
 describe('typeguard api response', () => {
