@@ -1,10 +1,13 @@
 import { Link } from 'react-router'
 
+import { PAGE_SIZE } from '@/api/api'
+
 type PaginationProperties = {
   page: number
+  recordsCount: number
 }
 
-function Pagination({ page }: PaginationProperties) {
+function Pagination({ page, recordsCount }: PaginationProperties) {
   return (
     <div
       className='
@@ -38,9 +41,9 @@ function Pagination({ page }: PaginationProperties) {
         </Link>
 
         <button className='
-          flex h-11 w-12.25 flex-1 cursor-pointer items-center justify-center
-          rounded-md bg-white px-2 py-1 font-extrabold text-black-tisa
-          shadow-cloud outline-hidden transition-colors
+          flex h-11 w-12.25 flex-1 items-center justify-center rounded-md
+          bg-white px-2 py-1 font-extrabold text-black-tisa shadow-cloud
+          outline-hidden transition-colors
           focus-visible:ring-1 focus-visible:ring-black
           md:p-2
         '
@@ -50,13 +53,16 @@ function Pagination({ page }: PaginationProperties) {
 
         <Link
           to={{ search: `page=${page + 1}` }}
-          className='
+          className={`
             flex flex-1 cursor-pointer items-center justify-center rounded-md
-            bg-white px-2 py-1 text-black-tisa shadow-cloud outline-hidden
+            px-2 py-1 text-black-tisa shadow-cloud outline-hidden
             transition-colors
             focus-visible:ring-1 focus-visible:ring-black
             md:p-2
-          '
+            ${Math.ceil(recordsCount / PAGE_SIZE) <= page
+      ? `pointer-events-none bg-stone-6`
+      : `bg-white`}
+          `}
         >
           <svg
             width='30'

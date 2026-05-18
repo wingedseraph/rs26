@@ -4,12 +4,11 @@ import type { Card } from '@/api/typeguard'
 
 type Properties = {
   data: Card[]
-  loading: boolean
   page: number
 }
 
-function CardList({ data, loading, page }: Properties) {
-  if (data.length === 0 && !loading) {
+function CardList({ data, page }: Properties) {
+  if (data.length === 0) {
     return (
       <h2 className='appear'>Oh No Data</h2>
     )
