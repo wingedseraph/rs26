@@ -6,6 +6,8 @@ import { STORAGE } from '@/api/localStorage'
 import { App } from '@/App'
 import { AboutPage } from '@/components/about-page/AboutPage'
 import { CardDetailed } from '@/components/card-detailed/CardDetailed'
+import ErrorPage from '@/components/error-page/ErrorPage'
+import { Layout } from '@/components/layout/Layout'
 
 export const PATH = {
   index: '/',
@@ -16,35 +18,42 @@ export const PATH = {
 
 export const router = createBrowserRouter([
   {
-    path: PATH.index,
-    loader: async ({ request }) => {
-      const query = localStorage.getItem(STORAGE) ?? ''
-      const parameters = new URL(request.url.toString()).searchParams
-      const page = Number(parameters.get('page')) || 1
-      const nonNegativePage = page > 0 ? page : 1
-
-      return { records: await getByQueryArtwork(query, nonNegativePage) }
-    },
-    element: <App />,
+    element: <Layout />,
     children: [
       {
-        path: PATH.cardDetailed,
-        loader: async ({ params }) => {
-          if (params.id != null) {
-            const result = await getByIdArtwork(params.id)
-            return result
-          }
+        path: PATH.index,
+        ErrorBoundary: ErrorPage,
+        loader: async ({ request }) => {
+          const query = localStorage.getItem(STORAGE) ?? ''
+          const parameters = new URL(request.url.toString()).searchParams
+          const page = Number(parameters.get('page')) || 1
+          const nonNegativePage = page > 0 ? page : 1
+
+          const result = await getByQueryArtwork(query, nonNegativePage)
+          return result
         },
-        element: <CardDetailed />,
+        element: <App />,
+        children: [
+          {
+            path: PATH.cardDetailed,
+            loader: async ({ params }) => {
+              if (params.id != null) {
+                const result = await getByIdArtwork(params.id)
+                return result
+              }
+            },
+            element: <CardDetailed />,
+          },
+        ],
+      },
+      {
+        path: PATH.about,
+        element: <AboutPage />,
+      },
+      {
+        path: PATH.error,
+        Component: lazy(async () => import('@/components/error-page/ErrorPage')),
       },
     ],
-  },
-  {
-    path: PATH.about,
-    element: <AboutPage />,
-  },
-  {
-    path: PATH.error,
-    Component: lazy(async () => import('@/components/error-page/ErrorPage')),
   },
 ])
