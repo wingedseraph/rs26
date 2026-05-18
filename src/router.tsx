@@ -1,12 +1,12 @@
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
+import type { LoaderFunctionArgs } from 'react-router'
 
 import { getByIdArtwork, getByQueryArtwork } from '@/api/api'
 import { STORAGE } from '@/api/localStorage'
 import { App } from '@/App'
 import { AboutPage } from '@/components/about-page/AboutPage'
 import { CardDetailed } from '@/components/card-detailed/CardDetailed'
-import ErrorPage from '@/components/error-page/ErrorPage'
 import { Layout } from '@/components/layout/Layout'
 
 export const PATH = {
@@ -16,14 +16,13 @@ export const PATH = {
   error: '*',
 } as const
 
-export const router = createBrowserRouter([
-  {
+export const routes
+  = [{
     element: <Layout />,
     children: [
       {
         path: PATH.index,
-        ErrorBoundary: ErrorPage,
-        loader: async ({ request }) => {
+        loader: async ({ request }: LoaderFunctionArgs) => {
           const query = localStorage.getItem(STORAGE) ?? ''
           const parameters = new URL(request.url.toString()).searchParams
           const page = Number(parameters.get('page')) || 1
@@ -36,7 +35,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: PATH.cardDetailed,
-            loader: async ({ params }) => {
+            loader: async ({ params }: LoaderFunctionArgs) => {
               if (params.id != null) {
                 const result = await getByIdArtwork(params.id)
                 return result
@@ -55,5 +54,6 @@ export const router = createBrowserRouter([
         Component: lazy(async () => import('@/components/error-page/ErrorPage')),
       },
     ],
-  },
-])
+  }]
+
+export const router = createBrowserRouter(routes)

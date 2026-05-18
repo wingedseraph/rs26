@@ -33,7 +33,7 @@ export function isValidCard(card: unknown): card is Card {
     isObject(card) && 'systemNumber' in card && '_primaryTitle' in card && '_images' in card && 'objectType' in card
   )
 }
-function isValidSingleCard(card: unknown): card is SingleCard {
+export function isValidSingleCard(card: unknown): card is SingleCard {
   return (
     isObject(card) && 'systemNumber' in card && 'dimensionsNote' in card
     && 'briefDescription' in card && 'images' in card && isArray(card.images)
