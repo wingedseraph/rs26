@@ -1,32 +1,26 @@
+import { MemoryRouter } from 'react-router'
+
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Header } from '@/components/header/Header'
 
-const getImages = vi.fn()
+const clearQuery = vi.fn()
 const onChange = vi.fn()
 
-describe('header props', () => {
+describe('header', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
   it('should render input with provided query props', () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query='Paris' />)
+    render(<MemoryRouter><Header clearQuery={clearQuery} onChange={onChange} query='Paris' /></MemoryRouter>)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
     expect(input).toBeTruthy()
     expect(input).toHaveValue('Paris')
     expect(input).not.toBeDisabled()
-  })
-
-  it('should render disabled input with provided loading props', () => {
-    render(<Header loading={true} getImages={getImages} onChange={onChange} query='' />)
-
-    const input = screen.getByRole<HTMLInputElement>('textbox')
-
-    expect(input).toBeDisabled()
   })
 })
 
@@ -35,20 +29,11 @@ describe('header user interactions', () => {
     vi.clearAllMocks()
   })
   it('should call onChange when input value is changed', async () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query='' />)
+    render(<MemoryRouter><Header clearQuery={clearQuery} onChange={onChange} query='' /></MemoryRouter>)
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
     await userEvent.type(input, 'Paris')
 
     expect(onChange).toHaveBeenCalledTimes(5)
-  })
-
-  it('should call getImages when form is submitted', async () => {
-    render(<Header loading={false} getImages={getImages} onChange={onChange} query='' />)
-
-    const input = screen.getByRole<HTMLInputElement>('textbox')
-    await userEvent.type(input, '{Enter}')
-
-    expect(getImages).toHaveBeenCalledTimes(1)
   })
 })
