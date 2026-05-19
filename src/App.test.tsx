@@ -18,8 +18,11 @@ describe('app', () => {
       const router = createMemoryRouter(routes, { initialEntries: ['/'] })
       render(<RouterProvider router={router} />)
 
-      await screen.findByText('Pastoral landscape')
-      await screen.findByRole('img')
+      const card = await screen.findByRole('heading', { name: 'Pastoral landscape' })
+      const img = await screen.findByRole('img')
+
+      expect(card).toBeInTheDocument()
+      expect(img).toBeInTheDocument()
     })
   })
   describe('localStorage', () => {

@@ -18,7 +18,7 @@ describe('header', () => {
 
     const input = screen.getByRole<HTMLInputElement>('textbox')
 
-    expect(input).toBeTruthy()
+    expect(input).toBeInTheDocument()
     expect(input).toHaveValue('Paris')
     expect(input).not.toBeDisabled()
   })

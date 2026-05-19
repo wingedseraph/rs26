@@ -28,6 +28,6 @@ describe('errorboundary', () => {
     render(<ErrorBoundary><h1>Hello World!</h1></ErrorBoundary>)
 
     const header = screen.getByText('Hello World!')
-    expect(header).toBeTruthy()
+    expect(header).toBeInTheDocument()
   })
 })

@@ -11,7 +11,7 @@ describe('render cards empty data', () => {
   it('should render cardlist empty data if no data provided', () => {
     render(<MemoryRouter><CardList data={[]} page={1} /></MemoryRouter>)
 
-    expect(screen.getByText('Oh No Data')).toBeTruthy()
+    expect(screen.getByText('Oh No Data')).toBeInTheDocument()
   })
 })
 
@@ -19,16 +19,16 @@ describe('render cards with data', () => {
   it('displays primary title when available', () => {
     render(<MemoryRouter><CardList data={CARD_WITH_PRIMARY_TITLE_MOCK} page={1} /></MemoryRouter>)
 
-    expect(screen.queryByText('Oh No Data')).toBeNull()
-    expect(screen.getByText('Primary Title')).toBeTruthy()
-    expect(screen.queryByText('Secondary Title')).toBeNull()
+    expect(screen.queryByText('Oh No Data')).not.toBeInTheDocument()
+    expect(screen.getByText('Primary Title')).toBeInTheDocument()
+    expect(screen.queryByText('Secondary Title')).not.toBeInTheDocument()
   })
 
   it('displays secondary title when primary doesnt available', () => {
     render(<MemoryRouter><CardList data={CARD_WITH_SECONDARY_TITLE_MOCK} page={1} /></MemoryRouter>)
 
-    expect(screen.queryByText('Oh No Data')).toBeNull()
-    expect(screen.queryByText('Primary Title')).toBeNull()
-    expect(screen.getByText('Secondary Title')).toBeTruthy()
+    expect(screen.queryByText('Oh No Data')).not.toBeInTheDocument()
+    expect(screen.queryByText('Primary Title')).not.toBeInTheDocument()
+    expect(screen.getByText('Secondary Title')).toBeInTheDocument()
   })
 })
