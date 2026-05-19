@@ -1,12 +1,13 @@
 import { Outlet, useNavigation } from 'react-router'
 
+import { ErrorBoundary } from '@/components/error-boundary/ErrorBoundary'
 import { Spinner } from '@/components/ui/spinner'
 
 function Layout() {
   const navigation = useNavigation()
   const isNavigating = Boolean(navigation.location)
   return (
-    <>
+    <ErrorBoundary>
       {isNavigating && (
         <div className='appear fixed inset-0 z-50 backdrop-blur-md'>
           <div className='
@@ -19,7 +20,7 @@ function Layout() {
       )}
 
       <Outlet />
-    </>
+    </ErrorBoundary>
   )
 }
 
