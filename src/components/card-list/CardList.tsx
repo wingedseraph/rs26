@@ -40,6 +40,7 @@ function CardList({ data, page }: Properties) {
                     hover:opacity-[0.92]
                   '
                   src={`${element._images._iiif_image_base_url}full/!600,600/0/default.jpg`}
+                  alt={element.objectType}
                 />
               </div>
 
