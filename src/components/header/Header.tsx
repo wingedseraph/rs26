@@ -1,5 +1,5 @@
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { Link, useNavigate, useOutlet } from 'react-router'
+import { Link, useNavigate, useOutlet, useSearchParams } from 'react-router'
 
 import { CombinedInput } from '@/components/combined-input/CombinedInput'
 import { PATH } from '@/router'
@@ -11,6 +11,8 @@ type HeaderProperties = {
 }
 
 function Header({ onChange, clearQuery, query }: HeaderProperties) {
+  const [searchParameters] = useSearchParams()
+  const pageParameters = Number(searchParameters.get('page'))
   const outlet = useOutlet()
   const navigate = useNavigate()
   const onSubmit = (event_: SyntheticEvent) => {
@@ -63,7 +65,10 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
         && (
           <Link
             viewTransition
-            to={PATH.index}
+            to={{
+              pathname: PATH.index,
+              search: `page=${pageParameters}`,
+            }}
             className='
               text-header-about absolute top-16 right-0 rounded-xl p-1
               text-stone-5 outline-hidden transition-colors
