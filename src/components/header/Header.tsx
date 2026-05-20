@@ -28,11 +28,7 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
       '
     >
       <h1>
-        An
-        {' '}
-        <span className='bg-sublime-green-2'>inspiration</span>
-        {' '}
-        engine for ideas
+        An inspiration engine for ideas
       </h1>
 
       <Link
