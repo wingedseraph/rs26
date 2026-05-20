@@ -6,6 +6,9 @@ import testingLibrary from 'eslint-plugin-testing-library'
 export default antfu({
   markdown: false,
   react: true,
+  jsx: {
+    a11y: true,
+  },
   stylistic: {
     quotes: 'single',
   },
