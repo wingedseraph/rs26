@@ -13,7 +13,8 @@ function Spinner({ children, as: Component = 'p', className, style, ...propertie
     <>
       <Component
         className={cn('appear inline-block animate-pulse font-medium', className)}
-        role='loading'
+        role='status'
+        aria-live='polite'
         {...properties}
       >
         {children}
