@@ -15,7 +15,7 @@ describe('typeguard api response for many items', () => {
 
 describe('typeguard api response for single item', () => {
   it('should pass typeguard correct api response single card object', () => {
-    expect(isValidSingleCard(SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK))
+    expect(isValidSingleCard(SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK)).toBe(true)
   })
 
   it('should fail typeguard incorrect api response single card object', () => {
