@@ -46,7 +46,7 @@ function App() {
         transition-all duration-300
         ${outlet
       ? `
-        absolute flex w-full items-center justify-center
+        flex w-full items-center justify-center
         md:relative md:w-1/2
       `
       : `hidden`}
