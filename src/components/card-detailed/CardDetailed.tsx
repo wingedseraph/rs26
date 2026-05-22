@@ -5,6 +5,10 @@ import type { ValidResponseSingleCard } from '@/api/typeguard'
 function CardDetailed() {
   const { record } = useLoaderData<ValidResponseSingleCard>()
 
+  if (!record) {
+    return <h2>no data</h2>
+  }
+
   return (
     <div
       className='
