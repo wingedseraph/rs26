@@ -1,10 +1,10 @@
-import type { Card, ValidResponse } from '@/api/typeguard'
+import type { Card, ValidResponse, ValidResponseSingleCard } from '@/api/typeguard'
 
 export const SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK = {
   systemNumber: 1,
   dimensionsNote: 'Mocked artwork note',
   briefDescription: 'Mocked artwork description',
-  images: ['url'],
+  images: ['url'] as [string],
 }
 export const SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK_RESPONSE = { record: SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK }
 
@@ -55,3 +55,21 @@ export const FALLBACK_RESPONSE = {
   records: FALLBACK_CARDS,
   info: { record_count: FALLBACK_CARDS.length },
 } satisfies ValidResponse
+
+export const MSW_SEARCH_RESPONSE = {
+  info: { record_count: 100 },
+  records: [
+    {
+      systemNumber: 124343,
+      objectType: 'Oil painting',
+      _primaryTitle: 'Pastoral landscape',
+      _images: {
+        _iiif_image_base_url: 'https://framemark.vam.ac.uk/collections/2007BP1066/',
+      },
+    },
+  ],
+} satisfies ValidResponse
+
+export const MSW_SINGLE_CARD_RESPONSE = {
+  record: SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK,
+} satisfies ValidResponseSingleCard
