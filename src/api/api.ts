@@ -1,4 +1,5 @@
 import { isValidResponse, isValidResponseSingleItem } from '@/api/typeguard'
+import { FALLBACK_CARDS } from '@/mocks/mocks'
 
 export const BASE = 'https://api.vam.ac.uk/v2' as const
 export const PAGE_SIZE = 6 as const
@@ -21,7 +22,7 @@ export async function getByQueryArtwork(query: string, page?: number) {
     return { records, recordsCount }
   }
   catch {
-    return { records: [], recordsCount: 0 }
+    return { records: FALLBACK_CARDS, recordsCount: FALLBACK_CARDS.length }
   }
 }
 
