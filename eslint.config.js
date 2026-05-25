@@ -65,6 +65,7 @@ export default antfu({
   },
   rules: {
     ...testingLibrary.configs['flat/react'].rules,
+    'test/prefer-lowercase-title': 'off',
     'ts/no-explicit-any': 'off',
     'max-lines-per-function': 'off',
   },
