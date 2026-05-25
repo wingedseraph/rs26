@@ -2,6 +2,7 @@ import type { ChangeEvent, SyntheticEvent } from 'react'
 import { Link, useNavigate, useOutlet, useSearchParams } from 'react-router'
 
 import { CombinedInput } from '@/components/combined-input/CombinedInput'
+import { useTheme } from '@/hooks/useTheme'
 import { PATH } from '@/router'
 
 type HeaderProperties = {
@@ -13,6 +14,7 @@ type HeaderProperties = {
 function Header({ onChange, clearQuery, query }: HeaderProperties) {
   const [searchParameters] = useSearchParams()
   const pageParameters = Number(searchParameters.get('page'))
+  const theme = useTheme()
   const outlet = useOutlet()
   const navigate = useNavigate()
   const onSubmit = (event_: SyntheticEvent) => {
@@ -37,7 +39,7 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
         className='
           text-header-about absolute top-0 right-0 rounded-xl p-1 text-stone-5
           outline-hidden transition-colors
-          hover:bg-stone-custom-6
+          hover:bg-stone-6
           focus-visible:ring-1 focus-visible:ring-black
         '
       >
@@ -50,12 +52,25 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
         className='
           text-header-about absolute top-8 right-0 rounded-xl p-1 text-stone-5
           outline-hidden transition-colors
-          hover:bg-stone-custom-6
+          hover:bg-stone-6
           focus-visible:ring-1 focus-visible:ring-black
         '
       >
         error
       </Link>
+
+      <button
+        type='button'
+        onClick={() => theme.setTheme(theme.value === 'light' ? 'dark' : 'light')}
+        className='
+          text-header-about absolute top-16 right-0 rounded-xl p-1 text-stone-5
+          outline-hidden transition-colors
+          hover:bg-stone-6
+          focus-visible:ring-1 focus-visible:ring-black
+        '
+      >
+        {theme.value === 'light' ? 'dark' : 'light'}
+      </button>
 
       {outlet
         && (
@@ -66,9 +81,9 @@ function Header({ onChange, clearQuery, query }: HeaderProperties) {
               search: `page=${pageParameters}`,
             }}
             className='
-              text-header-about absolute top-16 right-0 rounded-xl p-1
+              text-header-about absolute top-24 right-0 rounded-xl p-1
               text-stone-5 outline-hidden transition-colors
-              hover:bg-stone-custom-6
+              hover:bg-stone-6
               focus-visible:ring-1 focus-visible:ring-black
             '
           >

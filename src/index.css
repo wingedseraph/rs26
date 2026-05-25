@@ -191,7 +191,7 @@
   }
 
   body ::selection {
-    background-color: #cbffa6;
+    @apply bg-sublime-green-2
   }
 
   input[type='search']::-webkit-search-decoration,
