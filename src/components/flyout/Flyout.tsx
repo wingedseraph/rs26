@@ -27,8 +27,12 @@ function Flyout() {
     }
   }
 
+  if (Object.keys(selectedCards).length === 0) {
+    return null
+  }
+
   return (
-    <div className='fixed top-0 left-0 flex flex-col items-center gap-2'>
+    <div className='fixed bottom-0 left-0 flex flex-col items-center gap-2'>
       <p>
         Selected cards:
         {' '}
@@ -41,12 +45,6 @@ function Flyout() {
         Download
         <a aria-label='download' aria-hidden={true} href='/' ref={downloadLinkRef}></a>
       </button>
-
-      {(Object.keys(selectedCards)).map(element => (
-        <p key={element}>
-          {element}
-        </p>
-      ))}
     </div>
   )
 }
