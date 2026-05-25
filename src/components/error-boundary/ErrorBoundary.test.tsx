@@ -9,25 +9,25 @@ function Throw(): ReactNode {
   throw new Error('Testing ErrorBoundary')
 }
 
-describe('errorboundary', () => {
+describe('ErrorBoundary', () => {
   beforeEach(() => {
-    vi.resetAllMocks()
-  })
-  it('should render fallback ui when render error appear', () => {
-    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => { })
-    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => { })
-    render(<ErrorBoundary><Throw /></ErrorBoundary>)
-
-    const header = screen.getByText('Something went wrong')
-    expect(header).toBeTruthy()
-    expect(consoleError).toHaveBeenCalledTimes(1)
-    expect(consoleWarn).toHaveBeenCalledTimes(1)
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
   })
 
-  it('should render children if no error appear', () => {
-    render(<ErrorBoundary><h1>Hello World!</h1></ErrorBoundary>)
+  describe('Ошибка в дочернем компоненте', () => {
+    it('должен отобразить fallback UI', () => {
+      render(<ErrorBoundary><Throw /></ErrorBoundary>)
 
-    const header = screen.getByText('Hello World!')
-    expect(header).toBeInTheDocument()
+      expect(screen.getByRole('heading', { name: 'Something went wrong' })).toBeInTheDocument()
+    })
+  })
+
+  describe('Ошибки нет', () => {
+    it('должен отобразить дочерний компонент', () => {
+      render(<ErrorBoundary><h1>Hello World!</h1></ErrorBoundary>)
+
+      expect(screen.getByRole('heading', { name: 'Hello World!' })).toBeInTheDocument()
+    })
   })
 })

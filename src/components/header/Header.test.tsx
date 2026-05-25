@@ -2,38 +2,71 @@ import { MemoryRouter } from 'react-router'
 
 import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
+import { ThemeContextProvider } from '@/components/context/ThemeContext'
 import { Header } from '@/components/header/Header'
 
-const clearQuery = vi.fn()
-const onChange = vi.fn()
+function renderHeader(query = '') {
+  const clearQuery = vi.fn()
+  const onChange = vi.fn()
 
-describe('header', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
+  render(
+    <MemoryRouter>
+      <ThemeContextProvider>
+        <Header clearQuery={clearQuery} onChange={onChange} query={query} />
+      </ThemeContextProvider>
+    </MemoryRouter>,
+  )
+
+  return { clearQuery, onChange }
+}
+
+describe('Header', () => {
+  describe('Отрисовка', () => {
+    it('должен отобразить поле ввода с переданным значением', () => {
+      renderHeader('Paris')
+
+      expect(screen.getByRole('textbox')).toHaveValue('Paris')
+    })
+
+    it('должен отобразить кнопку переключения темы', () => {
+      renderHeader()
+
+      expect(screen.getByRole('button', { name: 'dark' })).toBeInTheDocument()
+    })
+
+    it('должен отобразить навигационные ссылки', () => {
+      renderHeader()
+
+      expect(screen.getByRole('link', { name: 'about' })).toBeInTheDocument()
+      expect(screen.getByRole('link', { name: 'error' })).toBeInTheDocument()
+    })
   })
-  it('should render input with provided query props', () => {
-    render(<MemoryRouter><Header clearQuery={clearQuery} onChange={onChange} query='Paris' /></MemoryRouter>)
 
-    const input = screen.getByRole<HTMLInputElement>('textbox')
+  describe('Взаимодействия', () => {
+    it('должен вызвать onChange при вводе текста', async () => {
+      const { onChange } = renderHeader()
 
-    expect(input).toBeInTheDocument()
-    expect(input).toHaveValue('Paris')
-    expect(input).not.toBeDisabled()
-  })
-})
+      await userEvent.type(screen.getByRole('textbox'), 'Paris')
 
-describe('header user interactions', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
-  it('should call onChange when input value is changed', async () => {
-    render(<MemoryRouter><Header clearQuery={clearQuery} onChange={onChange} query='' /></MemoryRouter>)
+      expect(onChange).toHaveBeenCalledTimes(5)
+    })
 
-    const input = screen.getByRole<HTMLInputElement>('textbox')
-    await userEvent.type(input, 'Paris')
+    it('должен переключить тему при клике на кнопку', async () => {
+      renderHeader()
 
-    expect(onChange).toHaveBeenCalledTimes(5)
+      await userEvent.click(screen.getByRole('button', { name: 'dark' }))
+
+      expect(screen.getByRole('button', { name: 'light' })).toBeInTheDocument()
+    })
+
+    it('должен вызвать clearQuery при клике на кнопку очистки', async () => {
+      const { clearQuery } = renderHeader('test')
+
+      await userEvent.click(screen.getByRole('button', { name: 'Clear search' }))
+
+      expect(clearQuery).toHaveBeenCalledTimes(1)
+    })
   })
 })

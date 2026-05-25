@@ -5,16 +5,26 @@ import { describe, expect, it } from 'vitest'
 
 import { AboutPage } from '@/components/about-page/AboutPage'
 
-describe('about page', () => {
-  it('should render about page', () => {
-    const headingContent = 'Art enriches the soul, and that is what this project is all about'
-    const linkContent = 'try the course'
-    render(<MemoryRouter><AboutPage /></MemoryRouter>)
+function renderAboutPage() {
+  return render(<MemoryRouter><AboutPage /></MemoryRouter>)
+}
 
-    const heading = screen.getByRole<HTMLHeadingElement>('heading', { name: headingContent })
-    const link = screen.getByRole<HTMLHeadingElement>('link', { name: linkContent })
+describe('AboutPage', () => {
+  describe('Страница отрисована', () => {
+    it('должен отобразить заголовок', () => {
+      renderAboutPage()
 
-    expect(heading).toHaveTextContent(headingContent)
-    expect(link).toHaveTextContent(linkContent)
+      expect(screen.getByRole('heading')).toHaveTextContent(
+        'Art enriches the soul, and that is what this project is all about',
+      )
+    })
+
+    it('должен отобразить ссылку на курс с корректным href', () => {
+      renderAboutPage()
+
+      const link = screen.getByRole('link', { name: 'try the course' })
+
+      expect(link).toHaveAttribute('href', 'https://rs.school/courses/reactjs')
+    })
   })
 })
