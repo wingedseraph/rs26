@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -12,9 +15,6 @@
     "test:coverage": "node -e \"process.exit(+process.versions.node.split('.')[0]>=25?0:1)\" && NODE_OPTIONS='--no-webstorage' vitest run --coverage || vitest run --coverage",
     "preview": "vite preview",
     "prepare": "husky"
-  },
-  "engines": {
-    "node": ">=22"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
