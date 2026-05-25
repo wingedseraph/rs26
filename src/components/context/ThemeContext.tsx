@@ -22,11 +22,11 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
 
   useLayoutEffect(() => {
     if (stored.value === 'light') {
-      document.body.classList.remove('dark')
+      document.documentElement.classList.remove('dark')
     }
 
     if (stored.value === 'dark') {
-      document.body.classList.add('dark')
+      document.documentElement.classList.add('dark')
     }
   }, [stored.value])
 
