@@ -1,23 +1,33 @@
-import { Link } from 'react-router'
+import { useSelector } from 'react-redux'
+import { Link, useOutlet } from 'react-router'
 
 import type { Card } from '@/api/typeguard'
+import type { RootState } from '@/store'
 
-type Properties = {
+import { CardListFooter } from '@/components/card-list/CardListFooter'
+import { toggleOne, useAppDispatch } from '@/store'
+
+type CardListProperties = {
   data: Card[]
   page: number
 }
 
-function CardList({ data, page }: Properties) {
+function CardList({ data, page }: CardListProperties) {
+  const outlet = useOutlet()
+  const dispatch = useAppDispatch()
+  const selectedCards = useSelector((state: RootState) => state.selectedCards)
+
   if (data.length === 0) {
     return (
       <h2 className='appear'>Oh No Data</h2>
     )
   }
+
   return (
-    <div className='
-      columns-2 gap-6
-      md:columns-3
-    '
+    <div className={`
+      columns-2 gap-6 pt-10
+      ${outlet ? 'md:columns-2' : 'md:columns-3'}
+    `}
     >
       {data.map(element => (
         <div
@@ -32,14 +42,19 @@ function CardList({ data, page }: Properties) {
         >
           <Link viewTransition to={{ pathname: `card/${element.systemNumber}`, search: `page=${page}` }}>
             <div className='flex flex-col gap-1 p-1'>
-              <div className='flex w-full cursor-default justify-center'>
+              <div className='
+                flex min-h-40 w-full cursor-default justify-center
+                bg-sublime-green-2
+              '
+              >
                 <img
                   className='
-                    max-h-60 w-full cursor-zoom-in rounded-xs transition-opacity
-                    duration-150
+                    max-h-40 w-full cursor-zoom-in rounded-xs object-contain
+                    transition-opacity duration-150
                     hover:opacity-[0.92]
                   '
                   src={`${element._images._iiif_image_base_url}full/!600,600/0/default.jpg`}
+                  alt={element.objectType}
                 />
               </div>
 
@@ -48,8 +63,15 @@ function CardList({ data, page }: Properties) {
                   {element._primaryTitle.length > 0 ? element._primaryTitle : element.objectType}
                 </h2>
               </div>
+
             </div>
           </Link>
+
+          <CardListFooter
+            onClick={() => dispatch(toggleOne({ id: element.systemNumber, card: element }))}
+            isSelected={Object.hasOwn(selectedCards, element.systemNumber)}
+          />
+
         </div>
       ))}
     </div>

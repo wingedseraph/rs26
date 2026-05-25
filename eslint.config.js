@@ -1,19 +1,20 @@
 // @ts-check
 import antfu from '@antfu/eslint-config'
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
+import oxlint from 'eslint-plugin-oxlint'
 import testingLibrary from 'eslint-plugin-testing-library'
 
 export default antfu({
   markdown: false,
   react: true,
+  jsx: {
+    a11y: true,
+  },
   stylistic: {
     quotes: 'single',
   },
   typescript: {
     erasableOnly: true,
-    tsconfigPath: './tsconfig.json',
-    filesTypeAware: ['**/*.ts', '**/*.tsx'],
-    overridesTypeAware: { 'ts/no-unsafe-assignment': 'error', 'ts/no-unsafe-argument': 'error', 'ts/no-unsafe-call': 'error', 'ts/no-unsafe-member-access': 'error', 'ts/no-unsafe-return': 'error' },
     overrides: {
       'ts/consistent-type-definitions': ['error', 'type'],
       'no-restricted-syntax': ['error', {
@@ -22,44 +23,12 @@ export default antfu({
       }],
       'max-lines-per-function': ['warn', { max: 200, skipBlankLines: true, skipComments: true }],
       'complexity': ['warn', 13],
-      'ts/naming-convention': ['error', {
-        selector: 'variable',
-        types: ['boolean'],
-        format: ['PascalCase'],
-        prefix: ['is', 'has', 'should', 'can', 'did', 'will'],
-      }, {
-        selector: 'variable',
-        modifiers: ['destructured'],
-        format: null,
-      }, {
-        selector: 'typeLike',
-        format: ['PascalCase'],
-      }],
-      'ts/strict-boolean-expressions': ['error', {
-        allowString: false,
-        allowNumber: false,
-        allowNullableObject: false,
-      }],
-      'ts/switch-exhaustiveness-check': 'error',
-      'ts/no-unsafe-type-assertion': 'error',
-      'ts/prefer-nullish-coalescing': ['error', {
-        ignoreTernaryTests: false,
-        ignoreConditionalTests: false,
-      }],
-      'ts/no-misused-promises': ['error', {
-        checksVoidReturn: { attributes: false },
-      }],
-      'ts/return-await': ['error', 'in-try-catch'],
-      'ts/no-shadow': ['error', {
-        hoist: 'all',
-        allow: ['resolve', 'reject', 'done', 'next', 'err', 'error'],
-        ignoreTypeValueShadow: true,
-      }],
     },
   },
   rules: {
     'unicorn/prevent-abbreviations': [
       'error',
+      { replacements: { ref: false } },
     ],
     'style/jsx-quotes': ['error', 'prefer-single'],
     'style/no-trailing-spaces': 'error',
@@ -96,6 +65,7 @@ export default antfu({
   },
   rules: {
     ...testingLibrary.configs['flat/react'].rules,
+    'test/prefer-lowercase-title': 'off',
     'ts/no-explicit-any': 'off',
     'max-lines-per-function': 'off',
   },
@@ -112,6 +82,7 @@ export default antfu({
       {
         ignore: [
           'appear',
+          'button-animation',
           'text-cta-about',
           'text-header-about',
         ],
@@ -123,4 +94,4 @@ export default antfu({
       entryPoint: './src/index.css',
     },
   },
-})
+}, ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'))

@@ -20,6 +20,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
       <nav className='flex items-center gap-x-2'>
         <Link
           to={{ search: `page=${page - 1}` }}
+          aria-disabled={page === 1}
           className={`
             flex flex-1 items-center justify-center rounded-md px-2 py-1
             text-silver-icon shadow-cloud outline-hidden transition-colors
@@ -53,6 +54,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
 
         <Link
           to={{ search: `page=${page + 1}` }}
+          aria-disabled={Math.ceil(recordsCount / PAGE_SIZE) <= page}
           className={`
             flex flex-1 cursor-pointer items-center justify-center rounded-md
             px-2 py-1 text-black-tisa shadow-cloud outline-hidden

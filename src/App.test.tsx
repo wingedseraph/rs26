@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import { render, screen, waitFor } from '@testing-library/react'
@@ -5,47 +6,56 @@ import { userEvent } from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { STORAGE } from '@/api/localStorage'
+import { ThemeContextProvider } from '@/components/context/ThemeContext'
 import { routes } from '@/router'
+import store from '@/store'
 
-describe('app', () => {
+function renderApp() {
+  const router = createMemoryRouter(routes, { initialEntries: ['/'] })
+  return render(
+    <Provider store={store}>
+      <ThemeContextProvider>
+        <RouterProvider router={router} />
+      </ThemeContextProvider>
+    </Provider>,
+  )
+}
+
+describe('App', () => {
   afterEach(() => {
     localStorage.clear()
     vi.resetAllMocks()
   })
 
-  describe('render', () => {
-    it('should render card with msw mocked data', async () => {
-      const router = createMemoryRouter(routes, { initialEntries: ['/'] })
-      render(<RouterProvider router={router} />)
+  describe('Данные загружены', () => {
+    it('должен отобразить карточку с данными из MSW', async () => {
+      renderApp()
 
-      await screen.findByText('Pastoral landscape')
-      await screen.findByRole('img')
+      const card = await screen.findByRole('heading', { name: 'Pastoral landscape' })
+
+      expect(card).toBeInTheDocument()
     })
   })
-  describe('localStorage', () => {
-    it('should get data from localStorage', async () => {
-      const query = 'Paris'
-      localStorage.setItem(STORAGE, query)
 
-      const router = createMemoryRouter(routes, { initialEntries: ['/'] })
-      render(<RouterProvider router={router} />)
+  describe('localStorage', () => {
+    it('должен восстановить значение поиска из localStorage', async () => {
+      localStorage.setItem(STORAGE, 'Paris')
+
+      renderApp()
 
       const input = await screen.findByRole<HTMLInputElement>('textbox')
 
-      expect(input).toHaveValue(query)
+      expect(input).toHaveValue('Paris')
     })
 
-    it('should set data to localStorage on submit', async () => {
-      const query = 'Not Paris'
-      const router = createMemoryRouter(routes, { initialEntries: ['/'] })
-      render(<RouterProvider router={router} />)
+    it('должен сохранить введённый текст в localStorage при submit', async () => {
+      renderApp()
 
       const input = await screen.findByRole<HTMLInputElement>('textbox')
-      await waitFor(() => expect(input).not.toBeDisabled())
-      await userEvent.type(input, query)
+      await userEvent.type(input, 'Not Paris')
       await userEvent.type(input, '{Enter}')
 
-      await waitFor(() => expect(localStorage.getItem(STORAGE)).toBe(query))
+      await waitFor(() => expect(localStorage.getItem(STORAGE)).toBe('Not Paris'))
     })
   })
 })

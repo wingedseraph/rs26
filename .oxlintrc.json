@@ -1,0 +1,33 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript"],
+  "categories": {
+    "correctness": "off"
+  },
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "eslint/no-unused-vars": "warn",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/prefer-nullish-coalescing": ["error", {
+      "ignoreTernaryTests": false,
+      "ignoreConditionalTests": false
+    }],
+    "typescript/no-misused-promises": ["error", {
+      "checksVoidReturn": { "attributes": false }
+    }],
+    "typescript/return-await": ["error", "in-try-catch"],
+    "typescript/no-shadow": ["error", {
+      "hoist": "all",
+      "allow": ["resolve", "reject", "done", "next", "err", "error"],
+      "ignoreTypeValueShadow": true
+    }]
+  }
+}

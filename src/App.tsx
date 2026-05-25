@@ -4,6 +4,7 @@ import { Outlet, useLoaderData, useOutlet, useSearchParams } from 'react-router'
 import type { getByQueryArtwork } from '@/api/api'
 
 import { CardList } from '@/components/card-list/CardList'
+import { Flyout } from '@/components/flyout/Flyout'
 import { Header } from '@/components/header/Header'
 import { Pagination } from '@/components/pagination/Pagination'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
@@ -40,13 +41,14 @@ function App() {
         <Header onChange={onChange} clearQuery={() => setValue('')} query={value} />
         <CardList data={records} page={page} />
         <Pagination page={page ?? 1} recordsCount={recordsCount} />
+        <Flyout />
       </div>
 
       <div className={`
         transition-all duration-300
         ${outlet
       ? `
-        absolute flex w-full items-center justify-center
+        flex w-full items-center justify-center
         md:relative md:w-1/2
       `
       : `hidden`}
@@ -54,6 +56,7 @@ function App() {
       >
         <Outlet />
       </div>
+
     </div>
   )
 }

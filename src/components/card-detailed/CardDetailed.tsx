@@ -5,6 +5,10 @@ import type { ValidResponseSingleCard } from '@/api/typeguard'
 function CardDetailed() {
   const { record } = useLoaderData<ValidResponseSingleCard>()
 
+  if (!record) {
+    return <h2>no data</h2>
+  }
+
   return (
     <div
       className='
@@ -18,8 +22,9 @@ function CardDetailed() {
       <div className='flex flex-col gap-1 p-1'>
         <div className='flex w-full cursor-default justify-center'>
           <img
-            className='max-h-180 w-full rounded-xs'
+            className='max-h-180 w-full object-contain py-10'
             src={`https://framemark.vam.ac.uk/collections/${record.images[0]}/full/full/0/default.jpg`}
+            alt={record.dimensionsNote}
           />
         </div>
 

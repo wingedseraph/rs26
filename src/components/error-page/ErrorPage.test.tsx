@@ -5,12 +5,12 @@ import { describe, expect, it } from 'vitest'
 
 import ErrorPage from '@/components/error-page/ErrorPage'
 
-describe('error page', () => {
-  it('should render error page', () => {
-    render(<MemoryRouter><ErrorPage /></MemoryRouter>)
+describe('ErrorPage', () => {
+  describe('Страница отрисована', () => {
+    it('должен отобразить заголовок с текстом ошибки', () => {
+      render(<MemoryRouter><ErrorPage /></MemoryRouter>)
 
-    const heading = screen.getByRole<HTMLHeadingElement>('heading')
-
-    expect(heading).toHaveTextContent('Something went wrong')
+      expect(screen.getByRole('heading')).toHaveTextContent('Something went wrong')
+    })
   })
 })
