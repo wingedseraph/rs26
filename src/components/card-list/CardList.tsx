@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router'
+import { Link, useOutlet } from 'react-router'
 
 import type { Card } from '@/api/typeguard'
 import type { RootState } from '@/store'
 
 import { CardListFooter } from '@/components/card-list/CardListFooter'
-import { removeAll, toggleOne, useAppDispatch } from '@/store'
+import { toggleOne, useAppDispatch } from '@/store'
 
 type CardListProperties = {
   data: Card[]
@@ -13,6 +13,7 @@ type CardListProperties = {
 }
 
 function CardList({ data, page }: CardListProperties) {
+  const outlet = useOutlet()
   const dispatch = useAppDispatch()
   const selectedCards = useSelector((state: RootState) => state.selectedCards)
 
@@ -23,15 +24,11 @@ function CardList({ data, page }: CardListProperties) {
   }
 
   return (
-    <div className='
+    <div className={`
       columns-2 gap-6 pt-10
-      md:columns-3
-    '
+      ${outlet ? 'md:columns-2' : 'md:columns-3'}
+    `}
     >
-
-      <button className='absolute top-0 left-0' onClick={() => dispatch(removeAll())}>clear all</button>
-      <p className='absolute top-4 left-0'>{JSON.stringify(Object.keys(selectedCards))}</p>
-
       {data.map(element => (
         <div
           className='
@@ -45,7 +42,11 @@ function CardList({ data, page }: CardListProperties) {
         >
           <Link viewTransition to={{ pathname: `card/${element.systemNumber}`, search: `page=${page}` }}>
             <div className='flex flex-col gap-1 p-1'>
-              <div className='flex w-full cursor-default justify-center'>
+              <div className='
+                flex min-h-40 w-full cursor-default justify-center
+                bg-sublime-green-2
+              '
+              >
                 <img
                   className='
                     max-h-40 w-full cursor-zoom-in rounded-xs object-contain
