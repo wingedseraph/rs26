@@ -28,6 +28,7 @@ export default antfu({
   rules: {
     'unicorn/prevent-abbreviations': [
       'error',
+      { replacements: { ref: false } },
     ],
     'style/jsx-quotes': ['error', 'prefer-single'],
     'style/no-trailing-spaces': 'error',
