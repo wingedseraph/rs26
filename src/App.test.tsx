@@ -48,7 +48,7 @@ describe('App', () => {
       expect(input).toHaveValue('Paris')
     })
 
-    it('должен сохранить введённый текст в localStorage при submit', async () => {
+    it('должен сохранить введенный текст в localStorage при submit', async () => {
       renderApp()
 
       const input = await screen.findByRole<HTMLInputElement>('textbox')

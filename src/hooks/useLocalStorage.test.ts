@@ -16,7 +16,7 @@ describe('useLocalStorage', () => {
       expect(result.current.value).toBe('hello')
     })
 
-    it('должен вернуть сохранённое значение из localStorage', () => {
+    it('должен вернуть сохраненное значение из localStorage', () => {
       localStorage.setItem('test-key', 'stored')
 
       const { result } = renderHook(() => useLocalStorage('hello', 'test-key'))

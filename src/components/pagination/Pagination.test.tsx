@@ -46,7 +46,7 @@ describe('Pagination', () => {
       expect(previousLink).not.toHaveAttribute('aria-disabled', 'true')
     })
 
-    it('должен разблокировать ссылку вперёд', () => {
+    it('должен разблокировать ссылку вперед', () => {
       renderPagination(1, TOTAL_RECORDS)
 
       const nextLink = screen.getAllByRole('link')[1]
@@ -56,7 +56,7 @@ describe('Pagination', () => {
   })
 
   describe('Последняя страница', () => {
-    it('должен заблокировать ссылку вперёд', () => {
+    it('должен заблокировать ссылку вперед', () => {
       renderPagination(LAST_PAGE, TOTAL_RECORDS)
 
       const nextLink = screen.getAllByRole('link')[1]

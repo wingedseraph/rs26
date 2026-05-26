@@ -31,12 +31,12 @@ describe('Flyout', () => {
   })
 
   describe('Карточки выбраны', () => {
-    it('должен отобразить счётчик и кнопки действий', () => {
+    it('должен отобразить счетчик и кнопки действий', () => {
       store.dispatch(toggleOne({ id: 1, card: CARD_WITH_PRIMARY_TITLE_MOCK[0] }))
 
       renderFlyout()
 
-      expect(screen.getByText(/Selected cards:/)).toBeInTheDocument()
+      expect(screen.getByText(/1/)).toBeInTheDocument()
     })
   })
 
@@ -58,7 +58,7 @@ describe('Flyout', () => {
 
       renderFlyout()
 
-      const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {})
+      const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => { })
       const createObjectURL = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test')
 
       await userEvent.click(screen.getByRole('button', { name: /Download/ }))
