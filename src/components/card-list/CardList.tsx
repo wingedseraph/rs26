@@ -43,8 +43,7 @@ function CardList({ data, page }: CardListProperties) {
           <Link viewTransition to={{ pathname: `card/${element.systemNumber}`, search: `page=${page}` }}>
             <div className='flex flex-col gap-1 p-1'>
               <div className='
-                flex min-h-40 w-full cursor-default justify-center
-                bg-sublime-green-2
+                flex min-h-40 w-full cursor-default justify-center bg-stone-6/30
               '
               >
                 <img
