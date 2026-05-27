@@ -1,23 +1,21 @@
-import { useSelector } from 'react-redux'
 import { Link, useOutlet } from 'react-router'
 
 import type { Card } from '@/api/typeguard'
-import type { RootState } from '@/store'
 
 import { CardListFooter } from '@/components/card-list/CardListFooter'
-import { toggleOne, useAppDispatch } from '@/store'
+import { toggleOne, useAppDispatch, useAppSelector } from '@/store'
 
 type CardListProperties = {
   data: Card[]
   page: number
 }
 
-function CardList({ data, page }: CardListProperties) {
+function CardList({ data: cards, page }: CardListProperties) {
   const outlet = useOutlet()
   const dispatch = useAppDispatch()
-  const selectedCards = useSelector((state: RootState) => state.selectedCards)
+  const selectedCards = useAppSelector(state => state.selectedCards)
 
-  if (data.length === 0) {
+  if (cards.length === 0) {
     return (
       <h2 className='appear'>Oh No Data</h2>
     )
@@ -29,7 +27,7 @@ function CardList({ data, page }: CardListProperties) {
       ${outlet ? 'md:columns-2' : 'md:columns-3'}
     `}
     >
-      {data.map(element => (
+      {cards.map(element => (
         <div
           className='
             appear relative my-10 w-full cursor-pointer break-inside-avoid

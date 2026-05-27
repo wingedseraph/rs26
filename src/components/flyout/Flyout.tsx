@@ -1,15 +1,12 @@
 import { useRef } from 'react'
-import { useSelector } from 'react-redux'
-
-import type { RootState } from '@/store'
 
 import { Button } from '@/components/ui/button'
 import { cardToCsv } from '@/lib/cardToCsv'
-import { removeAll, useAppDispatch } from '@/store'
+import { removeAll, useAppDispatch, useAppSelector } from '@/store'
 
 function Flyout() {
   const dispatch = useAppDispatch()
-  const selectedCards = useSelector((state: RootState) => state.selectedCards)
+  const selectedCards = useAppSelector(state => state.selectedCards)
   const downloadLinkRef = useRef<HTMLAnchorElement>(null)
 
   const downloadBlob = () => {
