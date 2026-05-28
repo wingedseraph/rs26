@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utilities'
 
-export function IconPlus({ className, ...properties }: ComponentProps<'svg'>) {
+function IconPlus({ className, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
@@ -16,3 +16,4 @@ export function IconPlus({ className, ...properties }: ComponentProps<'svg'>) {
     </svg>
   )
 }
+export { IconPlus }
