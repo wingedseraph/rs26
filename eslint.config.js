@@ -77,6 +77,8 @@ export default antfu({
     ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
     ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
     'better-tailwindcss/enforce-canonical-classes': 'off',
+    // how to fix quotes on new line?
+    'better-tailwindcss/enforce-consistent-line-wrapping': ['warn', { preferSingleLine: true, group: 'newLine', printWidth: 120 }],
     'better-tailwindcss/no-unknown-classes': [
       'error',
       {
