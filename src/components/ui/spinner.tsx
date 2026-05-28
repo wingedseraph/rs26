@@ -1,23 +1,26 @@
-import type { ComponentProps, ElementType, ReactNode } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 
 import { cn } from '@/lib/utilities'
 
 type SpinnerProperties = Omit<ComponentProps<'span'>, 'children'> & {
-  children: ReactNode
-  as?: ElementType
-  minOpacity?: number
+  children?: ReactNode
 }
 
 function Spinner({ children, className, ...properties }: SpinnerProperties) {
   return (
-    <span
-      className={cn('appear inline-block animate-pulse font-medium', className)}
-      role='status'
-      aria-live='polite'
-      {...properties}
-    >
-      {children}
-    </span>
+    <div className='appear fixed inset-0 z-50 backdrop-blur-md'>
+      <div className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
+        <span
+          className={cn('appear inline-block animate-pulse font-medium', className)}
+          role='status'
+          aria-live='polite'
+          {...properties}
+        >
+          {children ?? 'Loading...'}
+        </span>
+      </div>
+    </div>
+
   )
 }
 
