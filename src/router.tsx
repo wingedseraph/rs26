@@ -5,7 +5,6 @@ import { AboutPage } from '@/components/about-page/AboutPage'
 import { CardDetailed } from '@/components/card-detailed/CardDetailed'
 import ErrorPage from '@/components/error-page/ErrorPage'
 import { Layout } from '@/components/layout/Layout'
-import { loaderGetAllCards, loaderGetOneCard } from '@/router-loader'
 
 export const PATH = {
   index: '/',
@@ -21,12 +20,10 @@ export const routes
     children: [
       {
         path: PATH.index,
-        loader: loaderGetAllCards,
         element: <App />,
         children: [
           {
             path: PATH.cardDetailed,
-            loader: loaderGetOneCard,
             element: <CardDetailed />,
           },
         ],
