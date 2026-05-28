@@ -1,6 +1,8 @@
 import { PureComponent } from 'react'
 import type { ReactNode } from 'react'
 
+import ErrorPage from '@/components/error-page/ErrorPage'
+
 type Properties = {
   children: ReactNode
 }
@@ -29,9 +31,7 @@ export class ErrorBoundary extends PureComponent<
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className='flex min-h-screen items-center justify-center p-4'>
-          <h1>Something went wrong</h1>
-        </div>
+        <ErrorPage />
       )
     }
 
