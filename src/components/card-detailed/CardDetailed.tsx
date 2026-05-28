@@ -12,9 +12,8 @@ function CardDetailed() {
   return (
     <div
       className='
-        appear relative size-full h-fit max-h-200 cursor-pointer
-        break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
-        transition-shadow duration-200
+        appear relative size-full h-fit max-h-200 cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1
+        shadow-card transition-shadow duration-200
         hover:shadow-card-hover
       '
       title={record.dimensionsNote}

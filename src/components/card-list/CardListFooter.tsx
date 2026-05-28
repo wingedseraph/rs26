@@ -25,10 +25,7 @@ function CardListFooter({ onClick, isSelected, ...properties }: CardListFooterPr
       >
         <span className='flex flex-row items-center justify-between gap-1'>
           {isSelected ? 'Saved' : 'Save'}
-
-          {isSelected
-            ? <IconCheck />
-            : <IconPlus /> }
+          {isSelected ? <IconCheck /> : <IconPlus /> }
         </span>
       </Button>
     </div>
