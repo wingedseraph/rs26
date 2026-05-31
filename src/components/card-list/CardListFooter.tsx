@@ -9,8 +9,13 @@ type CardListFooterProperties = {
   isSelected?: boolean
 } & ComponentProps<'button'>
 
-const baseStyle = 'h-7 hover:no-underline block relative w-full cursor-default justify-between overflow-hidden rounded-full border-silver-lighter-cloud bg-silver-lighter-cloud p-1 py-0.5 pl-2 text-sm font-medium text-stone-3 transition-transform hover:bg-stone-6 bg-silver-frost active:bg-silver-lighter-cloud'
-const selectedStyle = ' button-animation active:bg-stone-5'
+const baseStyle = `
+  relative block h-7 w-full cursor-default justify-between overflow-hidden rounded-full border-silver-lighter-cloud
+  bg-silver-frost p-1 py-0.5 pl-2 text-sm font-medium text-stone-3 transition-transform
+  hover:bg-stone-6 hover:no-underline
+  active:bg-silver-lighter-cloud
+`
+const selectedStyle = 'button-animation active:bg-stone-5'
 
 function CardListFooter({ onClick, isSelected, ...properties }: CardListFooterProperties) {
   return (
@@ -25,7 +30,7 @@ function CardListFooter({ onClick, isSelected, ...properties }: CardListFooterPr
       >
         <span className='flex flex-row items-center justify-between gap-1'>
           {isSelected ? 'Saved' : 'Save'}
-          {isSelected ? <IconCheck /> : <IconPlus /> }
+          {isSelected ? <IconCheck /> : <IconPlus />}
         </span>
       </Button>
     </div>

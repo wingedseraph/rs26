@@ -1,26 +1,30 @@
-import { Link } from 'react-router'
+import { Link, useOutlet } from 'react-router'
 
 import type { Card } from '@/api/typeguard'
 
 import { CardListFooter } from '@/components/card-list/CardListFooter'
+import { cn } from '@/lib/utilities'
 import { toggleOne, useAppDispatch, useAppSelector } from '@/store'
 
 type CardItemProperties = {
   card: Card
-  page: number
+  page: string
 }
+
+const cardBaseStyle = `
+  relative my-10 w-full cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card transition-shadow
+  duration-200
+  hover:shadow-card-hover
+`
 
 function CardItem({ card, page }: CardItemProperties) {
   const dispatch = useAppDispatch()
+  const outlet = useOutlet()
   const selectedCards = useAppSelector(state => state.selectedCards)
 
   return (
     <div
-      className='
-        appear relative my-10 w-full cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
-        transition-shadow duration-200
-        hover:shadow-card-hover
-      '
+      className={cn(cardBaseStyle, { appear: !outlet })}
       key={card.systemNumber}
       title={card._primaryTitle}
     >

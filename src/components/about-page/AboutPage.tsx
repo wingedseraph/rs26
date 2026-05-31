@@ -1,7 +1,13 @@
 import { BackLink } from '@/components/back-link/BackLink'
 
 const COURSE_LINK = 'https://rs.school/courses/reactjs'
-const baseStyleLink = 'group text-cta-about relative overflow-hidden rounded-md bg-stone-6 pt-4 pr-7 pb-5 pl-8 outline-hidden transition-colors hover:bg-stone-1 hover:text-stone-6 focus-visible:ring-1 focus-visible:ring-black lg:rounded-lg lg:px-14 lg:pt-6 lg:pb-7'
+const baseStyleLink = `
+  group text-cta-about relative overflow-hidden rounded-md bg-stone-6 pt-4 pr-7 pb-5 pl-8 outline-hidden
+  transition-colors
+  hover:bg-stone-1 hover:text-stone-6
+  focus-visible:ring-1 focus-visible:ring-black
+  lg:rounded-lg lg:px-14 lg:pt-6 lg:pb-7
+`
 
 function AboutPage() {
   return (

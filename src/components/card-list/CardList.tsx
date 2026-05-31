@@ -7,7 +7,7 @@ import { cn } from '@/lib/utilities'
 
 type CardListProperties = {
   data: Card[]
-  page: number
+  page: string
 }
 
 function CardList({ data: cards, page }: CardListProperties) {

@@ -14,8 +14,8 @@ import { FALLBACK_CARDS } from '@/mocks/mocks'
 
 function App() {
   const [searchParameters] = useSearchParams()
-  const pageParameters = Number(searchParameters.get('page'))
-  const page = pageParameters > 0 ? pageParameters : 1
+  const pageParameters = searchParameters.get('page') ?? '1'
+  const page = Number(pageParameters) > 0 ? pageParameters : '1'
 
   const query = useLocalStorage('')
   const outlet = useOutlet()
@@ -29,13 +29,6 @@ function App() {
     return <ErrorPage />
   }
 
-  // fix: ok/err
-  // if (!data) {
-  //   records = FALLBACK_CARDS
-  //  record_count = FALLBACK_CARDS.length
-  // }
-
-  // todo: why it returns data|undefined if using typeguard
   const records = data?.records
   const recordsCount = data?.info.record_count
 
@@ -44,7 +37,7 @@ function App() {
       <div className={`${outlet ? 'flex-1' : 'max-w-3xl'}`}>
         <Header />
         <CardList data={records ?? FALLBACK_CARDS} page={page} />
-        <Pagination page={page ?? 1} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
+        <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />
       </div>
 
