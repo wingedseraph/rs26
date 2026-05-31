@@ -1,36 +1,58 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { ValidResponse } from '@/api/typeguard'
+import type { ValidResponse, ValidResponseSingleCard } from '@/api/typeguard'
 
-import { BASE, PAGE_SIZE } from '@/api/api'
-import { isValidResponse } from '@/api/typeguard'
+import { BASE, IMAGES_EXIST, PAGE_SIZE } from '@/api/api'
+import { isValidResponse, isValidResponseSingleItem } from '@/api/typeguard'
 
 type Arguments = {
   query: string
-  page: number
+  page: string
 }
 
+export const byQueryTag = 'ArtworkByQuery'
+export const byIdTag = 'ArtworkById'
+
 export const artworkApi = createApi({
-  tagTypes: ['ArtworkByQuery'],
+  keepUnusedDataFor: Number(import.meta.env.VITE_TTL) ?? 20,
+  tagTypes: ['ArtworkByQuery', 'ArtworkById'],
   reducerPath: 'artworkApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE }),
   endpoints: builder => ({
     getArtworkByName: builder.query<ValidResponse, Arguments>({
       query: ({ query, page }) => {
-        // urlparams instead of string
-        return `/objects/search?q=${query}&images_exist=1&page_size=${PAGE_SIZE}&page=${page ?? 1}`
+        const parameters = new URLSearchParams({
+          q: query,
+          images_exist: IMAGES_EXIST,
+          page_size: PAGE_SIZE,
+          page: page ?? '1',
+        })
+
+        return `/objects/search?${parameters.toString()}`
       },
-      providesTags: ['ArtworkByQuery'],
+      providesTags: [byQueryTag],
       transformResponse: async (response) => {
         if (!isValidResponse(response)) {
           // todo neverthrow
           throw new Error('error in typeguard')
         }
-        console.warn(response) // todo remove
+        return response
+      },
+    }),
+    getArtworkById: builder.query<ValidResponseSingleCard, string>({
+      query: (id) => {
+        return `/museumobject/${id}`
+      },
+      providesTags: [byIdTag],
+      transformResponse: async (response) => {
+        if (!isValidResponseSingleItem(response)) {
+          // todo neverthrow
+          throw new Error('error in typeguard')
+        }
         return response
       },
     }),
   }),
 })
 
-export const { useGetArtworkByNameQuery } = artworkApi
+export const { useGetArtworkByNameQuery, useGetArtworkByIdQuery } = artworkApi
