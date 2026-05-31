@@ -1,6 +1,7 @@
 // @ts-check
 import antfu from '@antfu/eslint-config'
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
+import { getDefaultSelectors } from 'eslint-plugin-better-tailwindcss/defaults'
 import oxlint from 'eslint-plugin-oxlint'
 import testingLibrary from 'eslint-plugin-testing-library'
 
@@ -30,6 +31,7 @@ export default antfu({
       'error',
       { replacements: { ref: false } },
     ],
+    'eqeqeq': 'error',
     'style/jsx-quotes': ['error', 'prefer-single'],
     'style/no-trailing-spaces': 'error',
     'style/jsx-newline': ['error', { prevent: true, allowMultilines: true }],
@@ -77,7 +79,6 @@ export default antfu({
     ...eslintPluginBetterTailwindcss.configs['recommended-warn'].rules,
     ...eslintPluginBetterTailwindcss.configs['recommended-error'].rules,
     'better-tailwindcss/enforce-canonical-classes': 'off',
-    // how to fix quotes on new line?
     'better-tailwindcss/enforce-consistent-line-wrapping': ['warn', { preferSingleLine: true, group: 'newLine', printWidth: 120 }],
     'better-tailwindcss/no-unknown-classes': [
       'error',
@@ -94,6 +95,13 @@ export default antfu({
   settings: {
     'better-tailwindcss': {
       entryPoint: './src/index.css',
+      selectors: [
+        ...getDefaultSelectors(),
+        {
+          kind: 'variable',
+          name: '^\\w*[Ss]tyle\\w*$',
+        },
+      ],
     },
   },
 }, ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'))
