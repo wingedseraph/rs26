@@ -8,10 +8,8 @@ function Button({ children, className, ...properties }: ComponentProps<'button'>
       data-slot='button'
       className={cn(
         `
-          group/button inline-flex h-9 shrink-0 items-center justify-center
-          gap-1.5 rounded-md border border-transparent bg-clip-padding px-2.5
-          text-sm font-medium whitespace-nowrap transition-all outline-none
-          select-none
+          group/button inline-flex h-9 shrink-0 items-center justify-center gap-1.5 rounded-md border border-transparent
+          bg-clip-padding px-2.5 text-sm font-medium whitespace-nowrap transition-all outline-none select-none
           hover:underline
           focus-visible:ring-3
           active:not-aria-[haspopup]:translate-y-px

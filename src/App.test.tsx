@@ -1,23 +1,26 @@
-import { Provider } from 'react-redux'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 
-import { render, screen, waitFor } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
+import { http, HttpResponse } from 'msw'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import type { AppStore } from '@/store'
+
+import { BASE } from '@/api/api'
 import { STORAGE } from '@/api/localStorage'
 import { ThemeContextProvider } from '@/components/context/ThemeContext'
+import { server } from '@/mocks/node'
+import { renderWithProviders } from '@/mocks/setupStore'
 import { routes } from '@/router'
-import store from '@/store'
 
-function renderApp() {
+function renderApp(store?: AppStore) {
   const router = createMemoryRouter(routes, { initialEntries: ['/'] })
-  return render(
-    <Provider store={store}>
-      <ThemeContextProvider>
-        <RouterProvider router={router} />
-      </ThemeContextProvider>
-    </Provider>,
+  return renderWithProviders(
+    <ThemeContextProvider>
+      <RouterProvider router={router} />
+    </ThemeContextProvider>,
+    { store },
   )
 }
 
@@ -25,6 +28,43 @@ describe('App', () => {
   afterEach(() => {
     localStorage.clear()
     vi.resetAllMocks()
+  })
+
+  describe('Отображение loading, error, cache данных при запросе', () => {
+    it('должен отобразить loading при запросе', async () => {
+      renderApp()
+
+      const loading = await screen.findByText('Loading...')
+
+      expect(loading).toBeInTheDocument()
+    })
+
+    it('должен отобразить error при ошибке запроса', async () => {
+      server.use(
+        http.get(`${BASE}/objects/search`, () => HttpResponse.error()),
+      )
+
+      renderApp()
+
+      const fallbackHeader = await screen.findByRole('heading', { name: 'Something went wrong' })
+      const fallbackButton = await screen.findByRole('button', { name: 'Refetch data' })
+
+      expect(fallbackHeader).toBeInTheDocument()
+      expect(fallbackButton).toBeInTheDocument()
+    })
+
+    it('должен отобразить cache данные при повторном запросе', async () => {
+      const { store, unmount } = renderApp()
+
+      await screen.findByRole('heading', { name: 'Pastoral landscape' })
+
+      unmount()
+      renderApp(store)
+
+      const loading = screen.queryByText('Loading')
+
+      expect(loading).not.toBeInTheDocument()
+    })
   })
 
   describe('Данные загружены', () => {
@@ -48,7 +88,7 @@ describe('App', () => {
       expect(input).toHaveValue('Paris')
     })
 
-    it('должен сохранить введённый текст в localStorage при submit', async () => {
+    it('должен сохранить введенный текст в localStorage при submit', async () => {
       renderApp()
 
       const input = await screen.findByRole<HTMLInputElement>('textbox')

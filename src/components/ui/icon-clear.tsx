@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utilities'
 
-export function IconClear({ className, ...properties }: ComponentProps<'svg'>) {
+function IconClear({ className, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
@@ -20,3 +20,4 @@ export function IconClear({ className, ...properties }: ComponentProps<'svg'>) {
     </svg>
   )
 }
+export { IconClear }

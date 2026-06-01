@@ -7,7 +7,7 @@ import { PAGE_SIZE } from '@/api/api'
 
 import { Pagination } from './Pagination'
 
-function renderPagination(page: number, recordsCount: number) {
+function renderPagination(page: string, recordsCount: number) {
   return render(
     <MemoryRouter>
       <Pagination page={page} recordsCount={recordsCount} />
@@ -16,12 +16,12 @@ function renderPagination(page: number, recordsCount: number) {
 }
 
 const TOTAL_RECORDS = 100
-const LAST_PAGE = Math.ceil(TOTAL_RECORDS / PAGE_SIZE)
+const LAST_PAGE = Math.ceil(TOTAL_RECORDS / Number(PAGE_SIZE))
 
 describe('Pagination', () => {
   describe('Отображение текущей страницы', () => {
     it('должен отобразить номер страницы', () => {
-      renderPagination(3, TOTAL_RECORDS)
+      renderPagination('3', TOTAL_RECORDS)
 
       expect(screen.getByText('3')).toBeInTheDocument()
     })
@@ -29,7 +29,7 @@ describe('Pagination', () => {
 
   describe('Первая страница', () => {
     it('должен заблокировать ссылку назад', () => {
-      renderPagination(1, TOTAL_RECORDS)
+      renderPagination('1', TOTAL_RECORDS)
 
       const previousLink = screen.getAllByRole('link')[0]
 
@@ -39,15 +39,15 @@ describe('Pagination', () => {
 
   describe('Средняя страница', () => {
     it('должен разблокировать ссылку назад', () => {
-      renderPagination(2, TOTAL_RECORDS)
+      renderPagination('2', TOTAL_RECORDS)
 
       const previousLink = screen.getAllByRole('link')[0]
 
       expect(previousLink).not.toHaveAttribute('aria-disabled', 'true')
     })
 
-    it('должен разблокировать ссылку вперёд', () => {
-      renderPagination(1, TOTAL_RECORDS)
+    it('должен разблокировать ссылку вперед', () => {
+      renderPagination('1', TOTAL_RECORDS)
 
       const nextLink = screen.getAllByRole('link')[1]
 
@@ -56,8 +56,8 @@ describe('Pagination', () => {
   })
 
   describe('Последняя страница', () => {
-    it('должен заблокировать ссылку вперёд', () => {
-      renderPagination(LAST_PAGE, TOTAL_RECORDS)
+    it('должен заблокировать ссылку вперед', () => {
+      renderPagination(String(LAST_PAGE), TOTAL_RECORDS)
 
       const nextLink = screen.getAllByRole('link')[1]
 

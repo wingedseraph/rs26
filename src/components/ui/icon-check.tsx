@@ -2,13 +2,14 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utilities'
 
-export function IconCheck({ className, ...properties }: ComponentProps<'svg'>) {
+function IconCheck({ className, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
       width={30}
       height={30}
       className={cn('h-5 w-5 p-0.5 text-silver-warm-2', className)}
+      aria-hidden='true'
       viewBox='0 0 30 30'
       {...properties}
     >
@@ -16,3 +17,4 @@ export function IconCheck({ className, ...properties }: ComponentProps<'svg'>) {
     </svg>
   )
 }
+export { IconCheck }

@@ -40,7 +40,7 @@ describe('ThemeContext', () => {
   })
 
   describe('Переключение темы', () => {
-    it('должен переключить на тёмную и добавить класс dark', async () => {
+    it('должен переключить на темную и добавить класс dark', async () => {
       renderThemeDisplay()
 
       await userEvent.click(screen.getByRole('button', { name: 'toggle' }))

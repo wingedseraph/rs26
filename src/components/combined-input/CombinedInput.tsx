@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react'
+import type { ChangeEvent, ComponentProps } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
@@ -10,9 +10,9 @@ type CombinedInputProperties = {
   onChange: (event_: ChangeEvent<HTMLInputElement>) => void
   clearQuery: () => void
   query: string
-}
+} & ComponentProps<'input'>
 
-function CombinedInput({ onChange, clearQuery, query }: CombinedInputProperties) {
+function CombinedInput({ onChange, clearQuery, query, ...properties }: CombinedInputProperties) {
   return (
     <div className='relative w-full grow'>
       <div className='flex items-center rounded-full bg-silver-field px-1'>
@@ -20,9 +20,11 @@ function CombinedInput({ onChange, clearQuery, query }: CombinedInputProperties)
 
         <Input
           type='text'
+          name='query'
           value={query}
           placeholder='Find'
           onChange={onChange}
+          {...properties}
         />
 
         {query && (
@@ -30,9 +32,7 @@ function CombinedInput({ onChange, clearQuery, query }: CombinedInputProperties)
             <Button
               title='Submit search'
               type='submit'
-              className='
-                shrink-0 cursor-pointer border-none bg-transparent pr-0.5
-              '
+              className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
             >
               <IconSubmit />
             </Button>
@@ -41,9 +41,7 @@ function CombinedInput({ onChange, clearQuery, query }: CombinedInputProperties)
               title='Clear search'
               type='button'
               onClick={clearQuery}
-              className='
-                shrink-0 cursor-pointer border-none bg-transparent pr-0.5
-              '
+              className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
             >
               <IconClear />
             </Button>

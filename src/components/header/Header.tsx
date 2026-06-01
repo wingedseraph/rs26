@@ -1,97 +1,70 @@
+import { useState } from 'react'
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { Link, useNavigate, useOutlet, useSearchParams } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
+import { artworkApi, byIdTag, byQueryTag } from '@/api/services/artwork'
 import { CombinedInput } from '@/components/combined-input/CombinedInput'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { usePage } from '@/hooks/usePage'
 import { useTheme } from '@/hooks/useTheme'
+import { cn } from '@/lib/utilities'
 import { PATH } from '@/router'
+import { useAppDispatch } from '@/store'
 
-type HeaderProperties = {
-  onChange: (event_: ChangeEvent<HTMLInputElement>) => void
-  clearQuery: () => void
-  query: string
-}
+export const baseHeaderStyle = `
+  absolute right-0 text-header-about z-10 cursor-pointer rounded-xl p-1 text-stone-5 outline-hidden transition-colors
+  hover:bg-stone-6
+  focus-visible:ring-1 focus-visible:ring-black
+`
 
-function Header({ onChange, clearQuery, query }: HeaderProperties) {
-  const [searchParameters] = useSearchParams()
-  const pageParameters = Number(searchParameters.get('page'))
+function Header() {
+  const store = useLocalStorage('')
+  const [value, setValue] = useState(store.value)
+
+  const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
+    setValue(event_.target.value)
+  }
+
+  const pageParameters = usePage()
   const theme = useTheme()
-  const outlet = useOutlet()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const onSubmit = (event_: SyntheticEvent) => {
     event_.preventDefault()
+    store.setValue(value)
     void navigate('?page=1')
   }
 
   return (
     <form
       onSubmit={onSubmit}
-      className='
-        flex w-full flex-col items-center justify-between pt-4 pb-2 font-sans
-      '
+      className='flex w-full flex-col items-center justify-between pt-4 pb-2 font-sans'
     >
-      <h1>
-        An inspiration engine for ideas
-      </h1>
-
-      <Link
-        viewTransition
-        to={PATH.about}
-        className='
-          text-header-about absolute top-0 right-0 rounded-xl p-1 text-stone-5
-          outline-hidden transition-colors
-          hover:bg-stone-6
-          focus-visible:ring-1 focus-visible:ring-black
-        '
-      >
-        about
-      </Link>
-
-      <Link
-        viewTransition
-        to={PATH.error}
-        className='
-          text-header-about absolute top-8 right-0 rounded-xl p-1 text-stone-5
-          outline-hidden transition-colors
-          hover:bg-stone-6
-          focus-visible:ring-1 focus-visible:ring-black
-        '
-      >
-        error
-      </Link>
+      <h1> An inspiration engine for ideas </h1>
+      <Link viewTransition to={PATH.about} className={cn(baseHeaderStyle, 'top-0')}> about </Link>
+      <Link viewTransition to={PATH.error} className={cn(baseHeaderStyle, 'top-8')}> error </Link>
 
       <button
         type='button'
         onClick={() => theme.setTheme(theme.value === 'light' ? 'dark' : 'light')}
-        className='
-          text-header-about absolute top-16 right-0 rounded-xl p-1 text-stone-5
-          outline-hidden transition-colors
-          hover:bg-stone-6
-          focus-visible:ring-1 focus-visible:ring-black
-        '
+        className={cn(baseHeaderStyle, `top-16`)}
       >
         {theme.value === 'light' ? 'dark' : 'light'}
       </button>
 
-      {outlet
-        && (
-          <Link
-            viewTransition
-            to={{
-              pathname: PATH.index,
-              search: `page=${pageParameters}`,
-            }}
-            className='
-              text-header-about absolute top-24 right-0 rounded-xl p-1
-              text-stone-5 outline-hidden transition-colors
-              hover:bg-stone-6
-              focus-visible:ring-1 focus-visible:ring-black
-            '
-          >
-            close outlet
-          </Link>
-        )}
+      <button type='button' className={cn(baseHeaderStyle, 'top-24')} onClick={() => dispatch(artworkApi.util.invalidateTags([byQueryTag]))}> revalidate getByQuery cache </button>
+      <button type='button' className={cn(baseHeaderStyle, 'top-32')} onClick={() => dispatch(artworkApi.util.invalidateTags([byIdTag]))}> revalidate getById cache </button>
 
-      <CombinedInput onChange={onChange} clearQuery={clearQuery} query={query} />
+      <Link
+        viewTransition
+        to={{ pathname: PATH.index, search: `page=${pageParameters}` }}
+        className={cn(baseHeaderStyle, `top-40 hidden outlet:block`)}
+      >
+        close outlet
+      </Link>
+
+      <CombinedInput role='textbox' onChange={onChange} clearQuery={() => setValue('')} query={value} />
     </form>
   )
 }

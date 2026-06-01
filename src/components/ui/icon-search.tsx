@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utilities'
 
-export function IconSearch({ className, ...properties }: ComponentProps<'svg'>) {
+function IconSearch({ className, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
@@ -22,3 +22,5 @@ export function IconSearch({ className, ...properties }: ComponentProps<'svg'>) 
     </svg>
   )
 }
+
+export { IconSearch }

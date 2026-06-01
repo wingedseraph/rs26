@@ -48,9 +48,9 @@ describe('CombinedInput', () => {
     it('должен вызвать onChange при вводе текста', async () => {
       const { onChange } = renderCombinedInput()
 
-      await userEvent.type(screen.getByPlaceholderText('Find'), 'a')
+      await userEvent.type(screen.getByPlaceholderText('Find'), 'Paris')
 
-      expect(onChange).toHaveBeenCalledTimes(1)
+      expect(onChange).toHaveBeenCalledTimes(5)
     })
 
     it('должен вызвать clearQuery при клике на кнопку очистки', async () => {

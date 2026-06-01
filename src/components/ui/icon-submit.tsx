@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react'
 
 import { cn } from '@/lib/utilities'
 
-export function IconSubmit({ className, ...properties }: ComponentProps<'svg'>) {
+function IconSubmit({ className, ...properties }: ComponentProps<'svg'>) {
   return (
     <svg
       fill='currentColor'
@@ -23,3 +23,4 @@ export function IconSubmit({ className, ...properties }: ComponentProps<'svg'>) 
     </svg>
   )
 }
+export { IconSubmit }

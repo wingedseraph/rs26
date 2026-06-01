@@ -1,11 +1,11 @@
-import { createBrowserRouter } from 'react-router'
+import { createBrowserRouter, redirect } from 'react-router'
+import type { LoaderFunctionArgs } from 'react-router'
 
 import { App } from '@/App'
 import { AboutPage } from '@/components/about-page/AboutPage'
 import { CardDetailed } from '@/components/card-detailed/CardDetailed'
 import ErrorPage from '@/components/error-page/ErrorPage'
 import { Layout } from '@/components/layout/Layout'
-import { loaderGetAllCards, loaderGetOneCard } from '@/router-loader'
 
 export const PATH = {
   index: '/',
@@ -21,12 +21,19 @@ export const routes
     children: [
       {
         path: PATH.index,
-        loader: loaderGetAllCards,
         element: <App />,
+        loader: ({ request }: LoaderFunctionArgs) => {
+          const parameters = new URL(request.url.toString()).searchParams
+
+          if (parameters.get('page') === null) {
+            return redirect('?page=1')
+          }
+
+          return null
+        },
         children: [
           {
             path: PATH.cardDetailed,
-            loader: loaderGetOneCard,
             element: <CardDetailed />,
           },
         ],

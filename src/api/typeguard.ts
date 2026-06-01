@@ -43,7 +43,7 @@ export function isValidResponse(data: unknown): data is ValidResponse {
   return (
     isObject(data)
     && 'records' in data && isArray(data.records, isValidCard)
-    && 'info' in data && isObject(data.info) && 'record_count' in data.info && 'record_count' in data.info && Number.isInteger(data.info.record_count)
+    && 'info' in data && isObject(data.info) && 'record_count' in data.info && Number.isInteger(data.info.record_count)
   )
 }
 

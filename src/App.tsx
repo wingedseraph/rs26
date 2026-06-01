@@ -1,63 +1,58 @@
-import type { ChangeEvent } from 'react'
-import { Outlet, useLoaderData, useOutlet, useSearchParams } from 'react-router'
+import { Outlet, useOutlet } from 'react-router'
 
-import type { getByQueryArtwork } from '@/api/api'
-
+import { useGetArtworkByNameQuery } from '@/api/services/artwork'
 import { CardList } from '@/components/card-list/CardList'
+import ErrorPage from '@/components/error-page/ErrorPage'
 import { Flyout } from '@/components/flyout/Flyout'
-import { Header } from '@/components/header/Header'
+import { baseHeaderStyle, Header } from '@/components/header/Header'
+import { baseStyleDetailed, outletStyleDetailed } from '@/components/layout/Layout'
 import { Pagination } from '@/components/pagination/Pagination'
+import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { usePage } from '@/hooks/usePage'
+import { cn } from '@/lib/utilities'
+import { FALLBACK_CARDS } from '@/mocks/mocks'
 
 function App() {
-  const [searchParameters] = useSearchParams()
-  const pageParameters = Number(searchParameters.get('page'))
-  const page = pageParameters > 0 ? pageParameters : 1
+  const page = usePage()
 
-  const { value, setValue } = useLocalStorage('')
+  const query = useLocalStorage('')
   const outlet = useOutlet()
+  const { data, isLoading, isError, refetch } = useGetArtworkByNameQuery({ query: query.value, page })
 
-  const { records, recordsCount } = useLoaderData<typeof getByQueryArtwork>()
-
-  const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
-    setValue(event_.target.value)
+  if (isLoading) {
+    return <Spinner />
   }
 
+  if (isError || !data) {
+    return (
+      <ErrorPage>
+        <Button className={cn(baseHeaderStyle, 'relative p-10 text-4xl hover:no-underline')} onClick={() => refetch()}>
+          Refetch data
+        </Button>
+      </ErrorPage>
+    )
+  }
+
+  const records = data.records
+  const recordsCount = data.info.record_count
+
   return (
-    <div className={`
-      flex items-center justify-center gap-20
-      ${outlet
-      ? `
-        mx-0 w-screen flex-col
-        md:mx-20 md:flex-row
-      `
-      : `mx-auto`}
-    `}
-    >
-      <div className={`
-        ${outlet ? 'flex-1' : 'max-w-3xl'}
-      `}
+    <>
+      <div
+        className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}
       >
-        <Header onChange={onChange} clearQuery={() => setValue('')} query={value} />
-        <CardList data={records} page={page} />
-        <Pagination page={page ?? 1} recordsCount={recordsCount} />
+        <Header />
+        <CardList data={records ?? FALLBACK_CARDS} page={page} />
+        <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />
       </div>
 
-      <div className={`
-        transition-all duration-300
-        ${outlet
-      ? `
-        flex w-full items-center justify-center
-        md:relative md:w-1/2
-      `
-      : `hidden`}
-      `}
-      >
+      <div className={cn(baseStyleDetailed, { [outletStyleDetailed]: outlet })}>
         <Outlet />
       </div>
-
-    </div>
+    </>
   )
 }
 

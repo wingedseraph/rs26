@@ -14,7 +14,7 @@ export const CARD_WITH_PRIMARY_TITLE_MOCK = [
     objectType: 'Secondary Title',
     _primaryTitle: 'Primary Title',
     _images: {
-      _iiif_image_base_url: 'example.com',
+      _iiif_image_base_url: 'example.com/',
     },
   },
 ]

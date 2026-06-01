@@ -1,11 +1,14 @@
 import { PureComponent } from 'react'
 import type { ReactNode } from 'react'
 
+import ErrorPage from '@/components/error-page/ErrorPage'
+
 type Properties = {
   children: ReactNode
 }
 
 type State = {
+  errorMessage: string
   hasError: boolean
 }
 
@@ -15,7 +18,7 @@ export class ErrorBoundary extends PureComponent<
 > {
   constructor(properties: Properties) {
     super(properties)
-    this.state = { hasError: false }
+    this.state = { errorMessage: '', hasError: false }
   }
 
   static getDerivedStateFromError() {
@@ -24,14 +27,13 @@ export class ErrorBoundary extends PureComponent<
 
   componentDidCatch(error: Error) {
     console.warn(error)
+    this.setState({ errorMessage: error.stack ?? error.message })
   }
 
   render(): ReactNode {
     if (this.state.hasError) {
       return (
-        <div className='flex min-h-screen items-center justify-center p-4'>
-          <h1>Something went wrong</h1>
-        </div>
+        <ErrorPage errorMessage={this.state.errorMessage} />
       )
     }
 
