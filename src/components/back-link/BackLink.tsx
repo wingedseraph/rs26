@@ -13,7 +13,7 @@ function BackLink() {
           inline-block w-fit shrink-0 rounded-full bg-white p-1 text-silver-icon shadow-cloud outline-hidden
           transition-colors
           hover:text-black-tisa
-          data-focus-visible:ring-1 data-focus-visible:ring-black
+          focus-visible:ring-1 focus-visible:ring-black
         '
       >
         <IconArrowBold />
