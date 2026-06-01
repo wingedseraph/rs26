@@ -1,16 +1,17 @@
 import { MemoryRouter } from 'react-router'
 
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 
 import { ThemeContextProvider } from '@/components/context/ThemeContext'
 import { Header } from '@/components/header/Header'
+import { renderWithProviders } from '@/mocks/setupStore'
 
 function renderHeader() {
   const setQuery = vi.fn()
 
-  render(
+  renderWithProviders(
     <MemoryRouter>
       <ThemeContextProvider>
         <Header />
