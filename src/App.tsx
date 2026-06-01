@@ -1,36 +1,42 @@
-import { Outlet, useOutlet, useSearchParams } from 'react-router'
+import { Outlet, useOutlet } from 'react-router'
 
 import { useGetArtworkByNameQuery } from '@/api/services/artwork'
 import { CardList } from '@/components/card-list/CardList'
 import ErrorPage from '@/components/error-page/ErrorPage'
 import { Flyout } from '@/components/flyout/Flyout'
-import { Header } from '@/components/header/Header'
+import { baseHeaderStyle, Header } from '@/components/header/Header'
 import { baseStyleDetailed, outletStyleDetailed } from '@/components/layout/Layout'
 import { Pagination } from '@/components/pagination/Pagination'
+import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { usePage } from '@/hooks/usePage'
 import { cn } from '@/lib/utilities'
 import { FALLBACK_CARDS } from '@/mocks/mocks'
 
 function App() {
-  const [searchParameters] = useSearchParams()
-  const pageParameters = searchParameters.get('page') ?? '1'
-  const page = Number(pageParameters) > 0 ? pageParameters : '1'
+  const page = usePage()
 
   const query = useLocalStorage('')
   const outlet = useOutlet()
-  const { data, isLoading, isError } = useGetArtworkByNameQuery({ query: query.value, page })
+  const { data, isLoading, isError, refetch } = useGetArtworkByNameQuery({ query: query.value, page })
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (isError) {
-    return <ErrorPage />
+  if (isError || !data) {
+    return (
+      <ErrorPage>
+        <Button className={cn(baseHeaderStyle, 'relative p-10 text-4xl hover:no-underline')} onClick={() => refetch()}>
+          Refetch data
+        </Button>
+      </ErrorPage>
+    )
   }
 
-  const records = data?.records
-  const recordsCount = data?.info.record_count
+  const records = data.records
+  const recordsCount = data.info.record_count
 
   return (
     <>
