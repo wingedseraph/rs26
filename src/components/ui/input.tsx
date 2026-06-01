@@ -6,7 +6,7 @@ function Input({ type, className, ...properties }: ComponentProps<'input'>) {
   return (
     <input
       type={type}
-      slot='input'
+      data-slot='input'
       className={
         cn(
           `
