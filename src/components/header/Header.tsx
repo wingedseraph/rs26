@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { ChangeEvent, SyntheticEvent } from 'react'
-import { Link, useNavigate, useOutlet } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 import { artworkApi, byIdTag, byQueryTag } from '@/api/services/artwork'
 import { CombinedInput } from '@/components/combined-input/CombinedInput'
@@ -12,7 +12,7 @@ import { PATH } from '@/router'
 import { useAppDispatch } from '@/store'
 
 export const baseHeaderStyle = `
-  text-header-about absolute right-0 z-10 cursor-pointer rounded-xl p-1 text-stone-5 outline-hidden transition-colors
+  absolute right-0 text-header-about z-10 cursor-pointer rounded-xl p-1 text-stone-5 outline-hidden transition-colors
   hover:bg-stone-6
   focus-visible:ring-1 focus-visible:ring-black
 `
@@ -27,7 +27,6 @@ function Header() {
 
   const pageParameters = usePage()
   const theme = useTheme()
-  const outlet = useOutlet()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -57,16 +56,13 @@ function Header() {
       <button type='button' className={cn(baseHeaderStyle, 'top-24')} onClick={() => dispatch(artworkApi.util.invalidateTags([byQueryTag]))}> revalidate getByQuery cache </button>
       <button type='button' className={cn(baseHeaderStyle, 'top-32')} onClick={() => dispatch(artworkApi.util.invalidateTags([byIdTag]))}> revalidate getById cache </button>
 
-      {outlet
-        && (
-          <Link
-            viewTransition
-            to={{ pathname: PATH.index, search: `page=${pageParameters}` }}
-            className={cn(baseHeaderStyle, `top-40`)}
-          >
-            close outlet
-          </Link>
-        )}
+      <Link
+        viewTransition
+        to={{ pathname: PATH.index, search: `page=${pageParameters}` }}
+        className={cn(baseHeaderStyle, `top-40 hidden outlet:block`)}
+      >
+        close outlet
+      </Link>
 
       <CombinedInput role='textbox' onChange={onChange} clearQuery={() => setValue('')} query={value} />
     </form>
