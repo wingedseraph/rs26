@@ -10,7 +10,7 @@ type CardListFooterProperties = {
 } & ComponentProps<'button'>
 
 const baseStyle = `
-  relative block h-7 w-full cursor-default justify-between overflow-hidden rounded-full border-silver-lighter-cloud
+  relative block h-7 w-full cursor-pointer justify-between overflow-hidden rounded-full border-silver-lighter-cloud
   bg-silver-frost p-1 py-0.5 pl-2 text-sm font-medium text-stone-3 transition-transform
   hover:bg-stone-6 hover:no-underline
   active:bg-silver-lighter-cloud

@@ -33,7 +33,6 @@ export const artworkApi = createApi({
       providesTags: [byQueryTag],
       transformResponse: async (response) => {
         if (!isValidResponse(response)) {
-          // todo neverthrow
           throw new Error('error in typeguard')
         }
         return response
@@ -46,7 +45,6 @@ export const artworkApi = createApi({
       providesTags: [byIdTag],
       transformResponse: async (response) => {
         if (!isValidResponseSingleItem(response)) {
-          // todo neverthrow
           throw new Error('error in typeguard')
         }
         return response

@@ -19,7 +19,7 @@ function CardDetailed() {
   }
 
   if (!data || isError || !data.record) {
-    return <h2>no data</h2>
+    return <h2>Failed to load artwork</h2>
   }
 
   return (
