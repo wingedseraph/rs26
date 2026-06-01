@@ -1,6 +1,31 @@
 @import 'tailwindcss';
+@utility appear {
+    animation: appear 0.5s ease-in;
+  }
+
+  @utility button-animation {
+    animation: button-animation 0.3s ease-out;
+  }
+
+  @utility text-cta-about {
+    @apply tracking-normal text-[2.875rem] leading-[0.87];
+    font-feature-settings: 'ss09' 1;
+  }
+
+  @utility text-header-about {
+    z-index: 99;
+    letter-spacing: 0;
+    font-variation-settings:
+      'CONT' 50,
+      'OPEN' 50,
+      'TRAK' -10,
+      'wght' 400;
+    font-size: 1.125rem;
+    line-height: 1.11;
+  }
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant outlet (&:where(.outlet, .outlet *));
 @theme {
   --color-light: #fafbfc;
   --color-black-tisa: #404040;
@@ -119,7 +144,8 @@
     --color-stone-5: #575e68;
     --color-stone-6: #21262d;
     --color-green-2: #2d5a1a;
-    --shadow-cloud: 0px 16px 32px 0px #0000004d, 0px 6px 16px 0px #00000026, 0px 1px 4px 0px #0000001a;
+    --shadow-cloud:
+      0px 16px 32px 0px #0000004d, 0px 6px 16px 0px #00000026, 0px 1px 4px 0px #0000001a;
     --shadow-float: 0px 10px 50px 0px #0006;
     --shadow-card: 0px 1px 5px 0px #0000004d;
     --shadow-card-hover: 0px 3px 15px 0px #0006;
@@ -142,7 +168,7 @@
   }
 
   body ::selection {
-    @apply bg-green-2
+    @apply bg-green-2;
   }
 
   input[type='search']::-webkit-search-decoration,
@@ -169,12 +195,6 @@
     margin: 0;
   }
 
-  .appear {
-    animation: appear 0.5s ease-in;
-  }
-  .button-animation {
-    animation: button-animation 0.3s ease-out;
-  }
 
   #center {
     display: flex;
@@ -194,17 +214,7 @@
   body {
     @apply bg-light font-sans text-black m-0;
   }
-  .text-cta-about {
-    @apply tracking-normal text-[2.875rem] leading-[0.87];
-    font-feature-settings: 'ss09' 1;
-  }
-  .text-header-about {
-    z-index: 99;
-    letter-spacing: 0;
-    font-variation-settings: "CONT" 50, "OPEN" 50, "TRAK" -10, "wght" 400;
-      font-size: 1.125rem;
-      line-height: 1.11;
-  }
+
   .line-clamp-3 {
     @apply overflow-hidden;
     display: -webkit-box;
