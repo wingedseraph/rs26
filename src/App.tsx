@@ -40,7 +40,9 @@ function App() {
 
   return (
     <>
-      <div className={`${outlet ? 'flex-1' : 'max-w-3xl'}`}>
+      <div
+        className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}
+      >
         <Header />
         <CardList data={records ?? FALLBACK_CARDS} page={page} />
         <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
