@@ -14,7 +14,7 @@ export const byQueryTag = 'ArtworkByQuery'
 export const byIdTag = 'ArtworkById'
 
 export const artworkApi = createApi({
-  keepUnusedDataFor: Number(import.meta.env.VITE_TTL) ?? 20,
+  keepUnusedDataFor: Number.isFinite(Number(import.meta.env.VITE_TTL)) ? Number(import.meta.env.VITE_TTL) : 20,
   tagTypes: ['ArtworkByQuery', 'ArtworkById'],
   reducerPath: 'artworkApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE }),

@@ -54,8 +54,8 @@ function Header() {
         {theme.value === 'light' ? 'dark' : 'light'}
       </button>
 
-      <button className={cn(baseHeaderStyle, 'top-24')} onClick={() => dispatch(artworkApi.util.invalidateTags([byQueryTag]))}> revalidate getByQuery cache </button>
-      <button className={cn(baseHeaderStyle, 'top-32')} onClick={() => dispatch(artworkApi.util.invalidateTags([byIdTag]))}> revalidate getById cache </button>
+      <button type='button' className={cn(baseHeaderStyle, 'top-24')} onClick={() => dispatch(artworkApi.util.invalidateTags([byQueryTag]))}> revalidate getByQuery cache </button>
+      <button type='button' className={cn(baseHeaderStyle, 'top-32')} onClick={() => dispatch(artworkApi.util.invalidateTags([byIdTag]))}> revalidate getById cache </button>
 
       {outlet
         && (

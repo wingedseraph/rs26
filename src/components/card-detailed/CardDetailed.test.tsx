@@ -35,7 +35,7 @@ describe('CardDetailed', () => {
     it('должен отобразить error при ошибке запроса', async () => {
       renderCardDetailed(ERROR_ID)
 
-      const fallback = await screen.findByText('Failed to load artwork')
+      const fallback = await screen.findByRole('heading', { name: 'Failed to load artwork' })
 
       expect(fallback).toBeInTheDocument()
     })

@@ -4,7 +4,6 @@ import type { ReactNode } from 'react'
 import ErrorPage from '@/components/error-page/ErrorPage'
 
 type Properties = {
-  key: string
   children: ReactNode
 }
 
