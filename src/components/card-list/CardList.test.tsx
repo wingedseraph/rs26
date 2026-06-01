@@ -14,7 +14,7 @@ function renderCardList(data: Parameters<typeof CardList>[0]['data']) {
   return render(
     <Provider store={store}>
       <MemoryRouter>
-        <CardList data={data} page={1} />
+        <CardList data={data} page='1' />
       </MemoryRouter>
     </Provider>,
   )
@@ -30,10 +30,16 @@ describe('CardList', () => {
   })
 
   describe('Данные получены', () => {
-    it('должен отобразить основной заголовок карточки', () => {
+    it('должен отобразить все свойства карточки', () => {
       renderCardList(CARD_WITH_PRIMARY_TITLE_MOCK)
 
-      expect(screen.getByRole('heading', { name: 'Primary Title' })).toBeInTheDocument()
+      const heading = screen.getByRole('heading', { name: 'Primary Title' })
+      const link = screen.getByRole('link')
+      const img = screen.getByRole('img')
+
+      expect(heading).toBeInTheDocument()
+      expect(link).toHaveAttribute('href', '/card/1?page=1')
+      expect(img).toHaveAttribute('src', 'example.com/full/!600,600/0/default.jpg')
     })
 
     it('должен отобразить тип объекта если основной заголовок пуст', () => {
