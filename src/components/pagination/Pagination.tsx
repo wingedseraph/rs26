@@ -26,6 +26,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
         <Link
           to={{ search: `page=${pageNumber - 1}` }}
           aria-disabled={pageNumber === 1}
+          tabIndex={firstPage ? -1 : undefined}
           className={cn(baseStyle, { 'pointer-events-none': firstPage })}
         >
           <IconArrow className={cn('size-7 rotate-90 cursor-pointer p-0.5 text-stone-2', { 'text-stone-5': firstPage })} />
@@ -37,6 +38,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
 
         <Link
           to={{ search: `page=${pageNumber + 1}` }}
+          tabIndex={lastPage ? -1 : undefined}
           aria-disabled={lastPage}
           className={cn(baseStyle, { 'pointer-events-none': lastPage })}
         >
