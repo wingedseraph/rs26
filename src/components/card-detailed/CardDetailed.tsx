@@ -5,7 +5,7 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { useGetArtworkByIdQuery } from '@/api/services/artwork'
 
 const cardBaseStyle = `
-  appear relative size-full h-fit max-h-200 cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
+  relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
   transition-shadow duration-200
   hover:shadow-card-hover
 `

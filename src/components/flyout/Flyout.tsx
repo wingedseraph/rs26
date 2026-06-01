@@ -31,7 +31,7 @@ function Flyout() {
 
   return (
     <nav className='
-      appear fixed bottom-4 left-4 z-40 flex justify-center rounded-xl bg-stone-6 p-2 shadow-cloud transition-transform
+      fixed bottom-4 left-4 z-40 flex appear justify-center rounded-xl bg-stone-6 p-2 shadow-cloud transition-transform
       max-sm:data-hidden:translate-y-[calc(100%+var(--mobile-main-layout-padding)*2)]
       sm:w-74 sm:bg-stone-5/20 sm:backdrop-blur-xl
     '

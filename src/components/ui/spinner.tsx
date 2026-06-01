@@ -8,10 +8,10 @@ type SpinnerProperties = Omit<ComponentProps<'span'>, 'children'> & {
 
 function Spinner({ children, className, ...properties }: SpinnerProperties) {
   return (
-    <div className='appear fixed inset-0 z-50 backdrop-blur-md'>
+    <div className='fixed inset-0 z-50 appear backdrop-blur-md'>
       <div className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
         <span
-          className={cn('appear inline-block animate-pulse font-medium', className)}
+          className={cn('inline-block animate-pulse font-medium', className)}
           role='status'
           aria-live='polite'
           {...properties}
