@@ -84,10 +84,7 @@ export default antfu({
       'error',
       {
         ignore: [
-          'appear',
-          'button-animation',
-          'text-cta-about',
-          'text-header-about',
+          'outlet',
         ],
       },
     ],
