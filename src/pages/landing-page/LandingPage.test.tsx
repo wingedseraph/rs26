@@ -7,15 +7,28 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import type { AppStore } from '@/store'
 
-import { BASE } from '@/api/api'
-import { STORAGE } from '@/api/localStorage'
+import { BASE } from '@/api/artwork'
 import { ThemeContextProvider } from '@/context/ThemeContext'
+import { STORAGE } from '@/lib/localStorage'
 import { server } from '@/mocks/node'
 import { renderWithProviders } from '@/mocks/setupStore'
-import { routes } from '@/router'
+import { LandingPage } from '@/pages/landing-page/LandingPage'
+import { PATH } from '@/router'
+import { Layout } from '@/widgets/layout/Layout'
+
+const routes
+  = [{
+    element: <Layout />,
+    children: [
+      {
+        path: PATH.index,
+        element: <LandingPage />,
+      },
+    ],
+  }]
 
 function renderApp(store?: AppStore) {
-  const router = createMemoryRouter(routes, { initialEntries: ['/'] })
+  const router = createMemoryRouter(routes, { initialEntries: ['/?page=1'] })
   return renderWithProviders(
     <ThemeContextProvider>
       <RouterProvider router={router} />
