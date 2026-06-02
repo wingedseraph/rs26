@@ -1,14 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import type { ValidResponse, ValidResponseSingleCard } from '@/api/typeguard'
+import type { ValidResponse, ValidResponseSingleCard } from '@/api/types'
 
-import { BASE, IMAGES_EXIST, PAGE_SIZE } from '@/api/api'
 import { isValidResponse, isValidResponseSingleItem } from '@/api/typeguard'
 
 type Arguments = {
   query: string
   page: string
 }
+
+export const BASE = 'https://api.vam.ac.uk/v2'
+export const PAGE_SIZE = '6'
+export const IMAGES_EXIST = '1'
 
 export const byQueryTag = 'ArtworkByQuery'
 export const byIdTag = 'ArtworkById'
