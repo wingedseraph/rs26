@@ -8,7 +8,7 @@ function IconSubmit({ className, ...properties }: ComponentProps<'svg'>) {
       fill='currentColor'
       width={30}
       height={30}
-      className={cn('size-6 text-silver-icon', className)}
+      className={cn('size-6 text-stone-4', className)}
       role='img'
       aria-label='Submit search'
       viewBox='0 0 30 30'

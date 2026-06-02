@@ -8,7 +8,7 @@ function IconPlus({ className, ...properties }: ComponentProps<'svg'>) {
       fill='currentColor'
       width={30}
       height={30}
-      className={cn('h-5 w-5 p-0.5 text-silver-warm-2', className)}
+      className={cn('h-5 w-5 p-0.5 text-stone-4', className)}
       aria-hidden='true'
       viewBox='0 0 30 30'
       {...properties}

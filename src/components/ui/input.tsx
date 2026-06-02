@@ -11,7 +11,7 @@ function Input({ type, className, ...properties }: ComponentProps<'input'>) {
         cn(
           `
             min-w-0 flex-1 rounded-full border-none bg-silver-field py-3 pr-7 pl-0.5 text-base font-semibold
-            placeholder:text-silver-font
+            placeholder:text-stone-3
             focus:ring-0 focus:outline-none
           `,
           className,
