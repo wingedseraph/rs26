@@ -1,8 +1,8 @@
 import { createContext, useLayoutEffect } from 'react'
 import type { ReactNode } from 'react'
 
-import { STORAGE_THEME } from '@/api/localStorage'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { STORAGE_THEME } from '@/lib/localStorage'
 
 type Theme = 'light' | 'dark'
 

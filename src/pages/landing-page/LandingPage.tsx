@@ -1,6 +1,6 @@
 import { Outlet, useOutlet } from 'react-router'
 
-import { useGetArtworkByNameQuery } from '@/api/services/artwork'
+import { useGetArtworkByNameQuery } from '@/api/artwork'
 import { Pagination } from '@/components/pagination/Pagination'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'

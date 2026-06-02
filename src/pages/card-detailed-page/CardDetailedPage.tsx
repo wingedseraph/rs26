@@ -2,7 +2,7 @@ import { useParams } from 'react-router'
 
 import { skipToken } from '@reduxjs/toolkit/query'
 
-import { useGetArtworkByIdQuery } from '@/api/services/artwork'
+import { useGetArtworkByIdQuery } from '@/api/artwork'
 
 const cardBaseStyle = `
   relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card

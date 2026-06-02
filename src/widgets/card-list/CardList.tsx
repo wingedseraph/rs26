@@ -1,4 +1,4 @@
-import type { Card } from '@/api/typeguard'
+import type { Card } from '@/api/types'
 
 import { CardItem } from '@/widgets/card-list/CardItem'
 

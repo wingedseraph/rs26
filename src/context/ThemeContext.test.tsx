@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { afterEach, describe, expect, it } from 'vitest'
 
-import { STORAGE_THEME } from '@/api/localStorage'
 import { ThemeContextProvider } from '@/context/ThemeContext'
 import { useTheme } from '@/hooks/useTheme'
+import { STORAGE_THEME } from '@/lib/localStorage'
 
 function ThemeDisplay() {
   const theme = useTheme()

@@ -1,4 +1,4 @@
-import type { Card } from '@/api/typeguard'
+import type { Card } from '@/api/types'
 
 export function cardToCsv(card: Card[]) {
   const header = 'id,name,description,details URL'

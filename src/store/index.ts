@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import { artworkApi } from '@/api/services/artwork'
+import { artworkApi } from '@/api/artwork'
 import { selectedCards } from '@/store/slices/selectedCardsSlice'
 
 const rootReducer = combineReducers({

@@ -1,4 +1,4 @@
-import type { Card, ValidResponse, ValidResponseSingleCard } from '@/api/typeguard'
+import type { Card, ValidResponse, ValidResponseSingleCard } from '@/api/types'
 
 export const SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK = {
   systemNumber: 1,

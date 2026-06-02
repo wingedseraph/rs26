@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { Card } from '@/api/typeguard'
+import type { Card } from '@/api/types'
 
 type selectedCardsStore = Record<number, Card>
 
