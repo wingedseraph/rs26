@@ -4,8 +4,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
 import { artworkApi } from '@/api/artwork'
 import { selectedCards } from '@/store/slices/selectedCardsSlice'
+import { submissions } from '@/store/slices/submissionsSlice'
 
 const rootReducer = combineReducers({
+  submissions: submissions.reducer,
   selectedCards: selectedCards.reducer,
   [artworkApi.reducerPath]: artworkApi.reducer,
 })
@@ -28,7 +30,5 @@ export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()
-
-export const { toggleOne, removeAll } = selectedCards.actions
 
 export default store
