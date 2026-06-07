@@ -2,7 +2,8 @@ import { Link } from 'react-router'
 
 import type { Card } from '@/api/types'
 
-import { toggleOne, useAppDispatch, useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { toggleOne } from '@/store/slices/selectedCardsSlice'
 import { CardListFooter } from '@/widgets/card-list/CardListFooter'
 
 type CardItemProperties = {

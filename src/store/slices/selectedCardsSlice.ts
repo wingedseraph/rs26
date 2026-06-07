@@ -25,3 +25,5 @@ export const selectedCards = createSlice({
     removeAll() { return initialState },
   },
 })
+
+export const { toggleOne, removeAll } = selectedCards.actions

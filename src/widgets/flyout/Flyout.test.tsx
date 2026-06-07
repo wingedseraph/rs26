@@ -5,7 +5,8 @@ import { userEvent } from '@testing-library/user-event'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { CARD_WITH_PRIMARY_TITLE_MOCK } from '@/mocks/mocks'
-import store, { removeAll, toggleOne } from '@/store'
+import store from '@/store'
+import { removeAll, toggleOne } from '@/store/slices/selectedCardsSlice'
 
 import { Flyout } from './Flyout'
 

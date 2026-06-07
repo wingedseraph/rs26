@@ -85,6 +85,11 @@ export default antfu({
       {
         ignore: [
           'outlet',
+          'collapsible',
+          'masonry',
+          'ac-wrap',
+          'cb-icon',
+          'cb-icon-checked',
         ],
       },
     ],

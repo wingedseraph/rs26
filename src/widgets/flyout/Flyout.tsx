@@ -2,7 +2,8 @@ import { useRef } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { cardToCsv } from '@/lib/cardToCsv'
-import { removeAll, useAppDispatch, useAppSelector } from '@/store'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { removeAll } from '@/store/slices/selectedCardsSlice'
 
 function Flyout() {
   const dispatch = useAppDispatch()
