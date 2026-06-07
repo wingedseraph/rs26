@@ -1,0 +1,256 @@
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+     interpolate-size: allow-keywords;
+   }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  :focus-visible {
+    @apply outline-2 outline-stone-6 outline-offset-2;
+  }
+
+  body ::selection {
+    @apply bg-green-2;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .ac-wrap input::-webkit-calendar-picker-indicator {
+    display: none !important;
+    -webkit-appearance: none;
+  }
+  .ac-wrap input::-webkit-list-button {
+    display: none !important;
+  }
+
+  .seg-item input {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .seg-item:has(input:checked) {
+    @apply bg-stone-6 text-stone-1;
+  }
+  .seg-item:has(input:focus-visible) {
+    @apply outline-2 outline-stone-6 outline-offset-2;
+  }
+
+  .cb-row:has(input:focus-visible) .cb-icon {
+    @apply outline-2 outline-stone-6 outline-offset-2;
+  }
+
+
+
+  .cb-row input[type='checkbox'] { @apply absolute opacity-0 inset-0 cursor-pointer; }
+  .cb-row .cb-icon { fill: none; stroke: var(--color-stone-1); stroke-width: 2; }
+  .cb-row .cb-icon-checked { display: none; }
+  .cb-row input:checked ~ .cb-icon { display: none; }
+  .cb-row input:checked ~ .cb-icon-checked { display: block; }
+  .cb-row input:focus-visible ~ .cb-icon { @apply outline-2 outline-stone-3 outline-offset-2; }
+}
+
+@layer components {
+  .masonry {
+    columns: 1;
+    column-gap: 28px;
+    max-width: 100%;
+
+    & > * {
+      break-inside: avoid;
+      margin-bottom: 28px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 580px) {
+      columns: 2;
+      & > * {
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+    @media (min-width: 1060px) {
+      columns: 3;
+    }
+
+    & > :nth-child(1) {
+      transform: rotate(-0.8deg);
+    }
+    & > :nth-child(2) {
+      transform: rotate(0.5deg) translateY(12px);
+    }
+    & > :nth-child(3) {
+      transform: rotate(-0.3deg) translateX(4px);
+    }
+    & > :nth-child(4) {
+      transform: rotate(1deg) translateY(-8px);
+    }
+    & > :nth-child(5) {
+      transform: rotate(-0.6deg) translateY(16px);
+    }
+    & > :nth-child(6) {
+      transform: rotate(0.4deg) translateX(-6px);
+    }
+    & > :nth-child(7) {
+      transform: rotate(-1deg) translateY(6px);
+    }
+    & > :nth-child(8) {
+      transform: rotate(0.7deg) translateY(-12px);
+    }
+    & > :nth-child(9) {
+      transform: rotate(-0.5deg) translateX(8px);
+    }
+    & > :nth-child(10) {
+      transform: rotate(0.3deg) translateY(10px);
+    }
+    & > *:hover {
+      transform: rotate(0deg) translateY(-2px);
+      @apply shadow-sm;
+    }
+  }
+}
+
+@utility form-card {
+  @apply rounded-2xl bg-white p-6 flex flex-col gap-3.5 max-w-80;
+  transition: box-shadow 0.6s, transform 0.6s;
+}
+
+@utility form-card-actions {
+  @apply rounded-2xl bg-silver-cloud p-6 flex flex-row items-center justify-end gap-3
+         transition-[box-shadow,transform] duration-600;
+}
+
+@utility form-card-label {
+  @apply text-base font-semibold text-stone-1 tracking-[-0.01em];
+}
+
+@utility form-card-hint {
+  @apply text-[13px] text-stone-3;
+}
+
+@utility form-card-error {
+  @apply text-[13px] text-error min-h-4.5;
+}
+
+@utility form-input {
+  @apply w-full appearance-none font-sans text-[15px] text-stone-1
+         bg-silver-frost border-[1.5px] border-transparent
+         rounded-sm-custom px-4 py-3
+         placeholder:text-stone-4
+         transition-colors duration-150
+         focus:outline-none focus:border-stone-5;
+}
+
+@utility form-input-pw {
+  @apply form-input pr-12;
+}
+
+@utility pw-toggle {
+  @apply absolute right-2 top-1
+         flex h-9 w-9 items-center justify-center
+         rounded-lg border-none bg-transparent
+         text-stone-4 cursor-pointer
+         transition-colors duration-150
+         hover:text-stone-2 hover:bg-stone-6;
+}
+
+@utility str-seg {
+  @apply h-1 flex-1 rounded-full bg-stone-6;
+}
+
+@utility seg-group {
+  @apply flex w-fit rounded-sm-custom
+         border-[1.5px] border-silver-lighter-cloud;
+}
+
+@utility seg-item {
+  @apply relative flex items-center justify-center
+         border-r border-silver-lighter-cloud bg-white
+         px-5 py-2.5 text-sm font-medium text-stone-3 cursor-pointer
+         transition-colors duration-150
+         last:border-r-0
+         first:rounded-l-[8.5px]
+         last:rounded-r-[8.5px]
+         hover:bg-stone-6;
+
+ &:has(input:checked) {
+    @apply bg-stone-6 text-stone-1;
+  }
+
+}
+
+@utility seg-item-active {
+  @apply bg-stone-6 text-stone-1;
+}
+
+@utility file-btn {
+  @apply inline-flex cursor-pointer items-center gap-2
+         whitespace-nowrap rounded-sm-custom
+         bg-silver-frost px-4 py-2.5 text-sm font-medium text-stone-2
+         transition-colors duration-150
+         hover:bg-stone-6;
+}
+
+@utility file-preview {
+  @apply flex items-center gap-2.5 rounded-xl bg-white p-3;
+}
+
+@utility file-remove {
+  @apply flex h-7 w-7 items-center justify-center
+         rounded-md border-none bg-transparent
+         text-stone-4 cursor-pointer
+         transition-colors duration-150
+         hover:text-stone-2 hover:bg-stone-6;
+}
+
+@utility cb-row {
+  @apply flex cursor-pointer items-center gap-2.5 text-[15px] text-stone-2;
+}
+
+@utility cb-icon {
+  @apply h-6 w-6 shrink-0 fill-none stroke-stone-1 stroke-2
+         transition-colors duration-200;
+}
+
+@utility btn-accept {
+  @apply inline-flex items-center justify-center
+         rounded-full border-[1.5px] border-stone-1 bg-stone-1
+         px-7 py-3 text-[15px] font-medium text-white cursor-pointer
+         transition-colors duration-150
+         hover:bg-stone-2 hover:border-stone-2
+         active:scale-[0.97]
+         disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none;
+}
+
+@utility btn-cancel {
+  @apply inline-flex items-center justify-center
+         rounded-full border-[1.5px] border-silver-lighter-cloud bg-white
+         px-7 py-3 text-[15px] font-medium text-stone-2 cursor-pointer
+         transition-colors duration-150
+         hover:bg-stone-6
+         active:scale-[0.97]
+         disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none;
+}
+
+@layer components {
+  .collapsible {
+    display: block;
+    overflow: clip;
+    max-height: 80px;
+    opacity: 1;
+    transition: max-height 1s var(--ease-resize), opacity 0.5s ease;
+  }
+
+  .collapsible.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+}
