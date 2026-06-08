@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 import { BackLink } from '@/components/ui/back-link'
-import { UncontrolledForm } from '@/pages/forms-page/forms/UncontrolledForms'
+import { RHFForm } from '@/pages/forms-page/forms/RHFForm'
+import { UncontrolledForm } from '@/pages/forms-page/forms/UncontrolledForm'
 import { Modal } from '@/pages/forms-page/Modal'
 import { useAppSelector } from '@/store'
 
@@ -30,7 +31,7 @@ function FormsPage() {
 
       <Modal isOpen={!!show} onClose={() => setShow(null)}>
         { show === 'uncontrolled' && <UncontrolledForm onClick={() => setShow(null)} /> }
-        { show === 'rhf' && 'rhf' }
+        { show === 'rhf' && <RHFForm onClick={() => setShow(null)} /> }
         {/* todo rhf form */}
       </Modal>
 

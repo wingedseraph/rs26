@@ -14,7 +14,7 @@ export type UserProfile = {
   gender: 'male' | 'female' | 'other'
 }
 
-export type Submissions = UserProfile[]
+type Submissions = UserProfile[]
 
 const initialState: Submissions = []
 

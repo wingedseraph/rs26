@@ -42,7 +42,7 @@ function UncontrolledForm({ ...properties }: ComponentProps<'button'>) {
   }
   return (
     <>
-      <h1 className='text-black/70 sm:text-8xl/30'>Form</h1>
+      <h1 className='text-black/70 sm:text-8xl/30'>Uncontrolled</h1>
 
       <form onSubmit={onSubmit}>
         <div className='masonry'>

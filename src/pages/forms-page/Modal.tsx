@@ -26,7 +26,7 @@ function Modal({ isOpen, children, className, ...properties }: ModalProperties) 
     <>
       {createPortal(
         <dialog
-          className={cn('m-auto appear rounded-3xl bg-silver-frost p-10 shadow-card xl:p-10 xl:px-8 xl:pb-20', className)}
+          className={cn('m-auto rounded-3xl bg-silver-frost p-10 shadow-card xl:p-10 xl:px-8 xl:pb-20', className)}
           ref={dialogRef}
           closedby='any'
           {...properties}

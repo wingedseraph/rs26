@@ -254,3 +254,23 @@
     opacity: 0;
   }
 }
+
+dialog {
+  transition: transform 0.8s;
+
+  @starting-style {
+    transform: scale(0.9);
+	}
+}
+
+
+
+dialog:open::backdrop {
+  backdrop-filter: blur(20px);
+}
+
+@starting-style {
+  dialog:open::backdrop {
+    backdrop-filter: none;
+  }
+}

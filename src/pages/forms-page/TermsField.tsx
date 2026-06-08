@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utilities'
 
 type TermsFieldProperties = {
-  hint?: string[]
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
 function TermsField({ hint, ...properties }: TermsFieldProperties) {

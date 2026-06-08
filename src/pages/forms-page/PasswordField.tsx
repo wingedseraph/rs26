@@ -5,7 +5,7 @@ import { cn } from '@/lib/utilities'
 type PasswordFieldProperties = {
   placeholder: string
   children: ReactNode
-  hint?: string[]
+  hint?: string[] | string
   strength?: boolean
 } & ComponentProps<'input'>
 

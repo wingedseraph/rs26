@@ -27,7 +27,7 @@ export function setupStore(preloadedState?: PreloadedState) {
 const store = setupStore()
 
 export type PreloadedState = Parameters<typeof rootReducer>[0]
-export type RootState = ReturnType<typeof rootReducer>
+type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()

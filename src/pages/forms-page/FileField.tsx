@@ -5,13 +5,28 @@ import { toBase64 } from '@/lib/base64'
 import { cn } from '@/lib/utilities'
 
 type FileFieldProperties = {
-  hint?: string[]
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
 function FileField({ hint, ...properties }: FileFieldProperties) {
+  const { onChange: rhfOnChange, ref: rhfRef, ...rest } = properties
+
   const inputRef = useRef<HTMLInputElement>(null)
   const [file, setFile] = useState<{ name: string, size: number, source: string } | null>(null)
+
+  const callbackRef = (node: HTMLInputElement) => {
+    inputRef.current = node
+
+    if (typeof rhfRef === 'function') {
+      rhfRef(node)
+    }
+  }
+
   const onChange = async (event_: ChangeEvent<HTMLInputElement>) => {
+    if (rhfOnChange) {
+      rhfOnChange(event_)
+    }
+
     const fileList = event_.target.files
     if (fileList) {
       const firstFile = fileList[0]
@@ -37,13 +52,13 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
         Choose File
 
         <input
-          ref={inputRef}
-          onChange={onChange}
-          {...properties}
           type='file'
           id='profileImage'
           accept='.png,.jpg,.jpeg'
           className='invisible'
+          onChange={onChange}
+          ref={callbackRef}
+          {...rest}
         />
 
       </label>

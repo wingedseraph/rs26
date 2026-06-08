@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utilities'
 
 type EmailFieldProperties = {
-  hint?: string[]
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
 function EmailField({ hint, ...properties }: EmailFieldProperties) {
@@ -13,7 +13,10 @@ function EmailField({ hint, ...properties }: EmailFieldProperties) {
       <input {...properties} type='email' id='email' className='form-input' placeholder='your@email.com' autoComplete='email' />
 
       <div className={cn('collapsible', { collapsed: !hint })}>
-        <span className='form-card-hint'>{hint}</span>
+        <span className='form-card-hint'>
+          {hint}
+          {' '}
+        </span>
       </div>
 
     </div>

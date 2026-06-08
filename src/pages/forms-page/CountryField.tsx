@@ -1,10 +1,12 @@
 import type { ComponentProps } from 'react'
 
+import type { Countries } from '@/store/slices/countriesSlice'
+
 import { cn } from '@/lib/utilities'
 
 type CountryFieldProperties = {
-  countries: string[]
-  hint?: string[]
+  countries: Countries
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
 function CountryField({ countries, hint, ...properties }: CountryFieldProperties) {

@@ -4,27 +4,27 @@ import { cn } from '@/lib/utilities'
 
 type GenderFieldProperties = {
   name: string
-  hint?: string[]
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
-function GenderField({ name, hint }: GenderFieldProperties) {
+function GenderField({ name, hint, ...properties }: GenderFieldProperties) {
   return (
     <div className='form-card items-center shadow-card'>
       <span className='form-card-label'>Gender</span>
 
       <div className='seg-group' role='radiogroup' aria-label='Gender'>
         <label className='seg-item'>
-          <input type='radio' name={name} value='male' />
+          <input type='radio' name={name} {...properties} value='male' />
           Male
         </label>
 
         <label className='seg-item'>
-          <input type='radio' name={name} value='female' />
+          <input type='radio' name={name} {...properties} value='female' />
           Female
         </label>
 
         <label className='seg-item'>
-          <input type='radio' name={name} value='other' />
+          <input type='radio' name={name} {...properties} value='other' />
           Other
         </label>
       </div>

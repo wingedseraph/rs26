@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utilities'
 
 type NameFieldProperties = {
-  hint?: string[]
+  hint?: string[] | string
 } & ComponentProps<'input'>
 
 function NameField({ hint, ...properties }: NameFieldProperties) {
