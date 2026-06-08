@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
-import { PasswordField } from '@/pages/forms-page/PasswordField'
+import { PasswordField } from '@/pages/forms-page/components/PasswordField'
 
 describe('PasswordField', () => {
   it('должен отобразить label и input', () => {

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 
-import { Modal } from '@/pages/forms-page/Modal'
+import { Modal } from '@/pages/forms-page/components/Modal'
 
 const showModalMock = vi.fn(function (this: HTMLDialogElement) {
   this.setAttribute('open', '')

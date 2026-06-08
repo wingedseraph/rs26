@@ -2,10 +2,10 @@ import { useState } from 'react'
 
 import { BackLink } from '@/components/ui/back-link'
 import { Button } from '@/components/ui/button'
+import { Modal } from '@/pages/forms-page/components/Modal'
+import { SubmissionCard } from '@/pages/forms-page/components/SubmissionCard'
 import { RHFForm } from '@/pages/forms-page/forms/RHFForm'
 import { UncontrolledForm } from '@/pages/forms-page/forms/UncontrolledForm'
-import { Modal } from '@/pages/forms-page/Modal'
-import { SubmissionCard } from '@/pages/forms-page/SubmissionCard'
 import { useAppSelector } from '@/store'
 
 function FormsPage() {
