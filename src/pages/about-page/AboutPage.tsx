@@ -1,7 +1,7 @@
 import { BackLink } from '@/components/ui/back-link'
 
 const COURSE_LINK = 'https://rs.school/courses/reactjs'
-export const baseStyleLink = `
+const baseStyleLink = `
   group relative overflow-hidden rounded-md bg-stone-6 pt-4 pr-7 pb-5 pl-8 text-cta-about outline-hidden
   transition-colors
   hover:bg-stone-1 hover:text-stone-6

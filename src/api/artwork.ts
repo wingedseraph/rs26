@@ -11,10 +11,10 @@ type Arguments = {
 
 export const BASE = 'https://api.vam.ac.uk/v2'
 export const PAGE_SIZE = '6'
-export const IMAGES_EXIST = '1'
+const IMAGES_EXIST = '1'
 
-export const byQueryTag = 'ArtworkByQuery'
-export const byIdTag = 'ArtworkById'
+const byQueryTag = 'ArtworkByQuery'
+const byIdTag = 'ArtworkById'
 
 export const artworkApi = createApi({
   keepUnusedDataFor: Number.isFinite(Number(import.meta.env.VITE_TTL)) ? Number(import.meta.env.VITE_TTL) : 20,
