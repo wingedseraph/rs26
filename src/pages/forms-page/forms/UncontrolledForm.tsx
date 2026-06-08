@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ComponentProps, SyntheticEvent } from 'react'
+import type { SyntheticEvent } from 'react'
 
 import { z } from 'zod'
 
@@ -18,14 +18,15 @@ import { TermsField } from '@/pages/forms-page/TermsField'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { addOne } from '@/store/slices/submissionsSlice'
 
-function UncontrolledForm({ ...properties }: ComponentProps<'button'>) {
+function UncontrolledForm({ onSuccess }: { onSuccess?: () => void }) {
   const dispatch = useAppDispatch()
   const countries = useAppSelector(state => state.countries)
   const [validation, setValidation] = useState<FormSchemaErrors>({})
 
   async function onSubmit(event_: SyntheticEvent<HTMLFormElement>) {
     event_.preventDefault()
-    const formData = new FormData(event_.currentTarget)
+    const form = event_.currentTarget
+    const formData = new FormData(form)
     const formValues = Object.fromEntries(formData.entries())
 
     const result = schema.safeParse(formValues)
@@ -35,10 +36,12 @@ function UncontrolledForm({ ...properties }: ComponentProps<'button'>) {
       return null
     }
 
-    // fix: - and __ is simple and suitable solution there?
     const { file, terms: _, passwordConfirm: __, ...rest } = result.data
     const formattedFile = await toBase64(file)
     dispatch(addOne({ ...rest, file: String(formattedFile) }))
+    form.reset()
+    setValidation({})
+    onSuccess?.()
   }
   return (
     <>
@@ -76,7 +79,7 @@ function UncontrolledForm({ ...properties }: ComponentProps<'button'>) {
 
           <div className='form-card-actions'>
             <button type='submit' className='btn-accept'>Accept</button>
-            <button type='button' className='btn-cancel' {...properties}>Cancel</button>
+            <button type='button' className='btn-cancel' onClick={onSuccess}>Cancel</button>
           </div>
 
         </div>

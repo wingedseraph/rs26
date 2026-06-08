@@ -1,4 +1,17 @@
 import type { Card, ValidResponse, ValidResponseSingleCard } from '@/api/types'
+import type { FormSchema } from '@/pages/forms-page/schema/schema'
+
+export const VALID_FORM_DATA: FormSchema = {
+  name: 'User',
+  password: 'password1A',
+  passwordConfirm: 'password1A',
+  age: 25,
+  email: 'user@test.com',
+  country: 'Germany',
+  file: new File(['px'], 'a.png', { type: 'image/png' }),
+  gender: 'male',
+  terms: true,
+}
 
 export const SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK = {
   systemNumber: 1,
