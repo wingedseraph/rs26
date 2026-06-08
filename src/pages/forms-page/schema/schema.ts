@@ -7,11 +7,23 @@ const countries = store.getState().countries
 
 const baseSchema = z.object({
   name: z.string().regex(/^[A-Z]/, { error: 'First letter must be uppercase!' }),
-  password: z.string().min(8), // todo strength with refine write util function for that
+  password: z.string().min(8),
   passwordConfirm: z.string(),
   age: z.coerce.number<number>().positive({ error: 'Must be a number, no negative values' }),
   country: z.enum(countries, { error: 'A valid country must be selected' }),
-  email: z.email({ error: 'One @, non-empty local part, domain with at least one dot' }),
+  email: z.string().check(
+    z.refine((value) => {
+      const parts = value.split('@')
+      if (parts.length !== 2)
+        return false
+      const [local, domain] = parts
+      if (!local || !domain)
+        return false
+      if (!domain.includes('.'))
+        return false
+      return true
+    }, { error: 'One @, non-empty local part, domain with at least one dot' }),
+  ),
   file: z.preprocess(
     (value: FileList | File) => (value instanceof FileList ? value[0] : value),
     z.file({ error: 'Please add a photo' })
