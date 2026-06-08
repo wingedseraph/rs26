@@ -5,6 +5,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { Countries } from '@/store/slices/countriesSlice'
 
 export type UserProfile = {
+  id: string
   name: string
   password: string
   age: number
@@ -22,8 +23,13 @@ export const submissions = createSlice({
   name: 'submissions',
   initialState,
   reducers: {
-    addOne(state, action: PayloadAction<UserProfile>) {
-      state.push(action.payload)
+    addOne: {
+      reducer(state, action: PayloadAction<UserProfile>) {
+        state.push(action.payload)
+      },
+      prepare(payload: Omit<UserProfile, 'id'>) {
+        return { payload: { ...payload, id: crypto.randomUUID() } }
+      },
     },
   },
 })
