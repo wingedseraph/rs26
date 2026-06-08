@@ -54,17 +54,15 @@ describe('Flyout', () => {
   })
 
   describe('Скачивание CSV', () => {
-    it('должен создать blob и установить атрибуты скачивания', async () => {
+    it('должен создать blob и установить атрибуты скачивания', () => {
+      const createObjectURL = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test')
+      const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => { })
+
       store.dispatch(toggleOne({ id: 1, card: CARD_WITH_PRIMARY_TITLE_MOCK[0] }))
 
       renderFlyout()
 
-      const revokeObjectURL = vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => { })
-      const createObjectURL = vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:test')
-
-      await userEvent.click(screen.getByRole('button', { name: /Download/ }))
-
-      const downloadLink = screen.getByLabelText('download')
+      const downloadLink = screen.getByRole('link', { name: /Download/ })
 
       expect(createObjectURL).toHaveBeenCalled()
       expect(downloadLink).toHaveAttribute('href', 'blob:test')

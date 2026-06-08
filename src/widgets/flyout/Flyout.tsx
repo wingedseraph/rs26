@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { cardToCsv } from '@/lib/cardToCsv'
@@ -8,25 +8,25 @@ import { removeAll } from '@/store/slices/selectedCardsSlice'
 function Flyout() {
   const dispatch = useAppDispatch()
   const selectedCards = useAppSelector(state => state.selectedCards)
-  const downloadLinkRef = useRef<HTMLAnchorElement>(null)
+  const count = Object.keys(selectedCards).length
 
-  const downloadBlob = () => {
-    if (downloadLinkRef.current && Object.keys(selectedCards).length > 0) {
-      const array = Object.values(selectedCards)
-      const csv = cardToCsv(array)
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-      const url = URL.createObjectURL(blob)
+  const blobUrl = useMemo(() => {
+    const array = Object.values(selectedCards)
+    if (array.length === 0)
+      return ''
+    const csv = cardToCsv(array)
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    return URL.createObjectURL(blob)
+  }, [selectedCards])
 
-      // fix: rewrite that dom manipulation
-      downloadLinkRef.current.href = url
-      downloadLinkRef.current.click()
-
-      setTimeout(() =>
-        URL.revokeObjectURL(url), 100)
+  useEffect(() => {
+    return () => {
+      if (blobUrl)
+        URL.revokeObjectURL(blobUrl)
     }
-  }
+  }, [blobUrl])
 
-  if (Object.keys(selectedCards).length === 0) {
+  if (count === 0) {
     return null
   }
 
@@ -49,7 +49,7 @@ function Flyout() {
           text-stone-5 transition-colors duration-150
         '
         >
-          <p className='text-2xl' title='Selected cards'>{Object.keys(selectedCards).length}</p>
+          <p className='text-2xl' title='Selected cards'>{count}</p>
 
           <Button
             title='Unselect all selected cards'
@@ -60,14 +60,14 @@ function Flyout() {
             Unselect all
           </Button>
 
-          <Button
+          <a
+            href={blobUrl}
+            download={`${count} selected cards.csv`}
             title='Download all selected cards'
             className='block h-fit cursor-pointer text-lg font-bold text-stone-5 hover:bg-stone-6 hover:no-underline'
-            onClick={downloadBlob}
           >
-            <a aria-label='download' download={`${Object.keys(selectedCards).length} selected cards.csv`} aria-hidden={true} href='/' ref={downloadLinkRef}></a>
             Download
-          </Button>
+          </a>
 
         </span
         >

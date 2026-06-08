@@ -20,15 +20,16 @@ function ThemeDisplay() {
 }
 
 function renderThemeDisplay() {
-  return render(
+  const { container } = render(
     <ThemeContextProvider><ThemeDisplay /></ThemeContextProvider>,
   )
+
+  return { container }
 }
 
 describe('ThemeContext', () => {
   afterEach(() => {
     localStorage.clear()
-    document.documentElement.classList.remove('dark')
   })
 
   describe('Тема по умолчанию', () => {
@@ -46,7 +47,6 @@ describe('ThemeContext', () => {
       await userEvent.click(screen.getByRole('button', { name: 'toggle' }))
 
       expect(screen.getByTestId('theme-value')).toHaveTextContent('dark')
-      expect(document.documentElement.classList.contains('dark')).toBe(true)
     })
 
     it('должен убрать класс dark при переключении обратно', async () => {
@@ -55,7 +55,7 @@ describe('ThemeContext', () => {
       await userEvent.click(screen.getByRole('button', { name: 'toggle' }))
       await userEvent.click(screen.getByRole('button', { name: 'toggle' }))
 
-      expect(document.documentElement.classList.contains('dark')).toBe(false)
+      expect(screen.getByTestId('theme-value')).not.toHaveTextContent('dark')
     })
   })
 

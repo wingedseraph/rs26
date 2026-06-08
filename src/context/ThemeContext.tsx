@@ -1,8 +1,9 @@
-import { createContext, useLayoutEffect } from 'react'
+import { createContext } from 'react'
 import type { ReactNode } from 'react'
 
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { STORAGE_THEME } from '@/lib/localStorage'
+import { cn } from '@/lib/utilities'
 
 type Theme = 'light' | 'dark'
 
@@ -20,17 +21,6 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
   const stored = useLocalStorage('light', STORAGE_THEME)
   const currentTheme: Theme = stored.value === 'dark' ? 'dark' : 'light'
 
-  useLayoutEffect(() => {
-    if (stored.value === 'light') {
-      // fix: remove dom manipulation, use root react element
-      document.documentElement.classList.remove('dark')
-    }
-
-    if (stored.value === 'dark') {
-      document.documentElement.classList.add('dark')
-    }
-  }, [stored.value])
-
   const theme = {
     value: currentTheme,
     setTheme: (selectedTheme: Theme) => {
@@ -40,7 +30,9 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeContext value={theme}>
-      {children}
+      <div className={cn('contents', { dark: currentTheme === 'dark' })}>
+        {children}
+      </div>
     </ThemeContext>
   )
 }
