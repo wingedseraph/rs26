@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
 import { BackLink } from '@/components/ui/back-link'
+import { Button } from '@/components/ui/button'
 import { RHFForm } from '@/pages/forms-page/forms/RHFForm'
 import { UncontrolledForm } from '@/pages/forms-page/forms/UncontrolledForm'
 import { Modal } from '@/pages/forms-page/Modal'
+import { SubmissionCard } from '@/pages/forms-page/SubmissionCard'
 import { useAppSelector } from '@/store'
 
 function FormsPage() {
@@ -12,30 +14,42 @@ function FormsPage() {
 
   return (
     <>
-      <p className='absolute top-0 left-0'>{JSON.stringify(submissions)}</p>
       <BackLink />
 
-      <button onClick={() => {
-        setShow('uncontrolled')
-      }}
-      >
-        open modal uncontrolled
-      </button>
+      <div className='flex flex-col gap-4'>
+        <div className='flex flex-row gap-40'>
+          <Button
+            className='text-2xl'
+            onClick={() => {
+              setShow('uncontrolled')
+            }}
+          >
+            open modal uncontrolled
+          </Button>
 
-      <button onClick={() => {
-        setShow('rhf')
-      }}
-      >
-        open modal rhf
-      </button>
+          <Button
+            className='text-2xl'
+            onClick={() => {
+              setShow('rhf')
+            }}
+          >
+            open modal rhf
+          </Button>
+        </div>
 
-      <Modal isOpen={!!show} onClose={() => setShow(null)}>
-        { show === 'uncontrolled' && <UncontrolledForm onClick={() => setShow(null)} /> }
-        { show === 'rhf' && <RHFForm onClick={() => setShow(null)} /> }
-        {/* todo rhf form */}
-      </Modal>
+        <Modal isOpen={!!show} onClose={() => setShow(null)}>
+          {show === 'uncontrolled' && <UncontrolledForm onSuccess={() => setShow(null)} />}
+          {show === 'rhf' && <RHFForm onSuccess={() => setShow(null)} />}
+        </Modal>
 
-      {/* todo: there will be profile submissions list */}
+        {submissions.length > 0 && (
+          <div className='mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+            {submissions.map(sub => (
+              <SubmissionCard key={sub.id} {...sub} />
+            ))}
+          </div>
+        )}
+      </div>
     </>
   )
 }
