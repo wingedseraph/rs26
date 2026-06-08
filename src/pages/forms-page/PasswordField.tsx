@@ -1,5 +1,7 @@
-import type { ComponentProps, ReactNode } from 'react'
+import { useState } from 'react'
+import type { ChangeEvent, ComponentProps, ReactNode } from 'react'
 
+import { IconEye } from '@/components/ui/icon-eye'
 import { cn } from '@/lib/utilities'
 
 type PasswordFieldProperties = {
@@ -9,7 +11,38 @@ type PasswordFieldProperties = {
   strength?: boolean
 } & ComponentProps<'input'>
 
-function PasswordField({ placeholder, children, id, hint, strength, ...properties }: PasswordFieldProperties) {
+type StrengthCriteria = {
+  lowercase: boolean
+  uppercase: boolean
+  number: boolean
+  special: boolean
+}
+
+const SEGMENT_COLORS = ['bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-lime-400']
+
+function PasswordField({ placeholder, children, id, hint, strength, onChange, ...properties }: PasswordFieldProperties) {
+  const [criteria, setCriteria] = useState<StrengthCriteria>({
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    special: false,
+  })
+
+  const score = Number(criteria.lowercase) + Number(criteria.uppercase) + Number(criteria.number) + Number(criteria.special)
+
+  function handleChange(event_: ChangeEvent<HTMLInputElement>) {
+    if (strength) {
+      const value = event_.target.value
+      setCriteria({
+        lowercase: value !== value.toUpperCase(),
+        uppercase: value !== value.toLowerCase(),
+        number: /\d/.test(value),
+        special: /[^a-z0-9]/i.test(value),
+      })
+    }
+    onChange?.(event_)
+  }
+
   return (
     <div className='form-card shadow-card'>
       <label htmlFor={id} className='form-card-label'>{children}</label>
@@ -21,15 +54,12 @@ function PasswordField({ placeholder, children, id, hint, strength, ...propertie
           className='form-input-pw'
           placeholder={placeholder}
           autoComplete='new-password'
+          onChange={handleChange}
           {...properties}
         />
 
         <button type='button' className='pw-toggle' aria-label='Toggle password'>
-          {/* as icon */}
-          <svg width='20' height='20' fill='none' stroke='currentColor' strokeWidth='2' viewBox='0 0 24 24'>
-            <path d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z' />
-            <circle cx='12' cy='12' r='3' />
-          </svg>
+          <IconEye />
         </button>
       </div>
 
@@ -40,17 +70,38 @@ function PasswordField({ placeholder, children, id, hint, strength, ...propertie
       {strength && (
         <>
           <div className='flex gap-1'>
-            <div className='str-seg bg-stone-1'></div>
-            <div className='str-seg bg-stone-3'></div>
-            <div className='str-seg bg-stone-4'></div>
-            <div className='str-seg'></div>
+            {[0, 1, 2, 3].map(index => (
+              <div
+                key={index}
+                className={cn('str-seg', index < score ? SEGMENT_COLORS[score - 1] : 'bg-stone-6')}
+              />
+            ))}
           </div>
 
           <div className='flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-stone-4'>
-            <span className='text-stone-2'>&#10003; lowercase</span>
-            <span className='text-stone-2'>&#10003; uppercase</span>
-            <span>&#9675; number</span>
-            <span>&#9675; special</span>
+            <span className={criteria.lowercase ? 'text-lime-600' : ''}>
+              {criteria.lowercase ? '✓' : '○'}
+              {' '}
+              lowercase
+            </span>
+
+            <span className={criteria.uppercase ? 'text-lime-600' : ''}>
+              {criteria.uppercase ? '✓' : '○'}
+              {' '}
+              uppercase
+            </span>
+
+            <span className={criteria.number ? 'text-lime-600' : ''}>
+              {criteria.number ? '✓' : '○'}
+              {' '}
+              number
+            </span>
+
+            <span className={criteria.special ? 'text-lime-600' : ''}>
+              {criteria.special ? '✓' : '○'}
+              {' '}
+              special
+            </span>
           </div>
         </>
       )}
