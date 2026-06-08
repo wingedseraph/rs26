@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Dispatch } from 'react'
 
-import { STORAGE } from '@/api/localStorage'
+import { STORAGE } from '@/lib/localStorage'
 
 type useLocalStorageProperties = {
   value: string

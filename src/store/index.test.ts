@@ -1,9 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import type { Card } from '@/api/typeguard'
+import type { Card } from '@/api/types'
 
 import { CARD_WITH_PRIMARY_TITLE_MOCK } from '@/mocks/mocks'
-import store, { removeAll, toggleOne } from '@/store'
+import store from '@/store'
+import { removeAll, toggleOne } from '@/store/slices/selectedCardsSlice'
 
 const mockCard2: Card = {
   systemNumber: 2,

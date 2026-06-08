@@ -1,7 +1,7 @@
 import { PureComponent } from 'react'
 import type { ReactNode } from 'react'
 
-import ErrorPage from '@/components/error-page/ErrorPage'
+import ErrorPage from '@/pages/error-page/ErrorPage'
 
 type Properties = {
   children: ReactNode

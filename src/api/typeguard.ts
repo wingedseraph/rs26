@@ -1,39 +1,20 @@
-export type ValidResponse = {
-  records: Card[]
-  info: { record_count: number }
-}
-export type ValidResponseSingleCard = {
-  record: SingleCard
-}
-export type Card = {
-  systemNumber: number
-  objectType: string
-  _primaryTitle: string
-  _images: {
-    _iiif_image_base_url: string
-  }
-}
-export type SingleCard = {
-  systemNumber: number
-  dimensionsNote: string
-  briefDescription: string
-  images: [string]
-}
+import type { Card, SingleCard, ValidResponse, ValidResponseSingleCard } from '@/api/types'
+
 function isObject(argument: unknown): argument is object {
   return (argument !== null && typeof argument === 'object')
 }
-export function isArray<T>(
+function isArray<T>(
   data: unknown,
   itemGuard?: (item: unknown) => item is T,
 ): data is T[] {
   return Array.isArray(data) && (itemGuard ? data.every(itemGuard) : true)
 };
-export function isValidCard(card: unknown): card is Card {
+function isValidCard(card: unknown): card is Card {
   return (
     isObject(card) && 'systemNumber' in card && '_primaryTitle' in card && '_images' in card && 'objectType' in card
   )
 }
-export function isValidSingleCard(card: unknown): card is SingleCard {
+function isValidSingleCard(card: unknown): card is SingleCard {
   return (
     isObject(card) && 'systemNumber' in card && 'dimensionsNote' in card
     && 'briefDescription' in card && 'images' in card && isArray(card.images)

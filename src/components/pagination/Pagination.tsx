@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 
-import { PAGE_SIZE } from '@/api/api'
+import { PAGE_SIZE } from '@/api/artwork'
 import { IconArrow } from '@/components/ui/icon-arrow'
 import { cn } from '@/lib/utilities'
 

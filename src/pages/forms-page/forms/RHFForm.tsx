@@ -1,0 +1,106 @@
+import { useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import type { FormSchema } from '@/pages/forms-page/schema/schema'
+
+import { toBase64 } from '@/lib/base64'
+import { AgeField } from '@/pages/forms-page/components/AgeField'
+import { CountryField } from '@/pages/forms-page/components/CountryField'
+import { EmailField } from '@/pages/forms-page/components/EmailField'
+import { FileField } from '@/pages/forms-page/components/FileField'
+import { GenderField } from '@/pages/forms-page/components/GenderField'
+import { NameField } from '@/pages/forms-page/components/NameField'
+import { PasswordField } from '@/pages/forms-page/components/PasswordField'
+import { TermsField } from '@/pages/forms-page/components/TermsField'
+import { schema } from '@/pages/forms-page/schema/schema'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { addOne } from '@/store/slices/submissionsSlice'
+
+function RHFForm({ onSuccess }: { onSuccess?: () => void }) {
+  const dispatch = useAppDispatch()
+  const countries = useAppSelector(state => state.countries)
+
+  const { register, reset, formState: { errors, isValid }, handleSubmit } = useForm({
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+  })
+  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+    const { file, terms: _, passwordConfirm: __, ...rest } = data
+    const formattedFile = await toBase64(file)
+    dispatch(addOne({ ...rest, file: String(formattedFile) }))
+    reset()
+    onSuccess?.()
+  }
+  return (
+    <>
+      <h1 className='text-black/70 sm:text-8xl/30'>RHF</h1>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='masonry'>
+          <NameField hint={errors.name?.message} {...register('name')} />
+
+          <PasswordField
+            placeholder='Your password'
+            id='pw'
+            strength={true}
+            hint={errors.password?.message}
+            {...register('password')}
+          >
+            Password
+          </PasswordField>
+
+          <PasswordField
+            placeholder='Repeat password'
+            id='cpw'
+            hint={errors.passwordConfirm?.message}
+            {...register('passwordConfirm')}
+          >
+            Confirm Passwords
+          </PasswordField>
+
+          <AgeField
+            hint={errors.age?.message}
+            {...register('age')}
+          />
+
+          <FileField
+            hint={errors.file?.message}
+            {...register('file')}
+          />
+
+          <GenderField
+            hint={errors.gender?.message}
+            {...register('gender')}
+          />
+
+          <EmailField
+            hint={errors.email?.message}
+            {...register('email')}
+          />
+
+          <CountryField
+            hint={errors.country?.message}
+            countries={countries}
+            {...register('country')}
+          />
+
+          <TermsField
+            hint={errors.terms?.message}
+            {...register('terms')}
+          />
+
+          <div className='form-card-actions'>
+            <button disabled={!isValid} type='submit' className='btn-accept'>Accept</button>
+            <button type='button' className='btn-cancel' onClick={onSuccess}>Cancel</button>
+          </div>
+
+        </div>
+      </form>
+    </>
+
+  )
+}
+
+export { RHFForm }

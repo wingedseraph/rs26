@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import './index.css'
 import { RouterProvider } from 'react-router'
 
-import { ThemeContextProvider } from '@/components/context/ThemeContext'
+import { ThemeContextProvider } from '@/context/ThemeContext'
 import { router } from '@/router'
 import store from '@/store'
 

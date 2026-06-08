@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { Card } from '@/api/typeguard'
+import type { Card } from '@/api/types'
 
 type selectedCardsStore = Record<number, Card>
 
@@ -25,3 +25,5 @@ export const selectedCards = createSlice({
     removeAll() { return initialState },
   },
 })
+
+export const { toggleOne, removeAll } = selectedCards.actions
