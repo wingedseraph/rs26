@@ -2,6 +2,7 @@ import type { ComponentProps } from 'react'
 
 import type { Countries } from '@/store/slices/countriesSlice'
 
+import { IconChevron } from '@/components/ui/icon-chevron'
 import { cn } from '@/lib/utilities'
 
 type CountryFieldProperties = {
@@ -25,23 +26,13 @@ function CountryField({ countries, hint, ...properties }: CountryFieldProperties
           {...properties}
         />
 
-        {/* as icon component */}
-        <svg
+        <IconChevron
           className='
-            pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-stone-4 opacity-0 transition-opacity
-            duration-500
+            pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 opacity-0 transition-opacity duration-500
             group-focus-within:opacity-100
             group-hover:opacity-100
           '
-          width='18'
-          height='18'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='2'
-          viewBox='0 0 24 24'
-        >
-          <polyline points='6 9 12 15 18 9' />
-        </svg>
+        />
 
         <datalist id='countries'>
           {countries.map(country =>

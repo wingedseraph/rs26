@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import type { ChangeEvent, ComponentProps } from 'react'
 
+import { IconUpload } from '@/components/ui/icon-upload'
+import { IconX } from '@/components/ui/icon-x'
 import { toBase64 } from '@/lib/base64'
 import { cn } from '@/lib/utilities'
 
@@ -41,14 +43,10 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
 
   return (
     <div className='form-card shadow-card'>
-      <span className='form-card-label'>Profile Picture</span>
+      <label htmlFor='profileImage' className='form-card-label'>Profile Picture</label>
 
       <label className='file-btn'>
-        <svg width='16' height='16' fill='none' stroke='currentColor' strokeWidth='2' viewBox='0 0 24 24'>
-          <path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' />
-          <polyline points='17 8 12 3 7 8' />
-          <line x1='12' y1='3' x2='12' y2='15' />
-        </svg>
+        <IconUpload />
         Choose File
 
         <input
@@ -63,7 +61,6 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
 
       </label>
 
-      {/* todo: display image there */}
       {file && (
         <div className='file-preview'>
           <img
@@ -93,11 +90,7 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
             aria-label='Remove'
             className='file-remove'
           >
-            {/* todo as icon component */}
-            <svg width='16' height='16' fill='none' stroke='currentColor' strokeWidth='2' viewBox='0 0 24 24'>
-              <line x1='18' y1='6' x2='6' y2='18' />
-              <line x1='6' y1='6' x2='18' y2='18' />
-            </svg>
+            <IconX />
           </button>
         </div>
       )}

@@ -5,6 +5,10 @@
   animation: appear 0.5s ease-in;
 }
 
+@utility highlight-card {
+  animation: highlight-card 3s ease-out forwards;
+}
+
 @utility button-animation {
   animation: button-animation 0.3s ease-out;
 }
@@ -25,13 +29,7 @@
   font-size: 1.125rem;
   line-height: 1.11;
 }
-/*
-@utility line-clamp-3 {
-  @apply overflow-hidden
-  line-clamp: 3;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}*/
+
 @utility shadow-card {
   @apply shadow-[var(--tw-ring-offset-shadow,0_0_#0000),var(--tw-ring-shadow,0_0_#0000),var(--tw-shadow)];
   --tw-shadow: 0px 1px 5px 0px rgba(148, 156, 166, 0.25);
@@ -116,6 +114,18 @@
     font-size: 16px;
   }
 }
+@keyframes highlight-card {
+  0% {
+    transform: scale(1.02);
+    border-color: var(--color-green-2);
+    background-color: #ecfccb;
+  }
+  100% {
+    transform: scale(1);
+    border-color: transparent;
+    background-color: rgb(255 255 255 / 0.8);
+  }
+}
 @keyframes appear {
   from {
     opacity: 0;
@@ -136,7 +146,8 @@
 }
 
 @layer base {
-  .dark {
+  .dark,
+  :root:has(.dark) {
     --color-light: #0d1117;
     --color-white: #161b22;
     --color-black: #e6edf3;

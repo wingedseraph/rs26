@@ -2,8 +2,8 @@
 
 @layer base {
   :root {
-     interpolate-size: allow-keywords;
-   }
+    interpolate-size: allow-keywords;
+  }
 
   :focus:not(:focus-visible) {
     outline: none;
@@ -45,14 +45,26 @@
     @apply outline-2 outline-stone-6 outline-offset-2;
   }
 
-
-
-  .cb-row input[type='checkbox'] { @apply absolute opacity-0 inset-0 cursor-pointer; }
-  .cb-row .cb-icon { fill: none; stroke: var(--color-stone-1); stroke-width: 2; }
-  .cb-row .cb-icon-checked { display: none; }
-  .cb-row input:checked ~ .cb-icon { display: none; }
-  .cb-row input:checked ~ .cb-icon-checked { display: block; }
-  .cb-row input:focus-visible ~ .cb-icon { @apply outline-2 outline-stone-3 outline-offset-2; }
+  .cb-row input[type='checkbox'] {
+    @apply absolute opacity-0 inset-0 cursor-pointer;
+  }
+  .cb-row .cb-icon {
+    fill: none;
+    stroke: var(--color-stone-1);
+    stroke-width: 2;
+  }
+  .cb-row .cb-icon-checked {
+    display: none;
+  }
+  .cb-row input:checked ~ .cb-icon {
+    display: none;
+  }
+  .cb-row input:checked ~ .cb-icon-checked {
+    display: block;
+  }
+  .cb-row input:focus-visible ~ .cb-icon {
+    @apply outline-2 outline-stone-3 outline-offset-2;
+  }
 }
 
 @layer components {
@@ -120,11 +132,13 @@
 
 @utility form-card {
   @apply rounded-2xl bg-white p-6 flex flex-col gap-3.5 max-w-80;
-  transition: box-shadow 0.6s, transform 0.6s;
+  transition:
+    box-shadow 0.6s,
+    transform 0.6s;
 }
 
 @utility form-card-actions {
-  @apply rounded-2xl bg-silver-cloud p-6 flex flex-row items-center justify-end gap-3
+  @apply rounded-2xl bg-stone-6 p-6 flex flex-row items-center justify-end gap-3
          transition-[box-shadow,transform] duration-600;
 }
 
@@ -181,10 +195,9 @@
          last:rounded-r-[8.5px]
          hover:bg-stone-6;
 
- &:has(input:checked) {
+  &:has(input:checked) {
     @apply bg-stone-6 text-stone-1;
   }
-
 }
 
 @utility seg-item-active {
@@ -240,13 +253,20 @@
          disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none;
 }
 
+@utility submission-card {
+  @apply flex highlight-card flex-col items-center justify-center
+         rounded-2xl border-2 border-transparent bg-white/80 p-4 shadow-card;
+}
+
 @layer components {
   .collapsible {
     display: block;
     overflow: clip;
     max-height: 80px;
     opacity: 1;
-    transition: max-height 1s var(--ease-resize), opacity 0.5s ease;
+    transition:
+      max-height 1s var(--ease-resize),
+      opacity 0.5s ease;
   }
 
   .collapsible.collapsed {
@@ -260,10 +280,8 @@ dialog {
 
   @starting-style {
     transform: scale(0.9);
-	}
+  }
 }
-
-
 
 dialog:open::backdrop {
   backdrop-filter: blur(20px);
