@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 
@@ -19,7 +18,7 @@ import { TermsField } from '@/pages/forms-page/TermsField'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { addOne } from '@/store/slices/submissionsSlice'
 
-function RHFForm({ ...properties }: ComponentProps<'button'>) {
+function RHFForm({ onSuccess }: { onSuccess?: () => void }) {
   const dispatch = useAppDispatch()
   const countries = useAppSelector(state => state.countries)
 
@@ -32,6 +31,7 @@ function RHFForm({ ...properties }: ComponentProps<'button'>) {
     const formattedFile = await toBase64(file)
     dispatch(addOne({ ...rest, file: String(formattedFile) }))
     reset()
+    onSuccess?.()
   }
   return (
     <>
@@ -93,7 +93,7 @@ function RHFForm({ ...properties }: ComponentProps<'button'>) {
 
           <div className='form-card-actions'>
             <button disabled={!isValid} type='submit' className='btn-accept'>Accept</button>
-            <button type='button' className='btn-cancel' {...properties}>Cancel</button>
+            <button type='button' className='btn-cancel' onClick={onSuccess}>Cancel</button>
           </div>
 
         </div>
