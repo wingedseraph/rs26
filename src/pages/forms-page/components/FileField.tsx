@@ -4,6 +4,7 @@ import type { ChangeEvent, ComponentProps } from 'react'
 import { IconUpload } from '@/components/ui/icon-upload'
 import { IconX } from '@/components/ui/icon-x'
 import { toBase64 } from '@/lib/base64'
+import { tryCatch } from '@/lib/tryCatch'
 import { cn } from '@/lib/utilities'
 
 type FileFieldProperties = {
@@ -32,11 +33,16 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
     const fileList = event_.target.files
     if (fileList) {
       const firstFile = fileList[0]
-      const base64 = await toBase64(firstFile)
+      const base64 = await tryCatch<string>(() => toBase64(firstFile))
+
+      if (!base64.ok) {
+        return null
+      }
+
       setFile({
         name: firstFile.name,
         size: firstFile.size,
-        source: String(base64),
+        source: base64.data,
       })
     }
   }

@@ -6,6 +6,7 @@ import { z } from 'zod'
 import type { FormSchemaErrors } from '@/pages/forms-page/schema/schema'
 
 import { toBase64 } from '@/lib/base64'
+import { tryCatch } from '@/lib/tryCatch'
 import { AgeField } from '@/pages/forms-page/components/AgeField'
 import { CountryField } from '@/pages/forms-page/components/CountryField'
 import { EmailField } from '@/pages/forms-page/components/EmailField'
@@ -37,8 +38,15 @@ function UncontrolledForm({ onSuccess }: { onSuccess?: () => void }) {
     }
 
     const { file, terms: _, passwordConfirm: __, ...rest } = result.data
-    const formattedFile = await toBase64(file)
-    dispatch(addOne({ ...rest, file: String(formattedFile) }))
+
+    const formattedFile = await tryCatch(() => toBase64(file))
+
+    if (!formattedFile.ok) {
+      return null
+    }
+
+    dispatch(addOne({ ...rest, file: formattedFile.data }))
+
     form.reset()
     setValidation({})
     onSuccess?.()

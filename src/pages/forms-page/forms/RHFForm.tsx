@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type { FormSchema } from '@/pages/forms-page/schema/schema'
 
 import { toBase64 } from '@/lib/base64'
+import { tryCatch } from '@/lib/tryCatch'
 import { AgeField } from '@/pages/forms-page/components/AgeField'
 import { CountryField } from '@/pages/forms-page/components/CountryField'
 import { EmailField } from '@/pages/forms-page/components/EmailField'
@@ -26,10 +27,16 @@ function RHFForm({ onSuccess }: { onSuccess?: () => void }) {
     resolver: zodResolver(schema),
     mode: 'onChange',
   })
+
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     const { file, terms: _, passwordConfirm: __, ...rest } = data
-    const formattedFile = await toBase64(file)
-    dispatch(addOne({ ...rest, file: String(formattedFile) }))
+
+    const formattedFile = await tryCatch<string>(() => toBase64(file))
+    if (!formattedFile.ok) {
+      return null
+    }
+
+    dispatch(addOne({ ...rest, file: formattedFile.data }))
     reset()
     onSuccess?.()
   }
