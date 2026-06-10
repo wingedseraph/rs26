@@ -1,14 +1,15 @@
+import { memo } from 'react';
 import styles from './column-modal.module.css';
 
 type ColumnModalProps = {
   isOpen: boolean;
-  availableColumns: string[];
+  availableColumns: readonly string[];
   selectedColumns: string[];
   onToggle: (column: string) => void;
   onClose: () => void;
 };
 
-export const ColumnModal = ({
+export const ColumnModal = memo(({
   isOpen,
   availableColumns,
   selectedColumns,
@@ -46,4 +47,4 @@ export const ColumnModal = ({
       </div>
     </div>
   );
-};
+});
