@@ -9,6 +9,7 @@ import { formatNumber } from '../../utils/format-utils';
 
 import styles from './country-card.module.css';
 import { memo } from 'react';
+import type { RowComponentProps } from 'react-window';
 
 type CountryCardProps = {
   country: Country;
@@ -41,3 +42,23 @@ export const CountryCard = memo(({ country, selectedYear, selectedColumns }: Cou
     </div>
   );
 });
+
+
+
+type Props = Omit<CountryCardProps, 'country'> & {
+  filteredCountries: Country[]
+}
+
+export const RowComponent = ({
+  style,
+  index,
+  filteredCountries,
+  selectedYear,
+  selectedColumns
+}: RowComponentProps<Props>) => {
+  return (
+    <div style={style}>
+      <CountryCard country={filteredCountries[index]} selectedYear={selectedYear} selectedColumns={selectedColumns} />
+    </div>
+  );
+}
