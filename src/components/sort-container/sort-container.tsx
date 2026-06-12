@@ -1,4 +1,5 @@
 import { memo } from "react";
+
 import styles from './sort-container.module.css';
 
 type SortContainerProps = {
@@ -9,7 +10,6 @@ type SortContainerProps = {
 }
 
 export const SortContainer = memo(({ sortField, sortOrder, onSortFieldChange, onSortOrderToggle }: SortContainerProps) => {
-
   return (<div className={styles.sortContainer}>
     <label className={styles.sortLabel}>Sort by:</label>
     <select
