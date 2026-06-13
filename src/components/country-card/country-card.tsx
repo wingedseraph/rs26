@@ -43,22 +43,24 @@ export const CountryCard = memo(({ country, selectedYear, selectedColumns }: Cou
   );
 });
 
-
-
 type Props = Omit<CountryCardProps, 'country'> & {
-  filteredCountries: Country[]
-}
+  filteredCountries: Country[];
+};
 
 export const RowComponent = ({
   style,
   index,
   filteredCountries,
   selectedYear,
-  selectedColumns
+  selectedColumns,
 }: RowComponentProps<Props>) => {
   return (
     <div style={style}>
-      <CountryCard country={filteredCountries[index]} selectedYear={selectedYear} selectedColumns={selectedColumns} />
+      <CountryCard
+        country={filteredCountries[index]}
+        selectedYear={selectedYear}
+        selectedColumns={selectedColumns}
+      />
     </div>
   );
-}
+};

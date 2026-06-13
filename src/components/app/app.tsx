@@ -33,7 +33,7 @@ export const App = () => {
     isColumnModalOpen: false,
   });
 
-  const years = useMemo(() => data ? getAvailableYears(data) : [], [data]);
+  const years = useMemo(() => (data ? getAvailableYears(data) : []), [data]);
 
   const handleSearch = useCallback((value: string) => {
     setState((prev) => ({ ...prev, searchQuery: value }));
@@ -122,4 +122,3 @@ export const App = () => {
     </div>
   );
 };
-
