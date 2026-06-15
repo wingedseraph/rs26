@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import type { Card } from '@/api/types'
 
@@ -27,7 +27,7 @@ function CardItem({ card, page }: CardItemProperties) {
       className={cardBaseStyle}
       title={card._primaryTitle}
     >
-      <Link viewTransition to={{ pathname: `card/${card.systemNumber}`, search: `page=${page}` }}>
+      <Link href={{ pathname: `card/${card.systemNumber}`, search: `page=${page}` }}>
         <div className='flex flex-col gap-1 p-1'>
           <div className='flex min-h-40 w-full cursor-default justify-center rounded-md-custom bg-stone-6/30'>
             <img

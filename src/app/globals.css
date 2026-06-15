@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '@/styles/form.css';
+@import '../styles/form.css';
 
 @utility appear {
   animation: appear 0.5s ease-in;

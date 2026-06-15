@@ -1,14 +1,53 @@
 {
+  "$schema": "https://www.schemastore.org/tsconfig.json",
   "compilerOptions": {
+    "incremental": true,
+    "allowJs": true,
+    "target": "ES2025",
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2025",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "resolveJsonModule": true,
+    "types": [
+      "@testing-library/jest-dom"
+    ],
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "include": [
+    "./src",
+    "./dist/types/**/*.ts",
+    "./next-env.d.ts",
+    "./vitest.setup.ts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
-  "files": []
+  "exclude": [
+    "./node_modules",
+    ".next"
+  ]
 }

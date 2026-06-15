@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import { PAGE_SIZE } from '@/api/artwork'
 import { IconArrow } from '@/components/ui/icon-arrow'
@@ -24,7 +24,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
     <div className='mx-auto mt-6 max-w-50 rounded-lg bg-light p-2 shadow-[0px_2px_10px_0px_rgba(149,156,166,0.25)]' aria-hidden='false'>
       <nav className='flex items-center gap-x-2'>
         <Link
-          to={{ search: `page=${pageNumber - 1}` }}
+          href={{ search: `page=${pageNumber - 1}` }}
           aria-disabled={pageNumber === 1}
           tabIndex={firstPage ? -1 : undefined}
           className={cn(baseStyle, { 'pointer-events-none': firstPage })}
@@ -37,7 +37,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
         </button>
 
         <Link
-          to={{ search: `page=${pageNumber + 1}` }}
+          href={{ search: `page=${pageNumber + 1}` }}
           tabIndex={lastPage ? -1 : undefined}
           aria-disabled={lastPage}
           className={cn(baseStyle, { 'pointer-events-none': lastPage })}

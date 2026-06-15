@@ -1,5 +1,3 @@
-import { Outlet, useOutlet } from 'react-router'
-
 import { useGetArtworkByNameQuery } from '@/api/artwork'
 import { Pagination } from '@/components/pagination/Pagination'
 import { Button } from '@/components/ui/button'
@@ -12,13 +10,11 @@ import ErrorPage from '@/pages/error-page/ErrorPage'
 import { CardList } from '@/widgets/card-list/CardList'
 import { Flyout } from '@/widgets/flyout/Flyout'
 import { baseHeaderStyle, Header } from '@/widgets/header/Header'
-import { baseStyleDetailed, outletStyleDetailed } from '@/widgets/layout/Layout'
 
-function LandingPage() {
+export default function LandingPage() {
   const page = usePage()
 
   const query = useLocalStorage('')
-  const outlet = useOutlet()
   const { data, isLoading, isError, refetch } = useGetArtworkByNameQuery({ query: query.value, page })
 
   if (isLoading) {
@@ -40,20 +36,22 @@ function LandingPage() {
 
   return (
     <>
-      <div
-        className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}
-      >
+
+      {/* todo rewrite to cn!
+        <div className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}
+         */}
+      <div className='max-w-3xl'>
         <Header />
         <CardList data={records ?? FALLBACK_CARDS} page={page} />
         <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />
       </div>
 
+      {/*
       <div className={cn(baseStyleDetailed, { [outletStyleDetailed]: outlet })}>
         <Outlet />
       </div>
+      */}
     </>
   )
 }
-
-export { LandingPage }

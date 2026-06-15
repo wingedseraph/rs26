@@ -1,12 +1,7 @@
-/// <reference types="vitest/config" />
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
-import path from 'node:path'
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 
-// https://vite.dev/config/
+// fix, @path import doesnt work in imports
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
   test: {
     root: __dirname,
     setupFiles: ['./vitest.setup.ts'],
@@ -31,11 +26,6 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/main.tsx',
       ],
-    },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
     },
   },
 })

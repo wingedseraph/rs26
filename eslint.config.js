@@ -29,7 +29,7 @@ export default antfu({
   rules: {
     'unicorn/prevent-abbreviations': [
       'error',
-      { replacements: { ref: false } },
+      { replacements: { ref: false, refs: false, param: false, params: false } },
     ],
     'eqeqeq': 'error',
     'style/jsx-quotes': ['error', 'prefer-single'],
@@ -98,7 +98,7 @@ export default antfu({
   },
   settings: {
     'better-tailwindcss': {
-      entryPoint: './src/index.css',
+      entryPoint: './src/app/globals.css',
       selectors: [
         ...getDefaultSelectors(),
         {

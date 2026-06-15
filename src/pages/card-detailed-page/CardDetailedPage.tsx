@@ -1,6 +1,5 @@
-import { useParams } from 'react-router'
-
 import { skipToken } from '@reduxjs/toolkit/query'
+import { useParams } from 'next/navigation'
 
 import { useGetArtworkByIdQuery } from '@/api/artwork'
 import { Spinner } from '@/components/ui/spinner'
@@ -13,6 +12,7 @@ const cardBaseStyle = `
 
 function CardDetailedPage() {
   const parameters = useParams<{ id: string }>()
+  // fix pass id from server component of landing page
   const { data, isLoading, isError } = useGetArtworkByIdQuery(parameters.id ?? skipToken)
 
   if (isLoading) {

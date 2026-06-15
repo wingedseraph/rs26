@@ -17,7 +17,9 @@ const byQueryTag = 'ArtworkByQuery'
 const byIdTag = 'ArtworkById'
 
 export const artworkApi = createApi({
-  keepUnusedDataFor: Number.isFinite(Number(import.meta.env.VITE_TTL)) ? Number(import.meta.env.VITE_TTL) : 20,
+  // fix later process.env*
+  // eslint-disable-next-line node/prefer-global/process
+  keepUnusedDataFor: Number.isFinite(Number(process.env.NEXT_PUBLIC_TTL)) ? Number(process.env.NEXT_PUBLIC_TTL) : 20,
   tagTypes: ['ArtworkByQuery', 'ArtworkById'],
   reducerPath: 'artworkApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE }),
