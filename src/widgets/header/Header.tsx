@@ -53,7 +53,7 @@ function Header() {
       <Link
         viewTransition
         to={{ pathname: PATH.index, search: `page=${pageParameters}` }}
-        className={cn(baseHeaderStyle, `top-40 hidden outlet:block`)}
+        className={cn(baseHeaderStyle, `top-24 hidden outlet:block`)}
       >
         close outlet
       </Link>

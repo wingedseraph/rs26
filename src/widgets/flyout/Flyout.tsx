@@ -32,9 +32,9 @@ function Flyout() {
 
   return (
     <nav className='
-      fixed bottom-4 left-4 z-40 flex appear justify-center rounded-xl bg-stone-6 p-2 shadow-cloud transition-transform
-      max-sm:data-hidden:translate-y-[calc(100%+var(--mobile-main-layout-padding)*2)]
-      sm:w-74 sm:bg-stone-5/20 sm:backdrop-blur-xl
+      fixed bottom-4 left-4 z-40 flex appear justify-center rounded-xl bg-silver-mid-cloud p-2 shadow-cloud
+      transition-transform
+      sm:w-74 sm:backdrop-blur-xl
     '
     >
       <div className='relative flex justify-center gap-2'>
@@ -44,7 +44,7 @@ function Flyout() {
         </span
         >
 
-        <span className='
+        <section className='
           relative flex flex-row items-center gap-4 rounded-md px-2 py-1 text-xs font-bold tracking-[-0.25px]
           text-stone-5 transition-colors duration-150
         '
@@ -53,7 +53,7 @@ function Flyout() {
 
           <Button
             title='Unselect all selected cards'
-            className='block h-fit cursor-pointer text-lg font-bold hover:bg-stone-6 hover:no-underline'
+            className='block h-fit cursor-pointer text-lg font-bold hover:bg-silver-mist-hover hover:no-underline'
             onClick={() => dispatch(removeAll())}
           >
 
@@ -64,12 +64,15 @@ function Flyout() {
             href={blobUrl}
             download={`${count} selected cards.csv`}
             title='Download all selected cards'
-            className='block h-fit cursor-pointer text-lg font-bold text-stone-5 hover:bg-stone-6 hover:no-underline'
+            className='
+              block h-fit cursor-pointer rounded-md px-2.5 text-lg font-bold
+              hover:bg-silver-mist-hover hover:no-underline
+            '
           >
             Download
           </a>
 
-        </span
+        </section
         >
       </div>
     </nav>

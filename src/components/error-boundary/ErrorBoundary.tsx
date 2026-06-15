@@ -26,8 +26,7 @@ export class ErrorBoundary extends PureComponent<
   }
 
   componentDidCatch(error: Error) {
-    console.warn(error)
-    this.setState({ errorMessage: error.stack ?? error.message })
+    this.setState({ errorMessage: error.message })
   }
 
   render(): ReactNode {

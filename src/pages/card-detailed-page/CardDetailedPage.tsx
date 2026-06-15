@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { skipToken } from '@reduxjs/toolkit/query'
 
 import { useGetArtworkByIdQuery } from '@/api/artwork'
+import { Spinner } from '@/components/ui/spinner'
 
 const cardBaseStyle = `
   relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
@@ -15,7 +16,7 @@ function CardDetailedPage() {
   const { data, isLoading, isError } = useGetArtworkByIdQuery(parameters.id ?? skipToken)
 
   if (isLoading) {
-    return <span>Loading</span>
+    return <Spinner />
   }
 
   if (!data || isError || !data.record) {

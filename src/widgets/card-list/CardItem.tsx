@@ -25,7 +25,6 @@ function CardItem({ card, page }: CardItemProperties) {
   return (
     <div
       className={cardBaseStyle}
-      key={card.systemNumber}
       title={card._primaryTitle}
     >
       <Link viewTransition to={{ pathname: `card/${card.systemNumber}`, search: `page=${page}` }}>
