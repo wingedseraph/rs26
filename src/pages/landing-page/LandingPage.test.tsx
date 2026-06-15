@@ -37,7 +37,7 @@ function renderApp(store?: AppStore) {
   )
 }
 
-describe('App', () => {
+describe('LandingPage', () => {
   afterEach(() => {
     localStorage.clear()
     vi.resetAllMocks()
@@ -47,7 +47,7 @@ describe('App', () => {
     it('должен отобразить loading при запросе', async () => {
       renderApp()
 
-      const loading = await screen.findByText('Loading...')
+      const loading = await screen.findByRole('status')
 
       expect(loading).toBeInTheDocument()
     })
@@ -74,7 +74,7 @@ describe('App', () => {
       unmount()
       renderApp(store)
 
-      const loading = screen.queryByText('Loading')
+      const loading = screen.queryByRole('status')
 
       expect(loading).not.toBeInTheDocument()
     })

@@ -27,7 +27,7 @@ describe('CardDetailed', () => {
     it('должен отобразить loading при запросе', async () => {
       renderCardDetailed(VALID_ID)
 
-      const loading = screen.getByText('Loading')
+      const loading = screen.getByRole('status')
 
       expect(loading).toBeInTheDocument()
     })
@@ -48,7 +48,7 @@ describe('CardDetailed', () => {
       unmount()
       renderCardDetailed(VALID_ID, store)
 
-      const loading = screen.queryByText('Loading')
+      const loading = screen.queryByRole('status')
 
       expect(loading).not.toBeInTheDocument()
     })
@@ -76,7 +76,7 @@ describe('CardDetailed', () => {
     it('должен отобразить заглушку при отсутствии record', async () => {
       renderCardDetailed(INVALID_ID)
 
-      const fallback = await screen.findByText('Failed to load artwork')
+      const fallback = await screen.findByRole('heading', { name: 'Failed to load artwork' })
 
       expect(fallback).toBeInTheDocument()
     })
