@@ -1,7 +1,7 @@
 import { PureComponent } from 'react'
 import type { ReactNode } from 'react'
 
-import ErrorPage from '@/components/error-page/ErrorPage'
+import ErrorPage from '@/pages/error-page/ErrorPage'
 
 type Properties = {
   children: ReactNode
@@ -26,8 +26,7 @@ export class ErrorBoundary extends PureComponent<
   }
 
   componentDidCatch(error: Error) {
-    console.warn(error)
-    this.setState({ errorMessage: error.stack ?? error.message })
+    this.setState({ errorMessage: error.message })
   }
 
   render(): ReactNode {

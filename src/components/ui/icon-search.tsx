@@ -8,7 +8,7 @@ function IconSearch({ className, ...properties }: ComponentProps<'svg'>) {
       fill='currentColor'
       width={30}
       height={30}
-      className={cn('ml-0.5 size-6 shrink-0 text-silver-icon', className)}
+      className={cn('ml-0.5 size-6 shrink-0 text-stone-4', className)}
       aria-hidden={true}
       viewBox='0 0 30 30'
       {...properties}

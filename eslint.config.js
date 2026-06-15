@@ -84,7 +84,14 @@ export default antfu({
       'error',
       {
         ignore: [
+          'dark',
           'outlet',
+          'collapsible',
+          'masonry',
+          'submission-card',
+          'ac-wrap',
+          'cb-icon',
+          'cb-icon-checked',
         ],
       },
     ],

@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { PAGE_SIZE } from '@/api/api'
+import { PAGE_SIZE } from '@/api/artwork'
 
 import { Pagination } from './Pagination'
 

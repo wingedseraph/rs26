@@ -1,18 +1,22 @@
 import { createBrowserRouter, redirect } from 'react-router'
 import type { LoaderFunctionArgs } from 'react-router'
 
-import { App } from '@/App'
-import { AboutPage } from '@/components/about-page/AboutPage'
-import { CardDetailed } from '@/components/card-detailed/CardDetailed'
-import ErrorPage from '@/components/error-page/ErrorPage'
-import { Layout } from '@/components/layout/Layout'
+import { AboutPage } from '@/pages/about-page/AboutPage'
+import { CardDetailedPage } from '@/pages/card-detailed-page/CardDetailedPage'
+import ErrorPage from '@/pages/error-page/ErrorPage'
+import { FormsPage } from '@/pages/forms-page/FormsPage'
+import { LandingPage } from '@/pages/landing-page/LandingPage'
+import { Layout } from '@/widgets/layout/Layout'
 
 export const PATH = {
   index: '/',
   cardDetailed: 'card/:id',
+  forms: 'forms',
   about: 'about',
   error: '*',
 } as const
+
+const FORM_TASK = true
 
 export const routes
   = [{
@@ -21,8 +25,12 @@ export const routes
     children: [
       {
         path: PATH.index,
-        element: <App />,
+        element: <LandingPage />,
         loader: ({ request }: LoaderFunctionArgs) => {
+          if (FORM_TASK) {
+            return redirect(PATH.forms)
+          }
+
           const parameters = new URL(request.url.toString()).searchParams
 
           if (parameters.get('page') === null) {
@@ -34,9 +42,13 @@ export const routes
         children: [
           {
             path: PATH.cardDetailed,
-            element: <CardDetailed />,
+            element: <CardDetailedPage />,
           },
         ],
+      },
+      {
+        path: PATH.forms,
+        element: <FormsPage />,
       },
       {
         path: PATH.about,
