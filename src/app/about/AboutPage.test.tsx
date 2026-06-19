@@ -1,12 +1,10 @@
-import { MemoryRouter } from 'react-router'
-
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { AboutPage } from '@/pages/about-page/AboutPage'
+import AboutPage from '@/app/about/page'
 
 function renderAboutPage() {
-  return render(<MemoryRouter><AboutPage /></MemoryRouter>)
+  return render(<AboutPage />)
 }
 
 describe('AboutPage', () => {

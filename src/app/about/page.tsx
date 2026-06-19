@@ -9,7 +9,7 @@ const baseStyleLink = `
   lg:rounded-lg lg:px-14 lg:pt-6 lg:pb-7
 `
 
-function AboutPage() {
+export default function AboutPage() {
   return (
     <>
       <BackLink />
@@ -29,5 +29,3 @@ function AboutPage() {
     </>
   )
 }
-
-export { AboutPage }
