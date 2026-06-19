@@ -1,19 +1,20 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import type { Dispatch } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
 import { STORAGE } from '@/lib/localStorage'
 
 type useLocalStorageProperties = {
   value: string
-  setValue: Dispatch<React.SetStateAction<string>>
+  setValue: Dispatch<SetStateAction<string>>
   clearValue: () => void
-
 }
 
 export function useLocalStorage(initialValue: string, key?: string): useLocalStorageProperties {
-  const [value, setValue] = useState(() => localStorage.getItem(key ?? STORAGE) ?? initialValue)
+  const [value, setValue] = useState(() => /* fix: window* is that enough for ssr? */ window.localStorage.getItem(key ?? STORAGE) ?? initialValue)
 
-  useEffect(() => localStorage.setItem(key ?? STORAGE, value.trim()), [value, key])
+  useEffect(() => window.localStorage.setItem(key ?? STORAGE, value.trim()), [value, key])
 
   const clearValue = () => setValue('')
 

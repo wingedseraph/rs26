@@ -40,7 +40,7 @@ function Header() {
     >
       <h1>An inspiration engine for ideas</h1>
       <Link href={PATH.about} className={cn(baseHeaderStyle, 'top-0')}> about </Link>
-      <Link href={PATH.error} className={cn(baseHeaderStyle, 'top-8')}> error </Link>
+      <Link href={PATH.error} className={cn(baseHeaderStyle, 'top-8')}> not-found </Link>
 
       <button
         type='button'
