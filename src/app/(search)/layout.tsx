@@ -1,17 +1,25 @@
+'use client'
+
+import { Children } from 'react'
+import type { ReactNode } from 'react'
+
 import { useGetArtworkByNameQuery } from '@/api/artwork'
+import ErrorPage from '@/app/error'
 import { Pagination } from '@/components/pagination/Pagination'
-import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { usePage } from '@/hooks/usePage'
 import { cn } from '@/lib/utilities'
-import { FALLBACK_CARDS } from '@/mocks/mocks'
-import ErrorPage from '@/pages/error-page/ErrorPage'
+import { FALLBACK_CARDS } from '@/tests/mocks/mocks'
 import { CardList } from '@/widgets/card-list/CardList'
 import { Flyout } from '@/widgets/flyout/Flyout'
-import { baseHeaderStyle, Header } from '@/widgets/header/Header'
+import { Header } from '@/widgets/header/Header'
 
-export default function LandingPage() {
+const baseStyleDetailed = 'hidden transition-all duration-300'
+const outletStyleDetailed = 'flex w-full items-center justify-center md:relative md:w-1/2'
+
+// fix should be SSR!
+export default function SearchPage({ children }: { children: ReactNode }) {
   const page = usePage()
 
   const query = useLocalStorage('')
@@ -24,9 +32,10 @@ export default function LandingPage() {
   if (isError || !data) {
     return (
       <ErrorPage>
-        <Button className={cn(baseHeaderStyle, 'relative p-10 text-4xl hover:no-underline')} onClick={() => refetch()}>
+        {/* fix not sure is need for ssr
+          <Button className={cn(baseHeaderStyle, 'relative p-10 text-4xl hover:no-underline')} onClick={() => refetch()}>
           Refetch data
-        </Button>
+        </Button> */}
       </ErrorPage>
     )
   }
@@ -36,22 +45,16 @@ export default function LandingPage() {
 
   return (
     <>
-
-      {/* todo rewrite to cn!
-        <div className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}
-         */}
-      <div className='max-w-3xl'>
+      <div className={`${children ? 'outlet flex-1' : 'max-w-3xl'}`}>
         <Header />
         <CardList data={records ?? FALLBACK_CARDS} page={page} />
         <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />
       </div>
 
-      {/*
-      <div className={cn(baseStyleDetailed, { [outletStyleDetailed]: outlet })}>
-        <Outlet />
+      <div className={cn(baseStyleDetailed, { [outletStyleDetailed]: children })}>
+        {children}
       </div>
-      */}
     </>
   )
 }

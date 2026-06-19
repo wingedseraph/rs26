@@ -9,7 +9,7 @@ import { ERROR_ID, INVALID_ID, VALID_ID } from '@/mocks/handlers'
 import { SINGLE_CARD_WITH_PRIMARY_TITLE_MOCK } from '@/mocks/mocks'
 import { renderWithProviders } from '@/mocks/setupStore'
 
-import { CardDetailedPage } from './CardDetailedPage'
+import { CardDetailedPage } from '../../../pages/card-detailed-page/CardDetailedPage]/CardDetailedPage'
 
 function renderCardDetailed(id: number, store?: AppStore) {
   const routes = [

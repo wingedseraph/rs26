@@ -1,8 +1,4 @@
-import { skipToken } from '@reduxjs/toolkit/query'
-import { useParams } from 'next/navigation'
-
-import { useGetArtworkByIdQuery } from '@/api/artwork'
-import { Spinner } from '@/components/ui/spinner'
+import { getByIdArtwork } from '@/api/artwork'
 
 const cardBaseStyle = `
   relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
@@ -10,16 +6,15 @@ const cardBaseStyle = `
   hover:shadow-card-hover
 `
 
-function CardDetailedPage() {
-  const parameters = useParams<{ id: string }>()
-  // fix pass id from server component of landing page
-  const { data, isLoading, isError } = useGetArtworkByIdQuery(parameters.id ?? skipToken)
+export default async function CardDetailedPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+  const data = await getByIdArtwork(id)
 
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (!data || isError || !data.record) {
+  if (!data) {
     return <h2>Failed to load artwork</h2>
   }
 
@@ -46,5 +41,3 @@ function CardDetailedPage() {
     </div>
   )
 }
-
-export { CardDetailedPage }
