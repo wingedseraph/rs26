@@ -1,10 +1,5 @@
 import { getByIdArtwork } from '@/api/artwork'
-
-const cardBaseStyle = `
-  relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
-  transition-shadow duration-200
-  hover:shadow-card-hover
-`
+import { baseCardStyle } from '@/styles/styles'
 
 export default async function CardDetailedPage({
   params,
@@ -20,7 +15,7 @@ export default async function CardDetailedPage({
 
   return (
     <div
-      className={cardBaseStyle}
+      className={baseCardStyle}
       title={data.record.dimensionsNote}
     >
       <div className='flex flex-col gap-1 p-1'>
