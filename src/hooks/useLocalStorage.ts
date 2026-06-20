@@ -12,9 +12,22 @@ type useLocalStorageProperties = {
 }
 
 export function useLocalStorage(initialValue: string, key?: string): useLocalStorageProperties {
-  const [value, setValue] = useState(() => /* fix: window* is that enough for ssr? */ window.localStorage.getItem(key ?? STORAGE) ?? initialValue)
+  const [value, setValue] = useState(() => {
+    try {
+      return localStorage.getItem(key ?? STORAGE) ?? initialValue
+    }
+    catch {
+      return initialValue
+    }
+  },
+  )
 
-  useEffect(() => window.localStorage.setItem(key ?? STORAGE, value.trim()), [value, key])
+  useEffect(() => {
+    try {
+      localStorage.setItem(key ?? STORAGE, value.trim())
+    }
+    catch (error_) { error_ instanceof Error && console.warn(error_.message) }
+  }, [value, key])
 
   const clearValue = () => setValue('')
 

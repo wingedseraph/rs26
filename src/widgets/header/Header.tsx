@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import type { ChangeEvent, SyntheticEvent } from 'react'
 
@@ -6,15 +7,10 @@ import Link from 'next/link'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { usePage } from '@/hooks/usePage'
 import { useTheme } from '@/hooks/useTheme'
+import { baseHeaderStyle } from '@/styles/styles'
 import { cn } from '@/lib/utilities'
 import { PATH } from '@/router'
 import { CombinedInput } from '@/widgets/combined-input/CombinedInput'
-
-export const baseHeaderStyle = `
-  absolute right-0 text-header-about z-10 cursor-pointer rounded-xl p-1 text-stone-5 outline-hidden transition-colors
-  hover:bg-stone-6
-  focus-visible:ring-1 focus-visible:ring-black
-`
 
 function Header() {
   const store = useLocalStorage('')
