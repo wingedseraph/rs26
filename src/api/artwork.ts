@@ -16,6 +16,36 @@ const IMAGES_EXIST = '1'
 const byQueryTag = 'ArtworkByQuery'
 const byIdTag = 'ArtworkById'
 
+// fix need to place it in server_action directory?
+export async function getByQueryArtwork(query: string, page?: string) {
+  const response = await fetch(`${BASE}/objects/search?q=${query}&images_exist=1&page_size=${PAGE_SIZE}&page=${page ?? 0}`)
+
+  if (!response.ok) {
+    throw new Error('Issue with API')
+  }
+  const data: unknown = await response.json()
+
+  if (!isValidResponse(data)) {
+    throw new Error('Issue with API Response')
+  }
+  const records = data.records
+  const recordsCount = data.info.record_count
+
+  return { records, recordsCount }
+}
+export async function getByIdArtwork(id: string) {
+  const response = await fetch(`${BASE}/museumobject/${id}`)
+  if (!response.ok) {
+    throw new Error('Issue with API')
+  }
+  const data: unknown = await response.json()
+
+  if (!isValidResponseSingleItem(data)) {
+    throw new Error('Issue with API Response')
+  }
+  return data
+}
+
 export const artworkApi = createApi({
   // fix later process.env*
   // eslint-disable-next-line node/prefer-global/process
