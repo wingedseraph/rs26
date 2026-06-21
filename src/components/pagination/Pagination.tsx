@@ -6,6 +6,7 @@ import { cn } from '@/lib/utilities'
 
 type PaginationProperties = {
   page: string
+  query: string
   recordsCount: number
 }
 
@@ -16,15 +17,19 @@ const baseStyle = `
   md:p-2
 `
 
-function Pagination({ page, recordsCount }: PaginationProperties) {
+function Pagination({ page, query, recordsCount }: PaginationProperties) {
   const pageNumber = Number(page)
+  // fix can it be simplified
+  const previousPage = new URLSearchParams({ query, page: String(pageNumber - 1) }).toString()
+  const nextPage = new URLSearchParams({ query, page: String(pageNumber + 1) }).toString()
+
   const firstPage = pageNumber === 1
   const lastPage = Math.ceil(recordsCount / Number(PAGE_SIZE)) <= pageNumber
   return (
     <div className='mx-auto mt-6 max-w-50 rounded-lg bg-light p-2 shadow-[0px_2px_10px_0px_rgba(149,156,166,0.25)]' aria-hidden='false'>
       <nav className='flex items-center gap-x-2'>
         <Link
-          href={{ search: `page=${pageNumber - 1}` }}
+          href={{ search: previousPage }}
           aria-disabled={pageNumber === 1}
           tabIndex={firstPage ? -1 : undefined}
           className={cn(baseStyle, { 'pointer-events-none': firstPage })}
@@ -37,7 +42,7 @@ function Pagination({ page, recordsCount }: PaginationProperties) {
         </button>
 
         <Link
-          href={{ search: `page=${pageNumber + 1}` }}
+          href={{ search: nextPage }}
           tabIndex={lastPage ? -1 : undefined}
           aria-disabled={lastPage}
           className={cn(baseStyle, { 'pointer-events-none': lastPage })}

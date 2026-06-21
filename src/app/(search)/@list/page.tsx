@@ -4,7 +4,7 @@ import { Pagination } from '@/components/pagination/Pagination'
 import { FALLBACK_CARDS } from '@/tests/mocks/mocks'
 import { CardList } from '@/widgets/card-list/CardList'
 import { Flyout } from '@/widgets/flyout/Flyout'
-import { Header } from '@/widgets/header/Header'
+import Header from '@/widgets/header/Header'
 
 export type SearchParams = {
   query: string
@@ -16,6 +16,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const data = await getByQueryArtwork(query, page)
 
   // fix take data from url /card/ to match outlet exist
+  // or css :has
   const outlet = false
 
   if (!data) {
@@ -34,18 +35,12 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <>
-      {/* fix check url is not /card/ not `children or true` */}
       <div className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}>
-        <Header />
-        <CardList data={records ?? FALLBACK_CARDS} page={page} />
-        <Pagination page={page ?? '1'} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
+        <Header page={page} />
+        <CardList data={records ?? FALLBACK_CARDS} query={query} page={page} />
+        <Pagination query={query} page={page} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />
       </div>
-
-      {/* <div className={cn(baseStyleDetailed, { [outletStyleDetailed]: outlet })}>
-        {children}
-      </div> */}
-
     </>
   )
 }

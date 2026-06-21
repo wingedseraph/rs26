@@ -11,19 +11,21 @@ import { CardListFooter } from '@/widgets/card-list/CardListFooter'
 
 type CardItemProperties = {
   card: Card
+  query: string
   page: string
 }
 
-function CardItem({ card, page }: CardItemProperties) {
+function CardItem({ card, query, page }: CardItemProperties) {
   const dispatch = useAppDispatch()
   const selectedCards = useAppSelector(state => state.selectedCards)
+  const searchParam = new URLSearchParams({ query, page }).toString()
 
   return (
     <div
       className={baseCardItemStyle}
       title={card._primaryTitle}
     >
-      <Link href={{ pathname: `/card/${card.systemNumber}`, search: `page=${page}` }}>
+      <Link href={{ pathname: `/card/${card.systemNumber}`, search: searchParam }}>
         <div className='flex flex-col gap-1 p-1'>
           <div className='flex min-h-40 w-full cursor-default justify-center rounded-md-custom bg-stone-6/30'>
             <Image

@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server'
 
 export function proxy(request: NextRequest) {
   if (!request.nextUrl.searchParams.has('page') && request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/?page=1', request.url))
+    request.nextUrl.searchParams.set('page', '1')
+    return NextResponse.redirect(request.nextUrl)
   }
 }
 
