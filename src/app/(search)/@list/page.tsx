@@ -36,7 +36,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <div className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}>
-        <Header page={page} />
+        <Header query={query} page={page} />
         <CardList data={records ?? FALLBACK_CARDS} query={query} page={page} />
         <Pagination query={query} page={page} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />
         <Flyout />

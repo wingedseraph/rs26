@@ -182,7 +182,6 @@
   }
 
   * {
-    scrollbar-gutter: stable;
     scrollbar-width: thin;
     scrollbar-color: var(--color-stone-3) var(--color-light);
   }

@@ -3,5 +3,5 @@ export const PATH = {
   cardDetailed: 'card/:id',
   forms: 'forms',
   about: 'about',
-  error: '*',
+  notFound: 'wrongPath',
 } as const

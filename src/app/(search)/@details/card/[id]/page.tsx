@@ -23,6 +23,7 @@ export default async function CardDetailedPage({
       <div className='flex flex-col gap-1 p-1'>
         <div className='flex w-full cursor-default justify-center'>
           <Image
+            loading='eager'
             width={150}
             height={180}
             className='max-h-180 w-full object-contain py-10'
