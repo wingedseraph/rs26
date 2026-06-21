@@ -12,15 +12,11 @@ type useLocalStorageProperties = {
 }
 
 export function useLocalStorage(initialValue: string, key?: string): useLocalStorageProperties {
-  const [value, setValue] = useState(() => {
-    try {
-      return localStorage.getItem(key ?? STORAGE) ?? initialValue
-    }
-    catch {
-      return initialValue
-    }
-  },
-  )
+  const [value, setValue] = useState(initialValue)
+  useEffect(() => {
+    // eslint-disable-next-line react/set-state-in-effect -- avoid flickering on init, source: https://nextjs.org/docs/messages/react-hydration-error#solution-1-using-useeffect-to-run-on-the-client-only
+    setValue(localStorage.getItem(key ?? STORAGE) ?? initialValue)
+  }, [initialValue, key])
 
   useEffect(() => {
     try {
