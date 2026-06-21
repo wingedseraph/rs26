@@ -7,9 +7,9 @@ import Link from 'next/link'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { usePage } from '@/hooks/usePage'
 import { useTheme } from '@/hooks/useTheme'
-import { baseHeaderStyle } from '@/styles/styles'
 import { cn } from '@/lib/utilities'
 import { PATH } from '@/router'
+import { baseHeaderStyle } from '@/styles/styles'
 import { CombinedInput } from '@/widgets/combined-input/CombinedInput'
 
 function Header() {

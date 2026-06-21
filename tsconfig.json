@@ -2,7 +2,6 @@
   "$schema": "https://www.schemastore.org/tsconfig.json",
   "compilerOptions": {
     "incremental": true,
-    "allowJs": true,
     "target": "ES2025",
     "jsx": "react-jsx",
     "lib": [
@@ -23,14 +22,15 @@
       "@testing-library/jest-dom"
     ],
     "allowImportingTsExtensions": true,
+    "allowJs": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "isolatedModules": true,
+    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "skipLibCheck": true,
     "plugins": [
       {
