@@ -4,6 +4,7 @@ import type { ReactNode } from 'react'
 
 import './globals.css'
 import StoreProvider from '@/app/StoreProvider'
+import { ThemeContextProvider } from '@/context/ThemeContext'
 import { baseLayoutStyle } from '@/styles/styles'
 
 export const metadata: Metadata = {
@@ -19,11 +20,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        {/* fix add providers.ts */}
         <StoreProvider>
-          {/* fix add theme providers! without flickering on first page init
-          <ThemeContextProvider> */}
-          <div className={baseLayoutStyle} id='root'>{children}</div>
+          <ThemeContextProvider>
+            <div className={baseLayoutStyle} id='root'>{children}</div>
+          </ThemeContextProvider>
         </StoreProvider>
       </body>
     </html>
