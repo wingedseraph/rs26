@@ -5,7 +5,13 @@ export const baseHeaderStyle = `
   hover:bg-stone-6
   focus-visible:ring-1 focus-visible:ring-black
 `
-export const baseCardStyle = `
+export const baseCardItemStyle = `
+  relative my-10 w-full appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
+  transition-shadow duration-200
+  hover:shadow-card-hover
+  outlet:animate-none
+`
+export const baseCardDetailsStyle = `
   relative size-full h-fit max-h-200 appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
   transition-shadow duration-200
   hover:shadow-card-hover

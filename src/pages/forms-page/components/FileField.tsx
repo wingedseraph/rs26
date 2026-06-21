@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import type { ChangeEvent, ComponentProps } from 'react'
 
+import Image from 'next/image'
+
 import { IconUpload } from '@/components/ui/icon-upload'
 import { IconX } from '@/components/ui/icon-x'
 import { toBase64 } from '@/lib/base64'
@@ -69,7 +71,9 @@ function FileField({ hint, ...properties }: FileFieldProperties) {
 
       {file && (
         <div className='file-preview'>
-          <img
+          <Image
+            width={48}
+            height={48}
             className='h-12 w-12 rounded-lg bg-stone-6 object-cover'
             src={file.source}
             alt='Preview'

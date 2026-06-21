@@ -1,10 +1,12 @@
 'use client'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import type { Card } from '@/api/types'
 
 import { useAppDispatch, useAppSelector } from '@/store'
 import { toggleOne } from '@/store/slices/selectedCardsSlice'
+import { baseCardItemStyle } from '@/styles/styles'
 import { CardListFooter } from '@/widgets/card-list/CardListFooter'
 
 type CardItemProperties = {
@@ -12,26 +14,22 @@ type CardItemProperties = {
   page: string
 }
 
-const cardBaseStyle = `
-  relative my-10 w-full appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
-  transition-shadow duration-200
-  hover:shadow-card-hover
-  outlet:animate-none
-`
-
 function CardItem({ card, page }: CardItemProperties) {
   const dispatch = useAppDispatch()
   const selectedCards = useAppSelector(state => state.selectedCards)
 
   return (
     <div
-      className={cardBaseStyle}
+      className={baseCardItemStyle}
       title={card._primaryTitle}
     >
       <Link href={{ pathname: `/card/${card.systemNumber}`, search: `page=${page}` }}>
         <div className='flex flex-col gap-1 p-1'>
           <div className='flex min-h-40 w-full cursor-default justify-center rounded-md-custom bg-stone-6/30'>
-            <img
+            <Image
+              loading='eager'
+              width={150}
+              height={160}
               className='
                 max-h-40 w-full cursor-zoom-in rounded-xs object-contain transition-opacity duration-150
                 hover:opacity-[0.92]

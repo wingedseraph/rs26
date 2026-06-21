@@ -1,5 +1,7 @@
+import Image from 'next/image'
+
 import { getByIdArtwork } from '@/api/artwork'
-import { baseCardStyle } from '@/styles/styles'
+import { baseCardDetailsStyle } from '@/styles/styles'
 
 export default async function CardDetailedPage({
   params,
@@ -15,12 +17,14 @@ export default async function CardDetailedPage({
 
   return (
     <div
-      className={baseCardStyle}
+      className={baseCardDetailsStyle}
       title={data.record.dimensionsNote}
     >
       <div className='flex flex-col gap-1 p-1'>
         <div className='flex w-full cursor-default justify-center'>
-          <img
+          <Image
+            width={150}
+            height={180}
             className='max-h-180 w-full object-contain py-10'
             src={`https://framemark.vam.ac.uk/collections/${data.record.images[0]}/full/full/0/default.jpg`}
             alt={data.record.dimensionsNote}
