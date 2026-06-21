@@ -1,4 +1,7 @@
-import type { ComponentProps } from 'react'
+'use client'
+
+import { useState } from 'react'
+import type { ChangeEvent, ComponentProps } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
@@ -7,10 +10,17 @@ import { IconSubmit } from '@/components/ui/icon-submit'
 import { Input } from '@/components/ui/input'
 
 type CombinedInputProperties = {
-  query?: string
+  initialQuery: string
 } & ComponentProps<'input'>
 
-function CombinedInput({ query, ...properties }: CombinedInputProperties) {
+function CombinedInput({ initialQuery, ...properties }: CombinedInputProperties) {
+  const [query, setQuery] = useState(initialQuery)
+
+  const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event_.target.value)
+  }
+  const clearQuery = () => setQuery('')
+
   return (
     <div className='relative w-full grow'>
       <div className='flex items-center rounded-full bg-silver-field px-1'>
@@ -20,6 +30,7 @@ function CombinedInput({ query, ...properties }: CombinedInputProperties) {
           type='text'
           name='query'
           value={query}
+          onChange={onChange}
           placeholder='Find'
           {...properties}
         />
@@ -37,8 +48,7 @@ function CombinedInput({ query, ...properties }: CombinedInputProperties) {
             <Button
               title='Clear search'
               type='button'
-              // fix
-              // onClick={clearQuery}
+              onClick={clearQuery}
               className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
             >
               <IconClear />

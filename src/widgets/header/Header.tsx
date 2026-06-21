@@ -5,11 +5,14 @@ import { cn } from '@/lib/utilities'
 import { PATH } from '@/router'
 import { baseHeaderStyle } from '@/styles/styles'
 import { CombinedInput } from '@/widgets/combined-input/CombinedInput'
+import { ThemeToggle } from '@/widgets/header/ThemeToggle'
 
-export default async function Header({ page }: { page: string }) {
-  // fix useTheme react context
-  const theme = { value: 'light', setTheme: () => null }
+type HeaderProperties = {
+  query: string
+  page: string
+}
 
+export default async function Header({ query, page }: HeaderProperties) {
   return (
     <form
       action={redirectAction}
@@ -18,15 +21,8 @@ export default async function Header({ page }: { page: string }) {
       <h1>An inspiration engine for ideas</h1>
       {/* fix those links should be separate component */}
       <Link href={PATH.about} className={cn(baseHeaderStyle, 'top-0')}> about </Link>
-      <Link href={PATH.error} className={cn(baseHeaderStyle, 'top-8')}> not-found </Link>
-
-      <button
-        type='button'
-        // onClick={() => theme.setTheme(theme.value === 'light' ? 'dark' : 'light')}
-        className={cn(baseHeaderStyle, `top-16`)}
-      >
-        {theme.value === 'light' ? 'dark' : 'light'}
-      </button>
+      <Link href={PATH.notFound} className={cn(baseHeaderStyle, 'top-8')}> not-found </Link>
+      <ThemeToggle className={cn(baseHeaderStyle, `top-16`)} />
 
       <Link
         href={{ pathname: PATH.index, search: `page=${page}` }}
@@ -35,7 +31,7 @@ export default async function Header({ page }: { page: string }) {
         close outlet
       </Link>
 
-      <CombinedInput role='textbox' name='query' /* fix re-implement clear input clearQuery={() => setValue('')} */ />
+      <CombinedInput initialQuery={query} key={query} role='textbox' name='query' />
     </form>
   )
 }
