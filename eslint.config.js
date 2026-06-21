@@ -1,5 +1,6 @@
 // @ts-check
 import antfu from '@antfu/eslint-config'
+import nextPlugin from '@next/eslint-plugin-next'
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
 import { getDefaultSelectors } from 'eslint-plugin-better-tailwindcss/defaults'
 import oxlint from 'eslint-plugin-oxlint'
@@ -107,5 +108,12 @@ export default antfu({
         },
       ],
     },
+  },
+}, {
+  plugins: {
+    '@next/next': nextPlugin,
+  },
+  rules: {
+    ...nextPlugin.configs['core-web-vitals'].rules,
   },
 }, ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'))

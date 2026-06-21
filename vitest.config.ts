@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitest/config'
 
-// fix, @path import doesnt work in imports
 export default defineConfig({
   test: {
     root: __dirname,
