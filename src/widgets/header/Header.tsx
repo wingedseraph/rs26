@@ -2,8 +2,8 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { redirectAction } from '@/app/actions'
 import { Link } from '@/i18n/navigation'
+import { PATH } from '@/lib/conts/router'
 import { cn } from '@/lib/utilities'
-import { PATH } from '@/router'
 import { baseHeaderStyle } from '@/styles/styles'
 import { CombinedInput } from '@/widgets/combined-input/CombinedInput'
 import { ThemeToggle } from '@/widgets/header/ThemeToggle'
@@ -25,15 +25,11 @@ export default async function Header({ query, page }: HeaderProperties) {
       <h1>{t('title')}</h1>
 
       <Link href={PATH.about} className={cn(baseHeaderStyle, 'top-0')}>
-        {' '}
         {t('aboutLink')}
-        {' '}
       </Link>
 
       <Link href={PATH.notFound} className={cn(baseHeaderStyle, 'top-8')}>
-        {' '}
         {t('notFoundLink')}
-        {' '}
       </Link>
 
       <ThemeToggle className={cn(baseHeaderStyle, `top-16`)} />
@@ -47,7 +43,7 @@ export default async function Header({ query, page }: HeaderProperties) {
       </Link>
 
       <Link
-        href={{ pathname: PATH.index, search: `page=${page}` }}
+        href={{ pathname: PATH.index, query: { page } }}
         className={cn(baseHeaderStyle, `top-32 hidden outlet:block`)}
       >
         {t('closeOutlet')}
