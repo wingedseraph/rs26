@@ -1,0 +1,46 @@
+{
+  "Header": {
+    "title": "Движок вдохновения для идей",
+    "aboutLink": "о проекте",
+    "notFoundLink": "не найдено",
+    "localeLink": "английский",
+    "closeOutlet": "закрыть панель"
+  },
+  "ThemeToggle": {
+    "dark": "темная тема",
+    "light": "светлая тема"
+  },
+  "Search": {
+    "placeholder": "Найти",
+    "submitTitle": "Отправить поиск",
+    "clearTitle": "Очистить поиск"
+  },
+  "CardList": {
+    "noData": "Данные не найдены",
+    "save": "Сохранить",
+    "saved": "Сохранено"
+  },
+  "CardDetails": {
+    "loadError": "Не удалось загрузить artwork"
+  },
+  "Flyout": {
+    "selectedCards": "Выбранные карточки",
+    "unselectAllTitle": "Снять выделение со всех карточек",
+    "unselectAll": "Снять выделение",
+    "download": "Скачать"
+  },
+  "AboutPage": {
+    "title": "Искусство обогащает душу, и именно об этом этот проект",
+    "courseLink": "попробовать курс"
+  },
+  "ErrorPage": {
+    "title": "Что-то пошло не так",
+    "tryAgain": "Попробовать снова"
+  },
+  "NotFoundPage": {
+    "title": "Упс! Мы не можем найти эту страницу"
+  },
+  "Common": {
+    "loading": "Загрузка..."
+  }
+}
