@@ -25,7 +25,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
   const theme = {
     value: currentTheme,
     setTheme: (selectedTheme: Theme) => {
-      stored.setValue(selectedTheme)
+      stored.syncSetValue(selectedTheme)
     },
   }
 

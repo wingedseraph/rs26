@@ -1,35 +1,30 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import type { Dispatch, SetStateAction } from 'react'
 
 import { STORAGE } from '@/lib/localStorage'
 
 type useLocalStorageProperties = {
   value: string
-  setValue: Dispatch<SetStateAction<string>>
-  clearValue: () => void
+  syncSetValue: (value: string) => void
 }
 
 export function useLocalStorage(initialValue: string, key?: string): useLocalStorageProperties {
   const [value, setValue] = useState(initialValue)
   useEffect(() => {
-    // eslint-disable-next-line react/set-state-in-effect -- avoid flickering on init, source: https://nextjs.org/docs/messages/react-hydration-error#solution-1-using-useeffect-to-run-on-the-client-only
+    // eslint-disable-next-line react/set-state-in-effect -- avoid hydration error, source: https://nextjs.org/docs/messages/react-hydration-error#solution-1-using-useeffect-to-run-on-the-client-only
     setValue(localStorage.getItem(key ?? STORAGE) ?? initialValue)
   }, [initialValue, key])
 
-  useEffect(() => {
-    try {
-      localStorage.setItem(key ?? STORAGE, value.trim())
-    }
-    catch (error_) { error_ instanceof Error && console.warn(error_.message) }
-  }, [value, key])
+  const syncSetValue = (newValue: string) => {
+    const trimmedValue = newValue.trim()
 
-  const clearValue = () => setValue('')
+    setValue(trimmedValue)
+    localStorage.setItem(key ?? STORAGE, trimmedValue)
+  }
 
   return {
     value,
-    setValue,
-    clearValue,
+    syncSetValue,
   }
 }
