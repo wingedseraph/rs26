@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import redirectAction from '@/app/actions'
+import { redirectAction } from '@/app/actions'
 import { cn } from '@/lib/utilities'
 import { PATH } from '@/router'
 import { baseHeaderStyle } from '@/styles/styles'
@@ -19,7 +19,6 @@ export default async function Header({ query, page }: HeaderProperties) {
       className='flex w-full flex-col items-center justify-between pt-4 pb-2 font-sans'
     >
       <h1>An inspiration engine for ideas</h1>
-      {/* fix those links should be separate component */}
       <Link href={PATH.about} className={cn(baseHeaderStyle, 'top-0')}> about </Link>
       <Link href={PATH.notFound} className={cn(baseHeaderStyle, 'top-8')}> not-found </Link>
       <ThemeToggle className={cn(baseHeaderStyle, `top-16`)} />

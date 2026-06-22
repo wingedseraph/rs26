@@ -9,7 +9,7 @@ const schema = z.object({
   }),
 })
 
-export default async function redirectAction(formData: FormData) {
+export async function redirectAction(formData: FormData) {
   const validatedFields = schema.safeParse({
     query: formData.get('query'),
   })
