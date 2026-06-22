@@ -1,11 +1,12 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript"],
+  "plugins": [
+    "typescript"
+  ],
   "ignorePatterns": [
     "**/*.test.ts",
     "**/*.test.tsx",
-    "src/tests/",
-    "vitest.setup.ts"
+    "src/tests/**"
   ],
   "categories": {
     "correctness": "off"
@@ -22,18 +23,39 @@
     "typescript/no-unsafe-return": "error",
     "typescript/no-unsafe-type-assertion": "error",
     "typescript/switch-exhaustiveness-check": "error",
-    "typescript/prefer-nullish-coalescing": ["error", {
-      "ignoreTernaryTests": false,
-      "ignoreConditionalTests": false
-    }],
-    "typescript/no-misused-promises": ["error", {
-      "checksVoidReturn": { "attributes": false }
-    }],
-    "typescript/return-await": ["error", "in-try-catch"],
-    "typescript/no-shadow": ["error", {
-      "hoist": "all",
-      "allow": ["resolve", "reject", "done", "next", "err", "error"],
-      "ignoreTypeValueShadow": true
-    }]
+    "typescript/prefer-nullish-coalescing": [
+      "error",
+      {
+        "ignoreTernaryTests": false,
+        "ignoreConditionalTests": false
+      }
+    ],
+    "typescript/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
+    "typescript/return-await": [
+      "error",
+      "in-try-catch"
+    ],
+    "typescript/no-shadow": [
+      "error",
+      {
+        "hoist": "all",
+        "allow": [
+          "resolve",
+          "reject",
+          "done",
+          "next",
+          "err",
+          "error"
+        ],
+        "ignoreTypeValueShadow": true
+      }
+    ]
   }
 }
