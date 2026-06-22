@@ -17,7 +17,7 @@ type CardItemProperties = {
 
 function CardItem({ card, query, page }: CardItemProperties) {
   const dispatch = useAppDispatch()
-  const selectedCards = useAppSelector(state => state.selectedCards)
+  const isCardSelected = useAppSelector(state => Object.hasOwn(state.selectedCards, card.systemNumber))
   const searchParam = new URLSearchParams({ query, page }).toString()
 
   return (
@@ -30,10 +30,10 @@ function CardItem({ card, query, page }: CardItemProperties) {
           <div className='flex min-h-40 w-full cursor-default justify-center rounded-md-custom bg-stone-6/30'>
             <Image
               loading='eager'
-              width={150}
-              height={160}
+              width={600}
+              height={600}
               className='
-                max-h-40 w-full cursor-zoom-in rounded-xs object-contain transition-opacity duration-150
+                max-h-40 cursor-zoom-in rounded-xs object-contain transition-opacity duration-150
                 hover:opacity-[0.92]
               '
               src={`${card._images._iiif_image_base_url}full/!600,600/0/default.jpg`}
@@ -52,7 +52,7 @@ function CardItem({ card, query, page }: CardItemProperties) {
 
       <CardListFooter
         onClick={() => dispatch(toggleOne({ id: card.systemNumber, card }))}
-        isSelected={Object.hasOwn(selectedCards, card.systemNumber)}
+        isSelected={isCardSelected}
       />
 
     </div>
