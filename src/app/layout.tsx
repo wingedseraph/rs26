@@ -3,28 +3,23 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 
 import './globals.css'
-import StoreProvider from '@/app/StoreProvider'
-import { ThemeContextProvider } from '@/context/ThemeContext'
-import { baseLayoutStyle } from '@/styles/styles'
+import { getLocale } from 'next-intl/server'
 
 export const metadata: Metadata = {
   title: 'Inspiration engine',
   description: 'Artwork search and discovery app built with the Victoria and Albert Museum API.',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  const locale = await getLocale()
   return (
-    <html lang='en'>
+    <html lang={locale}>
       <body>
-        <StoreProvider>
-          <ThemeContextProvider>
-            <div className={baseLayoutStyle} id='root'>{children}</div>
-          </ThemeContextProvider>
-        </StoreProvider>
+        {children}
       </body>
     </html>
   )
