@@ -3,13 +3,13 @@ import type { Card, SingleCard, ValidResponse, ValidResponseSingleCard } from '@
 function isObject(argument: unknown): argument is object {
   return (argument !== null && typeof argument === 'object')
 }
-function isArray<T>(
+export function isArray<T>(
   data: unknown,
   itemGuard?: (item: unknown) => item is T,
 ): data is T[] {
   return Array.isArray(data) && (itemGuard ? data.every(itemGuard) : true)
 };
-function isValidCard(card: unknown): card is Card {
+export function isValidCard(card: unknown): card is Card {
   return (
     isObject(card) && 'systemNumber' in card && '_primaryTitle' in card && '_images' in card && 'objectType' in card
   )
