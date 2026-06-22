@@ -1,9 +1,9 @@
 'use client'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import type { Card } from '@/api/types'
 
+import { Link } from '@/i18n/navigation'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { toggleOne } from '@/store/slices/selectedCardsSlice'
 import { baseCardItemStyle } from '@/styles/styles'

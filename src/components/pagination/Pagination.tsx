@@ -1,7 +1,6 @@
-import Link from 'next/link'
-
 import { PAGE_SIZE } from '@/api/artwork'
 import { IconArrow } from '@/components/ui/icon-arrow'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utilities'
 
 type PaginationProperties = {
