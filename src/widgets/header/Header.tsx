@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { redirectAction } from '@/app/actions'
 import { Link } from '@/i18n/navigation'
-import { PATH } from '@/lib/conts/router'
+import { PATH } from '@/lib/const/router'
 import { cn } from '@/lib/utilities'
 import { baseHeaderStyle } from '@/styles/styles'
 import { CombinedInput } from '@/widgets/combined-input/CombinedInput'

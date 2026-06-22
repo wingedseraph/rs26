@@ -1,6 +1,6 @@
 import { IconArrowBold } from '@/components/ui/icon-arrow-bold'
 import { Link } from '@/i18n/navigation'
-import { PATH } from '@/router'
+import { PATH } from '@/lib/const/router'
 
 function BackLink() {
   return (
