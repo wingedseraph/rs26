@@ -1,5 +1,5 @@
 import { getByQueryArtwork } from '@/api/artwork'
-import ErrorPage from '@/app/error'
+import ErrorPage from '@/app/[locale]/error'
 import { Pagination } from '@/components/pagination/Pagination'
 import { FALLBACK_CARDS } from '@/tests/mocks/mocks'
 import { CardList } from '@/widgets/card-list/CardList'
@@ -20,14 +20,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const outlet = false
 
   if (!data) {
-    return (
-      <ErrorPage>
-        {/* fix not sure is need for ssr
-          <Button className={cn(baseHeaderStyle, 'relative p-10 text-4xl hover:no-underline')} onClick={() => refetch()}>
-          Refetch data
-        </Button> */}
-      </ErrorPage>
-    )
+    return <ErrorPage />
   }
 
   const records = data.records
