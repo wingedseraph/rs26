@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-import type { UserProfile } from '@/store/slices/submissionsSlice'
-
-import { setupStore } from '@/store'
-import { addOne } from '@/store/slices/submissionsSlice'
-
 const mockProfile: Omit<UserProfile, 'id'> = {
   name: 'user1',
   password: 'pass1',

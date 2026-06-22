@@ -1,7 +1,8 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { BASE } from '@/api/artwork'
-import { MSW_SEARCH_RESPONSE, MSW_SINGLE_CARD_RESPONSE } from '@/mocks/mocks'
+
+import { MSW_SEARCH_RESPONSE, MSW_SINGLE_CARD_RESPONSE } from './mocks'
 
 export const VALID_ID = 1
 export const INVALID_ID = 4
