@@ -15,8 +15,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const { query = 'Rome', page = '1' } = await searchParams
   const data = await getByQueryArtwork(query, page)
 
-  // fix take data from url /card/ to match outlet exist
-  // or css :has
   const outlet = false
 
   if (!data) {

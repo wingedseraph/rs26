@@ -1,7 +1,7 @@
 import { isValidResponse, isValidResponseSingleItem } from '@/api/typeguard'
 
-export const BASE = 'https://api.vam.ac.uk/v2'
 export const PAGE_SIZE = '6'
+const BASE = 'https://api.vam.ac.uk/v2'
 const IMAGES_EXIST = '1'
 
 // fix need to place it in server_action directory?

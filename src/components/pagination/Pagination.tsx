@@ -18,7 +18,6 @@ const baseStyle = `
 
 function Pagination({ page, query, recordsCount }: PaginationProperties) {
   const pageNumber = Number(page)
-  // fix can it be simplified
   const previousPage = new URLSearchParams({ query, page: String(pageNumber - 1) }).toString()
   const nextPage = new URLSearchParams({ query, page: String(pageNumber + 1) }).toString()
 
