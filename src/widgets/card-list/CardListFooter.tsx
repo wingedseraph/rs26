@@ -1,5 +1,7 @@
 import type { ComponentProps } from 'react'
 
+import { useTranslations } from 'next-intl'
+
 import { Button } from '@/components/ui/button'
 import { IconCheck } from '@/components/ui/icon-check'
 import { IconPlus } from '@/components/ui/icon-plus'
@@ -18,6 +20,8 @@ const baseStyle = `
 const selectedStyle = 'button-animation active:bg-silver-lighter-cloud'
 
 function CardListFooter({ onClick, isSelected, ...properties }: CardListFooterProperties) {
+  const t = useTranslations('CardList')
+
   return (
     <div className='flex-1'>
       <Button
@@ -29,7 +33,7 @@ function CardListFooter({ onClick, isSelected, ...properties }: CardListFooterPr
         {...properties}
       >
         <span className='flex flex-row items-center justify-between gap-1 text-stone-3'>
-          {isSelected ? 'Saved' : 'Save'}
+          {isSelected ? t('saved') : t('save')}
           {isSelected ? <IconCheck /> : <IconPlus />}
         </span>
       </Button>

@@ -2,9 +2,12 @@
 
 import type { ComponentProps } from 'react'
 
+import { useTranslations } from 'next-intl'
+
 import { useTheme } from '@/hooks/useTheme'
 
 function ThemeToggle({ ...properties }: ComponentProps<'button'>) {
+  const t = useTranslations('ThemeToggle')
   const theme = useTheme()
 
   return (
@@ -13,7 +16,7 @@ function ThemeToggle({ ...properties }: ComponentProps<'button'>) {
       onClick={() => theme.setTheme(theme.value === 'light' ? 'dark' : 'light')}
       {...properties}
     >
-      {theme.value === 'light' ? 'dark' : 'light'}
+      {theme.value === t('light') ? t('dark') : t('light')}
     </button>
   )
 }

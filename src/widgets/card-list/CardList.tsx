@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server'
+
 import type { Card } from '@/api/types'
 
 import { CardItem } from '@/widgets/card-list/CardItem'
@@ -8,10 +10,12 @@ type CardListProperties = {
   page: string
 }
 
-function CardList({ data: cards, query, page }: CardListProperties) {
+async function CardList({ data: cards, query, page }: CardListProperties) {
+  const t = await getTranslations('CardList')
+
   if (cards.length === 0) {
     return (
-      <h2 className='appear'>Oh No Data</h2>
+      <h2 className='appear'>{t('noData')}</h2>
     )
   }
 

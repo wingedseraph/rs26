@@ -1,6 +1,10 @@
+import { getTranslations } from 'next-intl/server'
+
 import { BackLink } from '@/components/ui/back-link'
 
-export default function ErrorPage() {
+export default async function NotFoundPage() {
+  const t = await getTranslations('NotFoundPage')
+
   return (
     <>
       <BackLink />
@@ -9,7 +13,7 @@ export default function ErrorPage() {
         id='center'
         className='appear p-2 md:px-8 md:pt-6'
       >
-        <h1 className='sm:text-8xl/30'>Oops! We can't find that page</h1>
+        <h1 className='sm:text-8xl/30'>{t('title')}</h1>
       </div>
     </>
   )

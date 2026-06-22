@@ -1,10 +1,13 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { Button } from '@/components/ui/button'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { removeAll } from '@/store/slices/selectedCardsSlice'
 
 function Flyout() {
+  const t = useTranslations('Flyout')
   const dispatch = useAppDispatch()
   const selectedCards = useAppSelector(state => state.selectedCards)
   const array = Object.values(selectedCards)
@@ -37,22 +40,22 @@ function Flyout() {
           '
         >
           <input name='csv' readOnly value={JSON.stringify(array)} className='hidden' />
-          <p className='text-2xl' title='Selected cards'>{count}</p>
+          <p className='text-2xl' title={t('selectedCards')}>{count}</p>
 
           <Button
-            title='Unselect all selected cards'
+            title={t('unselectAllTitle')}
             className='block h-fit cursor-pointer text-lg font-bold hover:bg-silver-mist-hover hover:no-underline'
             onClick={() => dispatch(removeAll())}
           >
 
-            Unselect all
+            {t('unselectAll')}
           </Button>
 
           <Button
             type='submit'
             className='block h-fit cursor-pointer text-lg font-bold hover:bg-silver-mist-hover hover:no-underline'
           >
-            Download
+            {t('download')}
           </Button>
 
         </form

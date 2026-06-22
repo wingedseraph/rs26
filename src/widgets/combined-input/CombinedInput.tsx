@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import type { ChangeEvent, ComponentProps } from 'react'
 
+import { useTranslations } from 'next-intl'
+
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
 import { IconSearch } from '@/components/ui/icon-search'
@@ -15,6 +17,7 @@ type CombinedInputProperties = {
 
 function CombinedInput({ initialQuery, ...properties }: CombinedInputProperties) {
   const [query, setQuery] = useState(initialQuery)
+  const t = useTranslations('Search')
 
   const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
     setQuery(event_.target.value)
@@ -31,14 +34,14 @@ function CombinedInput({ initialQuery, ...properties }: CombinedInputProperties)
           name='query'
           value={query}
           onChange={onChange}
-          placeholder='Find'
+          placeholder={t('placeholder')}
           {...properties}
         />
 
         {query && (
           <>
             <Button
-              title='Submit search'
+              title={t('submitTitle')}
               type='submit'
               className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
             >
@@ -46,7 +49,7 @@ function CombinedInput({ initialQuery, ...properties }: CombinedInputProperties)
             </Button>
 
             <Button
-              title='Clear search'
+              title={t('clearTitle')}
               type='button'
               onClick={clearQuery}
               className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
