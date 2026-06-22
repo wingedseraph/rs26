@@ -21,8 +21,8 @@
     "types": [
       "@testing-library/jest-dom"
     ],
-    "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
+    "allowImportingTsExtensions": true,
     "allowJs": true,
     "strict": true,
     "noFallthroughCasesInSwitch": true,
