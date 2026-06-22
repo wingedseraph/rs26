@@ -16,7 +16,7 @@ function ThemeToggle({ ...properties }: ComponentProps<'button'>) {
       onClick={() => theme.setTheme(theme.value === 'light' ? 'dark' : 'light')}
       {...properties}
     >
-      {theme.value === t('light') ? t('dark') : t('light')}
+      {theme.value === 'light' ? t('dark') : t('light')}
     </button>
   )
 }
