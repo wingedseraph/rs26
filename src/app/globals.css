@@ -37,7 +37,7 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
-@custom-variant outlet (&:where(.outlet, .outlet *));
+@custom-variant outlet (&:where(.search-layout:has([data-outlet]:not(:empty)) *, .search-layout:has([data-outlet]:not(:empty))));
 @theme {
   --color-light: #fafbfc;
   --color-black-tisa: #404040;

@@ -86,6 +86,7 @@ export default antfu({
       {
         ignore: [
           'dark',
+          'search-layout',
           'outlet',
           'collapsible',
           'masonry',

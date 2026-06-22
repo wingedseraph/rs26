@@ -15,8 +15,6 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   const { query = 'Rome', page = '1' } = await searchParams
   const data = await getByQueryArtwork(query, page)
 
-  const outlet = false
-
   if (!data) {
     return <ErrorPage />
   }
@@ -26,7 +24,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <>
-      <div className={`${outlet ? 'outlet flex-1' : 'max-w-3xl'}`}>
+      <div className='max-w-3xl outlet:max-w-none outlet:flex-1'>
         <Header query={query} page={page} />
         <CardList data={records ?? FALLBACK_CARDS} query={query} page={page} />
         <Pagination query={query} page={page} recordsCount={recordsCount ?? FALLBACK_CARDS.length} />

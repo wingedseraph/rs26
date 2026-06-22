@@ -8,9 +8,9 @@ export default async function Layout({
   details: ReactNode
 }) {
   return (
-    <>
+    <div className='search-layout contents'>
       {list}
-      {details}
-    </>
+      <div className='contents' data-outlet>{details}</div>
+    </div>
   )
 }
