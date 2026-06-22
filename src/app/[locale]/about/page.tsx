@@ -1,15 +1,19 @@
+import { getTranslations } from 'next-intl/server'
+
 import { BackLink } from '@/components/ui/back-link'
 import { baseStyleLink } from '@/styles/styles'
 
 const COURSE_LINK = 'https://rs.school/courses/reactjs'
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const t = await getTranslations('AboutPage')
+
   return (
     <>
       <BackLink />
 
       <div id='center' className='appear p-2 md:px-8 md:pt-6'>
-        <h1 className='sm:text-8xl/30'>Art enriches the soul, and that is what this project is all about</h1>
+        <h1 className='sm:text-8xl/30'>{t('title')}</h1>
 
         <a
           className={baseStyleLink}
@@ -17,7 +21,7 @@ export default function AboutPage() {
           target='_blank'
           rel='noopener noreferrer'
         >
-          try the course
+          {t('courseLink')}
         </a>
       </div>
     </>

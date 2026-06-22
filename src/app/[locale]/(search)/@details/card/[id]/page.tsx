@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 
 import { getByIdArtwork } from '@/api/artwork'
@@ -9,10 +10,11 @@ export default async function CardDetailedPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
+  const t = await getTranslations('CardDetails')
   const data = await getByIdArtwork(id)
 
   if (!data) {
-    return <h2>Failed to load artwork</h2>
+    return <h2>{t('loadError')}</h2>
   }
 
   return (
