@@ -4,7 +4,6 @@ export const PAGE_SIZE = '6'
 const BASE = 'https://api.vam.ac.uk/v2'
 const IMAGES_EXIST = '1'
 
-// fix need to place it in server_action directory?
 export async function getByQueryArtwork(query: string, page?: string) {
   const response = await fetch(`${BASE}/objects/search?q=${query}&images_exist=${IMAGES_EXIST}&page_size=${PAGE_SIZE}&page=${page ?? 0}`)
 
