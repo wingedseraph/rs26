@@ -7,7 +7,7 @@ import type { AppStore } from '@/store'
 
 import { setupStore } from '@/store'
 
-export default function StoreProvider({
+function StoreProvider({
   children,
 }: {
   children: ReactNode
@@ -17,3 +17,5 @@ export default function StoreProvider({
 
   return <Provider store={storeRef.current}>{children}</Provider>
 }
+
+export { StoreProvider }
