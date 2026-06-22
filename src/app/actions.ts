@@ -1,7 +1,9 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { getLocale } from 'next-intl/server'
 import { z } from 'zod'
+
+import { redirect } from '@/i18n/navigation'
 
 const schema = z.object({
   query: z.string({
@@ -15,6 +17,7 @@ export async function redirectAction(formData: FormData) {
   })
 
   if (validatedFields.success) {
-    redirect(`/?query=${validatedFields.data.query}&page=1`)
+    const locale = await getLocale()
+    redirect({ href: { pathname: '/', query: { query: validatedFields.data.query, page: '1' } }, locale })
   }
 }
