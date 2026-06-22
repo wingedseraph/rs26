@@ -1,6 +1,12 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript"],
+  "ignorePatterns": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "src/tests/",
+    "vitest.setup.ts"
+  ],
   "categories": {
     "correctness": "off"
   },
