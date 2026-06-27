@@ -1,4 +1,5 @@
 # V&A Museum Explorer
+<img width="4234" height="3140" alt="image" src="https://github.com/user-attachments/assets/79136b92-cab8-47d5-bac7-565d389e5eef" />
 
 Artwork search and discovery app built with the [Victoria and Albert Museum API](https://developers.vam.ac.uk/guide/v2/welcome.html).
 
