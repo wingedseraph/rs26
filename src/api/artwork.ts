@@ -1,59 +1,34 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-import type { ValidResponse, ValidResponseSingleCard } from '@/api/types'
-
 import { isValidResponse, isValidResponseSingleItem } from '@/api/typeguard'
 
-type Arguments = {
-  query: string
-  page: string
-}
-
-export const BASE = 'https://api.vam.ac.uk/v2'
 export const PAGE_SIZE = '6'
+export const BASE = 'https://api.vam.ac.uk/v2'
 const IMAGES_EXIST = '1'
 
-const byQueryTag = 'ArtworkByQuery'
-const byIdTag = 'ArtworkById'
+export async function getByQueryArtwork(query: string, page?: string) {
+  const response = await fetch(`${BASE}/objects/search?q=${query}&images_exist=${IMAGES_EXIST}&page_size=${PAGE_SIZE}&page=${page ?? 0}`)
 
-export const artworkApi = createApi({
-  keepUnusedDataFor: Number.isFinite(Number(import.meta.env.VITE_TTL)) ? Number(import.meta.env.VITE_TTL) : 20,
-  tagTypes: ['ArtworkByQuery', 'ArtworkById'],
-  reducerPath: 'artworkApi',
-  baseQuery: fetchBaseQuery({ baseUrl: BASE }),
-  endpoints: builder => ({
-    getArtworkByName: builder.query<ValidResponse, Arguments>({
-      query: ({ query, page }) => {
-        const parameters = new URLSearchParams({
-          q: query,
-          images_exist: IMAGES_EXIST,
-          page_size: PAGE_SIZE,
-          page: page ?? '1',
-        })
+  if (!response.ok) {
+    throw new Error('Issue with API')
+  }
+  const data: unknown = await response.json()
 
-        return `/objects/search?${parameters.toString()}`
-      },
-      providesTags: [byQueryTag],
-      transformResponse: async (response) => {
-        if (!isValidResponse(response)) {
-          throw new Error('error in typeguard')
-        }
-        return response
-      },
-    }),
-    getArtworkById: builder.query<ValidResponseSingleCard, string>({
-      query: (id) => {
-        return `/museumobject/${id}`
-      },
-      providesTags: [byIdTag],
-      transformResponse: async (response) => {
-        if (!isValidResponseSingleItem(response)) {
-          throw new Error('error in typeguard')
-        }
-        return response
-      },
-    }),
-  }),
-})
+  if (!isValidResponse(data)) {
+    throw new Error('Issue with API Response')
+  }
+  const records = data.records
+  const recordsCount = data.info.record_count
 
-export const { useGetArtworkByNameQuery, useGetArtworkByIdQuery } = artworkApi
+  return { records, recordsCount }
+}
+export async function getByIdArtwork(id: string) {
+  const response = await fetch(`${BASE}/museumobject/${id}`)
+  if (!response.ok) {
+    throw new Error('Issue with API')
+  }
+  const data: unknown = await response.json()
+
+  if (!isValidResponseSingleItem(data)) {
+    throw new Error('Issue with API Response')
+  }
+  return data
+}

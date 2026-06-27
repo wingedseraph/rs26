@@ -1,5 +1,6 @@
 // @ts-check
 import antfu from '@antfu/eslint-config'
+import nextPlugin from '@next/eslint-plugin-next'
 import eslintPluginBetterTailwindcss from 'eslint-plugin-better-tailwindcss'
 import { getDefaultSelectors } from 'eslint-plugin-better-tailwindcss/defaults'
 import oxlint from 'eslint-plugin-oxlint'
@@ -29,7 +30,7 @@ export default antfu({
   rules: {
     'unicorn/prevent-abbreviations': [
       'error',
-      { replacements: { ref: false } },
+      { replacements: { ref: false, refs: false, param: false, params: false } },
     ],
     'eqeqeq': 'error',
     'style/jsx-quotes': ['error', 'prefer-single'],
@@ -85,6 +86,7 @@ export default antfu({
       {
         ignore: [
           'dark',
+          'search-layout',
           'outlet',
           'collapsible',
           'masonry',
@@ -98,7 +100,7 @@ export default antfu({
   },
   settings: {
     'better-tailwindcss': {
-      entryPoint: './src/index.css',
+      entryPoint: './src/app/globals.css',
       selectors: [
         ...getDefaultSelectors(),
         {
@@ -107,5 +109,12 @@ export default antfu({
         },
       ],
     },
+  },
+}, {
+  plugins: {
+    '@next/next': nextPlugin,
+  },
+  rules: {
+    ...nextPlugin.configs['core-web-vitals'].rules,
   },
 }, ...oxlint.buildFromOxlintConfigFile('./.oxlintrc.json'))

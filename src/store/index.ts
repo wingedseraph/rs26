@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import { artworkApi } from '@/api/artwork'
 import { countries } from '@/store/slices/countriesSlice'
 import { selectedCards } from '@/store/slices/selectedCardsSlice'
 import { submissions } from '@/store/slices/submissionsSlice'
@@ -11,16 +10,12 @@ const rootReducer = combineReducers({
   submissions: submissions.reducer,
   selectedCards: selectedCards.reducer,
   countries: countries.reducer,
-  [artworkApi.reducerPath]: artworkApi.reducer,
 })
 
 export function setupStore(preloadedState?: PreloadedState) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().concat(artworkApi.middleware),
   })
 }
 

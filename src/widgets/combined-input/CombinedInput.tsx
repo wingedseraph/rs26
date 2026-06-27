@@ -1,4 +1,9 @@
+'use client'
+
+import { useState } from 'react'
 import type { ChangeEvent, ComponentProps } from 'react'
+
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { IconClear } from '@/components/ui/icon-clear'
@@ -7,12 +12,18 @@ import { IconSubmit } from '@/components/ui/icon-submit'
 import { Input } from '@/components/ui/input'
 
 type CombinedInputProperties = {
-  onChange: (event_: ChangeEvent<HTMLInputElement>) => void
-  clearQuery: () => void
-  query: string
+  initialQuery: string
 } & ComponentProps<'input'>
 
-function CombinedInput({ onChange, clearQuery, query, ...properties }: CombinedInputProperties) {
+function CombinedInput({ initialQuery, ...properties }: CombinedInputProperties) {
+  const [query, setQuery] = useState(initialQuery)
+  const t = useTranslations('Search')
+
+  const onChange = (event_: ChangeEvent<HTMLInputElement>) => {
+    setQuery(event_.target.value)
+  }
+  const clearQuery = () => setQuery('')
+
   return (
     <div className='relative w-full grow'>
       <div className='flex items-center rounded-full bg-silver-field px-1'>
@@ -22,15 +33,15 @@ function CombinedInput({ onChange, clearQuery, query, ...properties }: CombinedI
           type='text'
           name='query'
           value={query}
-          placeholder='Find'
           onChange={onChange}
+          placeholder={t('placeholder')}
           {...properties}
         />
 
         {query && (
           <>
             <Button
-              title='Submit search'
+              title={t('submitTitle')}
               type='submit'
               className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'
             >
@@ -38,7 +49,7 @@ function CombinedInput({ onChange, clearQuery, query, ...properties }: CombinedI
             </Button>
 
             <Button
-              title='Clear search'
+              title={t('clearTitle')}
               type='button'
               onClick={clearQuery}
               className='shrink-0 cursor-pointer border-none bg-transparent pr-0.5'

@@ -1,38 +1,39 @@
-import { Link } from 'react-router'
+'use client'
+import Image from 'next/image'
 
 import type { Card } from '@/api/types'
 
+import { Link } from '@/i18n/navigation'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { toggleOne } from '@/store/slices/selectedCardsSlice'
+import { baseCardItemStyle } from '@/styles/styles'
 import { CardListFooter } from '@/widgets/card-list/CardListFooter'
 
 type CardItemProperties = {
   card: Card
+  query: string
   page: string
 }
 
-const cardBaseStyle = `
-  relative my-10 w-full appear cursor-pointer break-inside-avoid rounded-md-custom bg-white p-1 shadow-card
-  transition-shadow duration-200
-  hover:shadow-card-hover
-  outlet:animate-none
-`
-
-function CardItem({ card, page }: CardItemProperties) {
+function CardItem({ card, query, page }: CardItemProperties) {
   const dispatch = useAppDispatch()
-  const selectedCards = useAppSelector(state => state.selectedCards)
+  const isCardSelected = useAppSelector(state => Object.hasOwn(state.selectedCards, card.systemNumber))
+  const searchParam = new URLSearchParams({ query, page }).toString()
 
   return (
     <div
-      className={cardBaseStyle}
+      className={baseCardItemStyle}
       title={card._primaryTitle}
     >
-      <Link viewTransition to={{ pathname: `card/${card.systemNumber}`, search: `page=${page}` }}>
+      <Link href={{ pathname: `/card/${card.systemNumber}`, search: searchParam }}>
         <div className='flex flex-col gap-1 p-1'>
           <div className='flex min-h-40 w-full cursor-default justify-center rounded-md-custom bg-stone-6/30'>
-            <img
+            <Image
+              loading='eager'
+              width={600}
+              height={600}
               className='
-                max-h-40 w-full cursor-zoom-in rounded-xs object-contain transition-opacity duration-150
+                max-h-40 cursor-zoom-in rounded-xs object-contain transition-opacity duration-150
                 hover:opacity-[0.92]
               '
               src={`${card._images._iiif_image_base_url}full/!600,600/0/default.jpg`}
@@ -51,7 +52,7 @@ function CardItem({ card, page }: CardItemProperties) {
 
       <CardListFooter
         onClick={() => dispatch(toggleOne({ id: card.systemNumber, card }))}
-        isSelected={Object.hasOwn(selectedCards, card.systemNumber)}
+        isSelected={isCardSelected}
       />
 
     </div>

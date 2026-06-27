@@ -1,30 +1,17 @@
-import { useEffect, useMemo } from 'react'
+'use client'
+
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
-import { cardToCsv } from '@/lib/cardToCsv'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { removeAll } from '@/store/slices/selectedCardsSlice'
 
 function Flyout() {
+  const t = useTranslations('Flyout')
   const dispatch = useAppDispatch()
   const selectedCards = useAppSelector(state => state.selectedCards)
-  const count = Object.keys(selectedCards).length
-
-  const blobUrl = useMemo(() => {
-    const array = Object.values(selectedCards)
-    if (array.length === 0)
-      return ''
-    const csv = cardToCsv(array)
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
-    return URL.createObjectURL(blob)
-  }, [selectedCards])
-
-  useEffect(() => {
-    return () => {
-      if (blobUrl)
-        URL.revokeObjectURL(blobUrl)
-    }
-  }, [blobUrl])
+  const array = Object.values(selectedCards)
+  const count = array.length
 
   if (count === 0) {
     return null
@@ -44,35 +31,34 @@ function Flyout() {
         </span
         >
 
-        <section className='
-          relative flex flex-row items-center gap-4 rounded-md px-2 py-1 text-xs font-bold tracking-[-0.25px]
-          text-stone-5 transition-colors duration-150
-        '
+        <form
+          method='POST'
+          action='/api/csv'
+          className='
+            relative flex flex-row items-center gap-4 rounded-md px-2 py-1 text-xs font-bold tracking-[-0.25px]
+            text-stone-5 transition-colors duration-150
+          '
         >
-          <p className='text-2xl' title='Selected cards'>{count}</p>
+          <input name='csv' readOnly value={JSON.stringify(array)} className='hidden' />
+          <p className='text-2xl' title={t('selectedCards')}>{count}</p>
 
           <Button
-            title='Unselect all selected cards'
+            title={t('unselectAllTitle')}
             className='block h-fit cursor-pointer text-lg font-bold hover:bg-silver-mist-hover hover:no-underline'
             onClick={() => dispatch(removeAll())}
           >
 
-            Unselect all
+            {t('unselectAll')}
           </Button>
 
-          <a
-            href={blobUrl}
-            download={`${count} selected cards.csv`}
-            title='Download all selected cards'
-            className='
-              block h-fit cursor-pointer rounded-md px-2.5 text-lg font-bold
-              hover:bg-silver-mist-hover hover:no-underline
-            '
+          <Button
+            type='submit'
+            className='block h-fit cursor-pointer text-lg font-bold hover:bg-silver-mist-hover hover:no-underline'
           >
-            Download
-          </a>
+            {t('download')}
+          </Button>
 
-        </section
+        </form
         >
       </div>
     </nav>

@@ -1,3 +1,4 @@
+'use client'
 import { createContext } from 'react'
 import type { ReactNode } from 'react'
 
@@ -24,7 +25,7 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
   const theme = {
     value: currentTheme,
     setTheme: (selectedTheme: Theme) => {
-      stored.setValue(selectedTheme)
+      stored.syncSetValue(selectedTheme)
     },
   }
 

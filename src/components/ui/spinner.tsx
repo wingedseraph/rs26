@@ -1,12 +1,16 @@
 import type { ComponentProps, ReactNode } from 'react'
 
+import { getTranslations } from 'next-intl/server'
+
 import { cn } from '@/lib/utilities'
 
 type SpinnerProperties = Omit<ComponentProps<'span'>, 'children'> & {
   children?: ReactNode
 }
 
-function Spinner({ children, className, ...properties }: SpinnerProperties) {
+async function Spinner({ children, className, ...properties }: SpinnerProperties) {
+  const t = await getTranslations('Common')
+
   return (
     <div className='fixed inset-0 z-50 appear backdrop-blur-md'>
       <div className='absolute top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
@@ -16,7 +20,7 @@ function Spinner({ children, className, ...properties }: SpinnerProperties) {
           aria-live='polite'
           {...properties}
         >
-          {children ?? 'Loading...'}
+          {children ?? t('loading')}
         </span>
       </div>
     </div>

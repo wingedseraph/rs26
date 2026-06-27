@@ -77,6 +77,7 @@ typings/
 
 # Next.js build output
 .next
+next-env.d.ts
 
 # Nuxt.js build / generate output
 .nuxt
@@ -105,3 +106,4 @@ dist
 *.DS_Store
 *.bak
 TODO.md
+messages/*.d.json.ts

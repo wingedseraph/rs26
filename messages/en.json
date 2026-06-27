@@ -1,0 +1,46 @@
+{
+  "Header": {
+    "title": "An inspiration engine for ideas",
+    "aboutLink": "about",
+    "notFoundLink": "not-found",
+    "localeLink": "russian",
+    "closeOutlet": "close outlet"
+  },
+  "ThemeToggle": {
+    "dark": "dark",
+    "light": "light"
+  },
+  "Search": {
+    "placeholder": "Find",
+    "submitTitle": "Submit search",
+    "clearTitle": "Clear search"
+  },
+  "CardList": {
+    "noData": "Oh No Data",
+    "save": "Save",
+    "saved": "Saved"
+  },
+  "CardDetails": {
+    "loadError": "Failed to load artwork"
+  },
+  "Flyout": {
+    "selectedCards": "Selected cards",
+    "unselectAllTitle": "Unselect all selected cards",
+    "unselectAll": "Unselect all",
+    "download": "Download"
+  },
+  "AboutPage": {
+    "title": "Art enriches the soul, and that is what this project is all about",
+    "courseLink": "try the course"
+  },
+  "ErrorPage": {
+    "title": "Something went wrong",
+    "tryAgain": "Try again"
+  },
+  "NotFoundPage": {
+    "title": "Oops! We can't find that page"
+  },
+  "Common": {
+    "loading": "Loading..."
+  }
+}

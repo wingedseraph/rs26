@@ -11,3 +11,13 @@ export async function tryCatch<T>(operation: () => Promise<T>): Promise<Result<T
     return { ok: false, error }
   }
 }
+
+export function syncTryCatch<T>(operation: () => T): Result<T> {
+  try {
+    const data = operation()
+    return { ok: true, data }
+  }
+  catch (error) {
+    return { ok: false, error }
+  }
+}
